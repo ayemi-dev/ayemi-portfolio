@@ -9,6 +9,7 @@ import { RedireccionPieza } from './pages/RedireccionPieza';
 import { NoEncontrada } from './pages/NoEncontrada';
 import { FichaPieza } from './features/piezas/FichaPieza';
 import { useAncla } from './hooks/useAncla';
+import { useVistaDePagina } from './medicion/useVistaDePagina';
 import { RUTA_PCB, RUTA_PORTAFOLIO } from './config/secciones';
 
 /**
@@ -40,6 +41,7 @@ function App() {
 
   /* El enrutado en cliente no resuelve las anclas por sí solo. */
   useAncla();
+  useVistaDePagina();
 
   return (
     <div className="min-h-screen bg-lienzo font-sans text-texto">

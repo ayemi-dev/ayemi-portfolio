@@ -18,6 +18,7 @@ import {
   SITIO,
   esPendiente,
 } from '../../config/sitio';
+import { rastrear } from '../../medicion/medicion';
 
 /**
  * Contacto
@@ -149,6 +150,8 @@ export const Contacto = () => {
 
       setEstado('enviado');
       setCampos(CAMPOS_INICIALES);
+      // Solo el envío que el servidor aceptó cuenta como conversión.
+      rastrear('formulario_enviado', { ubicacion: 'contacto' });
     } catch {
       /* §1.10, regla 4 · Se dice que falló y se ofrece la vía alternativa. */
       setEstado('fallo');

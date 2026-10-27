@@ -4,6 +4,11 @@ import { BrowserRouter } from 'react-router-dom';
 import './styles/global.css';
 import './i18n';
 import App from './App.jsx';
+import { iniciarMedicion } from './medicion/medicion';
+
+// Solo en el navegador. Los scripts de terceros se cargan cuando la página ya
+// cargó y el navegador está ocioso (ver medicion.js).
+iniciarMedicion();
 
 /**
  * Punto de entrada en el navegador.
