@@ -161,7 +161,8 @@ async function main() {
 
       const cuerpo = await aTexto(prelude);
 
-      let html = plantilla.replace(
+      /* Un solo dominio: todo lo absoluto de la plantilla sale de SITIO.url. */
+      let html = plantilla.replaceAll('__SITIO_URL__', SITIO.url).replace(
         '<div id="root"></div>',
         `<div id="root">${cuerpo}</div>`
       );
@@ -190,12 +191,12 @@ async function main() {
 
       /* og:image propia, en URL absoluta: Facebook y demás redes no resuelven
          rutas relativas al componer la vista previa. Las rutas que no
-         declaran `imagen` conservan la og:image de la plantilla intacta. */
+         declaran `imagen` usan la de la plantilla, ya absoluta. */
       if (ruta.imagen) {
-        html = html.replace(
-          /(<meta\s+property="og:image"\s+content=")[^"]*(")/,
-          `$1${escapar(`${SITIO.url}${ruta.imagen}`)}$2`
-        );
+        const imagen = escapar(`${SITIO.url}${ruta.imagen}`);
+        html = html
+          .replace(/(<meta\s+property="og:image"\s+content=")[^"]*(")/, `$1${imagen}$2`)
+          .replace(/(<meta\s+name="twitter:image"\s+content=")[^"]*(")/, `$1${imagen}$2`);
       }
 
       /* Enlace canónico: evita que la misma pieza se indexe por varias URL. */
@@ -204,6 +205,19 @@ async function main() {
         '</head>',
         `  <link rel="canonical" href="${escapar(canonico)}" />\n  <meta property="og:url" content="${escapar(canonico)}" />\n  </head>`
       );
+
+      /* Guardia: ninguna ruta sale con otro dominio ni con una imagen relativa.
+         Si pasa, el build falla aquí y no en la vista previa de Facebook. */
+      const absolutas = [
+        ...html.matchAll(/(?:og:image|twitter:image|og:url)"\s+content="([^"]+)"/g),
+        ...html.matchAll(/rel="canonical"\s+href="([^"]+)"/g),
+      ].map((m) => m[1]);
+      const fuera = absolutas.filter((u) => !u.startsWith(`${SITIO.url}/`));
+      if (html.includes('__SITIO_URL__') || fuera.length) {
+        throw new Error(
+          `${ruta.url}: URL fuera de ${SITIO.url} → ${fuera.join(', ') || '__SITIO_URL__ sin sustituir'}`
+        );
+      }
 
       const destino = path.join(DIST, ruta.archivo);
       await fs.mkdir(path.dirname(destino), { recursive: true });
@@ -233,7 +247,17 @@ async function main() {
       'utf8'
     );
 
-    console.log(`\n  sitemap.xml con ${rutas.length} URL`);
+    /* ── robots.txt ─────────────────────────────────────────────────────── */
+    /* Se escribe aquí, no en public/, para que apunte siempre al mismo dominio
+       que el sitemap y los canónicos. */
+    await fs.writeFile(
+      path.join(DIST, 'robots.txt'),
+      '# Ayemi · Fábrica de software e innovación\n# Ingeniería que fluye\n\n' +
+        `User-agent: *\nAllow: /\n\nSitemap: ${SITIO.url}/sitemap.xml\n`,
+      'utf8'
+    );
+
+    console.log(`\n  sitemap.xml con ${rutas.length} URL · robots.txt → ${SITIO.url}`);
     console.log('Prerenderizado completo.');
   } finally {
     await servidor.close();

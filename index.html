@@ -70,7 +70,9 @@
       property="og:description"
       content="Sistemas propios, documentados y operables. Construidos con método de ingeniería y explicados en el idioma del negocio."
     />
-    <meta property="og:image" content="/redes-open-graph.png" />
+    <!-- __SITIO_URL__ lo sustituye prerender.mjs por SITIO.url (src/config/sitio.js):
+         un solo dominio en og:image, twitter:image y JSON-LD. -->
+    <meta property="og:image" content="__SITIO_URL__/redes-open-graph.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta
@@ -78,6 +80,7 @@
       content="Logotipo de Ayemi sobre lienzo Grafito, con el lema Ingeniería que fluye."
     />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="__SITIO_URL__/redes-open-graph.png" />
 
     <!--
       Datos estructurados. Solo se declara lo que el contrato afirma. No hay
@@ -92,9 +95,9 @@
         "alternateName": "Ayemi · Fábrica de software e innovación",
         "slogan": "Ingeniería que fluye",
         "description": "Ayemi construye el software interno que tu empresa necesita y te lo entrega documentado, probado y en tus manos. Sin cajas negras y sin ataduras.",
-        "url": "https://ayemi.org",
-        "logo": "https://ayemi.org/marca/ayemi-logotipo-principal-oscuro.svg",
-        "image": "https://ayemi.org/redes-open-graph.png",
+        "url": "__SITIO_URL__",
+        "logo": "__SITIO_URL__/marca/ayemi-logotipo-principal-oscuro.svg",
+        "image": "__SITIO_URL__/redes-open-graph.png",
         "areaServed": { "@type": "Country", "name": "México" },
         "knowsAbout": [
           "Desarrollo de software a medida",

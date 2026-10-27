@@ -1,9 +1,0 @@
-# Ayemi · Fábrica de software e innovación
-# Ingeniería que fluye
-
-User-agent: *
-Allow: /
-
-# El sitemap se genera en el paso de prerenderizado, así que incluye todas las
-# piezas de La Fábrica sin que haya que mantenerlo a mano.
-Sitemap: https://ayemi.org/sitemap.xml

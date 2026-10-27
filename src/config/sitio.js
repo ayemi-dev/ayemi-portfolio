@@ -26,15 +26,15 @@ export const SITIO = {
    * estructurados, así que es el dato del que dependen los buscadores para no
    * indexar la misma página dos veces.
    *
-   * ⚠️ Tiene que ser un dominio que RESUELVA. Estaba puesto `ayemi.org`, que es
-   *    el oficial, pero su ápex no apunta a ningún sitio: el DNS está en
-   *    Cloudflare y solo existen los subdominios. Declarar como canónico un
-   *    dominio muerto es peor que no declarar ninguno, porque un buscador ve
-   *    que esta página dice «la versión buena está allí» y allí no hay nada.
+   * Es la ÚNICA fuente del dominio: prerender.mjs la usa para el canónico,
+   * og:url, og:image, twitter:image, el JSON-LD (index.html, __SITIO_URL__),
+   * el sitemap y el robots.txt, y el build falla si alguna ruta sale con otro
+   * dominio o con una imagen relativa.
    *
-   *    En cuanto `ayemi.org` apunte al proyecto del portafolio, cambia esta
-   *    línea a 'https://ayemi.org' y vuelve a construir. Es lo único que hay
-   *    que tocar.
+   * Desde la migración de octubre de 2026, `ayemi.org`, `www.ayemi.org` y
+   * `portafolio.ayemi.org` sirven el mismo sitio. Para cambiar el canónico,
+   * cambia esta línea y agrega en vercel.json la redirección 301 de los otros
+   * dos hosts hacia él.
    */
   url: 'https://portafolio.ayemi.org',
 
