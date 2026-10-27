@@ -178,7 +178,7 @@ export const PIEZAS = [
     //    Cloud Console. Salió del código, pero permanece en el historial de
     //    git, y el historial viaja con el repositorio. Eso no lo arregla un
     //    enlace ni un commit: se arregla en la consola de Google.
-    repo: 'myWeddingInvitation',
+    repo: 'wedding-invitation',
   },
   {
     linea: 'landings',

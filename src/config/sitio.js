@@ -103,14 +103,11 @@ export const GITHUB = {
   /**
    * Cuenta desde la que se componen los enlaces de repositorio.
    *
-   * Es `AgustinAntonio16` porque ahí viven hoy las piezas propias y públicas.
-   * No hace falta mover nada para que los enlaces funcionen: una pieza puede
-   * declarar `repo: 'otra-cuenta/nombre'` y el enlace se respeta tal cual.
-   *
-   * Si algún día se centralizan los repositorios en otra cuenta, se cambia
-   * esta línea y los enlaces de todas las piezas quedan corregidos de golpe.
+   * `ayemi-dev` es la cuenta de Ayemi: ahí viven las piezas propias y
+   * públicas. Una pieza aún puede declarar `repo: 'otra-cuenta/nombre'` y el
+   * enlace se respeta tal cual.
    */
-  usuario: 'AgustinAntonio16',
+  usuario: 'ayemi-dev',
   get url() {
     return this.usuario ? `https://github.com/${this.usuario}` : '';
   },
