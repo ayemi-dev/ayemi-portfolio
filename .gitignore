@@ -40,3 +40,5 @@ dist-ssr
 .ayemi/
 .kiro/steering/ayemi-*.md
 .kiro/hooks/ayemi-*.json
+.vercel
+.env*
