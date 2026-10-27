@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--
+      Etiquetas del kit de marca · .ayemi/fragmentos/head.html
+      Las hojas de estilo no se enlazan aquí: Vite las inyecta desde
+      src/styles/global.css, que importa las fuentes y los tokens en el orden
+      que pide el contrato (§3).
+    -->
+
+    <!--
+      Evita el destello de tema incorrecto. Va antes de cualquier CSS.
+      Guión del kit (useTema.ts · GUION_ANTIDESTELLO), con la clave `ayemi:tema`.
+      El oscuro es el predeterminado de Ayemi; `sistema` deja que manden las
+      preferencias del navegador.
+    -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('ayemi:tema') || 'oscuro';
+          if (t !== 'sistema')
+            document.documentElement.setAttribute('data-tema', t);
+          var r =
+            t === 'sistema'
+              ? matchMedia('(prefers-color-scheme: light)').matches
+                ? 'claro'
+                : 'oscuro'
+              : t;
+          document.documentElement.style.colorScheme =
+            r === 'oscuro' ? 'dark' : 'light';
+        } catch (e) {}
+      })();
+    </script>
+
+    <title>Ayemi · Fábrica de software e innovación</title>
+
+    <!-- §10 · Primero el resultado, después el método -->
+    <meta
+      name="description"
+      content="Ayemi construye el software interno que tu empresa necesita y te lo entrega documentado, probado y en tus manos. Sin cajas negras y sin ataduras."
+    />
+    <meta name="author" content="Ayemi" />
+
+    <!-- Favicon e iconos de plataforma. El favicon usa el isotipo, nunca el
+         logotipo completo: a 16 px una palabra de cinco letras es una mancha. -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-180.png" />
+    <!-- El color del mask-icon y el theme-color son atributos HTML y no
+         admiten var() de CSS, así que aquí el literal es inevitable. Van
+         marcados para que el verificador sepa que es deliberado. -->
+    <link rel="mask-icon" href="/favicon-mascara.svg" color="#0BC5EA" /> <!-- ayemi-ok · Cian Ayemi -->
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0E1217" /> <!-- ayemi-ok · Grafito 900, lienzo del tema oscuro -->
+    <meta name="color-scheme" content="dark light" />
+
+    <!-- Open Graph · relación 1.91:1 -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ayemi" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta
+      property="og:title"
+      content="Ayemi · Fábrica de software e innovación"
+    />
+    <meta
+      property="og:description"
+      content="Sistemas propios, documentados y operables. Construidos con método de ingeniería y explicados en el idioma del negocio."
+    />
+    <meta property="og:image" content="/redes-open-graph.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Logotipo de Ayemi sobre lienzo Grafito, con el lema Ingeniería que fluye."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!--
+      Datos estructurados. Solo se declara lo que el contrato afirma. No hay
+      correo, teléfono ni perfiles porque siguen pendientes en
+      src/config/sitio.js, y §10 (regla 4) obliga a admitir lo que no se sabe.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Ayemi",
+        "alternateName": "Ayemi · Fábrica de software e innovación",
+        "slogan": "Ingeniería que fluye",
+        "description": "Ayemi construye el software interno que tu empresa necesita y te lo entrega documentado, probado y en tus manos. Sin cajas negras y sin ataduras.",
+        "url": "https://ayemi.org",
+        "logo": "https://ayemi.org/marca/ayemi-logotipo-principal-oscuro.svg",
+        "image": "https://ayemi.org/redes-open-graph.png",
+        "areaServed": { "@type": "Country", "name": "México" },
+        "knowsAbout": [
+          "Desarrollo de software a medida",
+          "Automatización de procesos",
+          "Integración de sistemas y APIs",
+          "Diseño de circuitos impresos",
+          "Firmware para microcontroladores",
+          "Internet de las cosas",
+          "Infraestructura en la nube"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

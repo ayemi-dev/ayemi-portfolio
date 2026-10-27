@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =====================================================================
+     AYEMI · Sistema de Identidad Corporativa v2.0
+     Ayemi · favicon mascara
+     Silueta monocroma para mask-icon de Safari.
+     Tipografia vectorizada desde Plus Jakarta Sans (SIL OFL 1.1).
+     Archivo matriz: no editar contornos. Escalar siempre proporcional.
+     ===================================================================== -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64.00 64.00" width="64.00" height="64.00" role="img" aria-label="Ayemi · favicon mascara">
+  <title>Ayemi · favicon mascara</title>
+  <g transform="translate(6.40 6.40) scale(0.53333)">
+    <path d="M 15.0 81.0 L 48.0 16.0 L 81.0 81.0" fill="none" stroke="#000000" stroke-width="13.0" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 29.0 62.0 L 67.0 62.0" fill="none" stroke="#000000" stroke-width="13.0" stroke-linecap="round"/>
+  </g>
+</svg>

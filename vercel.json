@@ -1,0 +1,25 @@
+{
+  "redirects": [
+    {
+      "source": "/:base(portafolio|piezas)/:slug(panel-inventario-integradores|plataforma-contactos-whatsapp|tecnificacion-agricola)",
+      "destination": "/portafolio",
+      "permanent": true
+    },
+    {
+      "source": "/piezas/:slug",
+      "destination": "/portafolio/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/piezas",
+      "destination": "/portafolio",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

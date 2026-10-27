@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =====================================================================
+     AYEMI · Sistema de Identidad Corporativa v2.0
+     Ayemi · favicon
+     Favicon principal. Fondo grafito, monograma A.
+     Tipografia vectorizada desde Plus Jakarta Sans (SIL OFL 1.1).
+     Archivo matriz: no editar contornos. Escalar siempre proporcional.
+     ===================================================================== -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64.00 64.00" width="64.00" height="64.00" role="img" aria-label="Ayemi · favicon">
+  <title>Ayemi · favicon</title>
+  <rect width="64" height="64" rx="14.0" ry="14.0" fill="#0E1217"/>
+  <g transform="translate(12.16 12.16) scale(0.41333)">
+    <path d="M 15.0 81.0 L 48.0 16.0 L 81.0 81.0" fill="none" stroke="#E2E8F0" stroke-width="13.0" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 29.0 62.0 L 67.0 62.0" fill="none" stroke="#0BC5EA" stroke-width="13.0" stroke-linecap="round"/>
+  </g>
+</svg>

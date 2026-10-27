@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =====================================================================
+     AYEMI · Sistema de Identidad Corporativa v2.0
+     Ayemi · avatar circular, contenedor grafito
+     Icono de aplicacion y avatar de perfil. Lienzo 512 x 512.
+     Tipografia vectorizada desde Plus Jakarta Sans (SIL OFL 1.1).
+     Archivo matriz: no editar contornos. Escalar siempre proporcional.
+     ===================================================================== -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.00 512.00" width="512.00" height="512.00" role="img" aria-label="Ayemi · avatar circular, contenedor grafito">
+  <title>Ayemi · avatar circular, contenedor grafito</title>
+  <rect width="512" height="512" rx="256" ry="256" fill="#1A1D21"/>
+  <g transform="translate(107.52 107.52) scale(3.09333)">
+    <path d="M 15.0 81.0 L 48.0 16.0 L 81.0 81.0" fill="none" stroke="#E2E8F0" stroke-width="13.0" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 29.0 62.0 L 67.0 62.0" fill="none" stroke="#0BC5EA" stroke-width="13.0" stroke-linecap="round"/>
+  </g>
+</svg>

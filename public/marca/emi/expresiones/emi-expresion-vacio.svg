@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =====================================================================
+     AYEMI · Sistema de Identidad Corporativa v2.0
+     Emi · expresion vacio
+     Estado vacio. Sin resultados, bandeja limpia, 404.
+     Tipografia vectorizada desde Plus Jakarta Sans (SIL OFL 1.1).
+     Archivo matriz: no editar contornos. Escalar siempre proporcional.
+     ===================================================================== -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.00 600.00" width="512.00" height="600.00" role="img" aria-label="Emi · expresion vacio">
+  <title>Emi · expresion vacio</title>
+  <defs>
+    <clipPath id="cabeza">
+      <rect x="112.0" y="94.0" width="288.0" height="246.0" rx="86.0" ry="86.0"/>
+    </clipPath>
+    <clipPath id="cuerpo">
+      <path d="M 256.0 376.0 C 314 376.0 354 414 354 462 C 354 522 310 568.0 256.0 568.0 C 202 568.0 158 522 158 462 C 158 414 198 376.0 256.0 376.0 Z"/>
+    </clipPath>
+    <linearGradient id="brazoIzq" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3B4FE3"/>
+      <stop offset="100%" stop-color="#BFC6D0"/>
+    </linearGradient>
+    <linearGradient id="brazoDer" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3B4FE3"/>
+      <stop offset="100%" stop-color="#BFC6D0"/>
+    </linearGradient>
+  </defs>
+  <g stroke-width="40.0" stroke-linecap="round" fill="none">
+    <path d="M 176 458 Q 140 500 132 548" stroke="url(#brazoIzq)"/>
+    <path d="M 336 458 Q 372 500 380 548" stroke="url(#brazoDer)"/>
+  </g>
+  <path d="M 256.0 376.0 C 314 376.0 354 414 354 462 C 354 522 310 568.0 256.0 568.0 C 202 568.0 158 522 158 462 C 158 414 198 376.0 256.0 376.0 Z" fill="#F4F7FA"/>
+  <g clip-path="url(#cuerpo)">
+    <rect x="158" y="376.0" width="196" height="94.0" fill="#3B4FE3"/>
+    <circle cx="206" cy="432" r="7" fill="#F4F7FA" opacity="0.45"/>
+    <circle cx="306" cy="432" r="7" fill="#F4F7FA" opacity="0.45"/>
+  </g>
+  <circle cx="256.0" cy="462.0" r="38.0" fill="#F4F7FA"/>
+  <circle cx="256.0" cy="462.0" r="34.0" fill="#22C79B"/>
+  <circle cx="256.0" cy="528.0" r="11.0" fill="#22C79B" opacity="0.55"/>
+  <path d="M 256.0 96.0 L 256.0 56.0" stroke="#3B4FE3" stroke-width="11.0" stroke-linecap="round"/>
+  <circle cx="256.0" cy="40.0" r="21.0" fill="#0BC5EA"/>
+  <rect x="84.0" y="176.0" width="36.0" height="84.0" rx="18.0" fill="#3B4FE3"/>
+  <rect x="392.0" y="176.0" width="36.0" height="84.0" rx="18.0" fill="#3B4FE3"/>
+  <rect x="91.0" y="198.0" width="22.0" height="40" rx="11" fill="#22C79B"/>
+  <rect x="399.0" y="198.0" width="22.0" height="40" rx="11" fill="#22C79B"/>
+  <rect x="112.0" y="94.0" width="288.0" height="246.0" rx="86.0" ry="86.0" fill="#F4F7FA"/>
+  <g clip-path="url(#cabeza)">
+    <rect x="112.0" y="94.0" width="288.0" height="62.0" fill="#3B4FE3"/>
+  </g>
+  <circle cx="256.0" cy="124.0" r="15.0" fill="#22C79B"/>
+  <g>
+    <rect x="148.0" y="168.0" width="216.0" height="148.0" rx="54.0" ry="54.0" fill="#0A0D10"/>
+    <g fill="none" stroke="#0BC5EA" stroke-width="3.5" stroke-linecap="round" opacity="0.5">
+      <path d="M 164.0 197.0 L 164.0 184.0 L 177.0 184.0"/>
+      <path d="M 335.0 184.0 L 348.0 184.0 L 348.0 197.0"/>
+      <path d="M 164.0 287.0 L 164.0 300.0 L 177.0 300.0"/>
+      <path d="M 335.0 300.0 L 348.0 300.0 L 348.0 287.0"/>
+    </g>
+    <rect x="197.0" y="230.5" width="30" height="11" rx="5.5" fill="#0BC5EA"/>
+    <rect x="285.0" y="230.5" width="30" height="11" rx="5.5" fill="#0BC5EA"/>
+    <path d="M 240.0 282.0 L 272.0 282.0" fill="none" stroke="#0BC5EA" stroke-width="9" stroke-linecap="round"/>
+  </g>
+</svg>

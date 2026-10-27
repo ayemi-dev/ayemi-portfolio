@@ -1,0 +1,254 @@
+/* ==========================================================================
+   AYEMI · complementos del sistema
+   --------------------------------------------------------------------------
+   `ayemi-tokens.css` viene generado y dice «no editar a mano», así que lo que
+   este sitio necesita y el generador no cubre vive aquí, aparte.
+
+   Regla que se respeta en todo el archivo: ni un solo color literal. Todo
+   sale de los tokens del kit con `var(--ay-*)`.
+
+   Cuando el generador incorpore alguno de estos tokens, se retira de aquí.
+   ========================================================================== */
+
+:root {
+  /* --- Lienzos derivados -------------------------------------------------
+     El kit define `--ay-lienzo` y `--ay-superficie`. Un sitio largo necesita
+     además un fondo de sección alterna, que el manual sitúa en Grafito 850
+     («fondo de sección alterna», §3.2), y un lienzo profundo para el cierre. */
+  --ay-lienzo-alterno: var(--ay-grafito-850);
+  --ay-lienzo-profundo: var(--ay-grafito-950);
+
+  /* --- Texto de los semánticos ------------------------------------------
+     Los semánticos del kit están calibrados para fondo oscuro. Sobre oscuro
+     sirven tal cual como color de texto. */
+  --ay-exito-texto: var(--ay-exito);
+  --ay-info-texto: var(--ay-info);
+  --ay-atencion-texto: var(--ay-atencion);
+  --ay-error-texto: var(--ay-error);
+
+  /* --- Retícula (AGENTE.md §9) ------------------------------------------
+     Margen lateral y canal por dispositivo. Móvil 4 columnas. */
+  --ay-margen: var(--ay-esp-5); /* 20 px */
+  --ay-canal: var(--ay-esp-4); /*  16 px */
+
+  /* --- Área mínima de toque (§8) --------------------------------------- */
+  --ay-toque-min: 44px;
+}
+
+/* Tableta · 8 columnas */
+@media (min-width: 640px) {
+  :root {
+    --ay-margen: var(--ay-esp-8); /* 32 px */
+    --ay-canal: var(--ay-esp-6); /*  24 px */
+  }
+}
+
+/* Escritorio · 12 columnas */
+@media (min-width: 1024px) {
+  :root {
+    --ay-margen: var(--ay-esp-12); /* 48 px */
+    --ay-canal: var(--ay-esp-6); /*  24 px */
+  }
+}
+
+/* ==========================================================================
+   TEMA CLARO · ajustes de los complementos
+   Los semánticos del kit fallan como texto sobre fondo claro: Verde 500 da
+   2.01:1 y Ámbar 500 da 1.90:1. El propio AGENTE.md lo dice y manda usar el
+   tinte 700 para texto.
+   ========================================================================== */
+
+[data-tema='claro'] {
+  --ay-lienzo-alterno: var(--ay-grafito-100);
+  --ay-lienzo-profundo: var(--ay-grafito-050);
+
+  --ay-exito-texto: var(--ay-verde-700);
+  --ay-info-texto: var(--ay-cian-800);
+  /* DECISIÓN DECLARADA (§14): la paleta no tiene un Ámbar 700, así que en tema
+     claro el texto de atención usa el color de texto normal y el ámbar queda
+     como relleno, icono y filete. Preferible a inventar un tinte que no
+     existe en el sistema. */
+  --ay-atencion-texto: var(--ay-texto);
+  --ay-error-texto: var(--ay-error);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-tema]) {
+    --ay-lienzo-alterno: var(--ay-grafito-100);
+    --ay-lienzo-profundo: var(--ay-grafito-050);
+
+    --ay-exito-texto: var(--ay-verde-700);
+    --ay-info-texto: var(--ay-cian-800);
+    --ay-atencion-texto: var(--ay-texto);
+    --ay-error-texto: var(--ay-error);
+  }
+}
+
+/* ==========================================================================
+   BASE
+   `ayemi-tokens.css` ya fija el fondo, el color, la familia y el cuerpo del
+   `body`, además del anillo de foco y `prefers-reduced-motion`. Aquí solo se
+   añade lo que falta.
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: var(--ay-acento);
+  color: var(--ay-sobre-acento);
+}
+
+/* Los datos copiables van en monoespaciada aunque nadie ponga la clase (§5). */
+code,
+kbd,
+samp,
+pre {
+  font-family: var(--ay-fuente-tecnica);
+}
+
+/* Red de seguridad: un enlace sin clase sigue siendo reconocible y accesible. */
+a {
+  color: var(--ay-acento);
+  text-underline-offset: 0.18em;
+}
+a:hover {
+  color: var(--ay-acento-hover);
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--ay-borde);
+}
+
+/* ==========================================================================
+   IMPRESIÓN
+   NORMA. El tema claro es obligatorio en impresión. En lugar de fijar dos
+   colores literales, se fuerzan los roles del tema claro: así la pieza sale
+   con la paleta correcta aunque el visitante tenga el oscuro activo, y si el
+   generador recalibra un tinte, la impresión lo hereda.
+   ========================================================================== */
+
+@media print {
+  :root {
+    color-scheme: light;
+
+    --ay-lienzo: var(--ay-grafito-050);
+    --ay-superficie: #ffffff;
+    --ay-superficie-elevada: #ffffff;
+    --ay-borde: var(--ay-grafito-200);
+    --ay-borde-fuerte: var(--ay-grafito-300);
+    --ay-texto: var(--ay-grafito-800);
+    --ay-texto-suave: var(--ay-grafito-600);
+    --ay-texto-tenue: var(--ay-grafito-500);
+    --ay-acento: var(--ay-cian-800);
+    --ay-acento-hover: var(--ay-cian-700);
+    --ay-acento-activo: var(--ay-cian-900);
+    --ay-sobre-acento: #ffffff;
+
+    --ay-lienzo-alterno: var(--ay-grafito-100);
+    --ay-lienzo-profundo: var(--ay-grafito-050);
+    --ay-exito-texto: var(--ay-verde-700);
+    --ay-info-texto: var(--ay-cian-800);
+    --ay-atencion-texto: var(--ay-texto);
+    --ay-error-texto: var(--ay-error);
+  }
+
+  /* Emi no entra en documentos que se firman (§7). Al imprimir, la página deja
+     de ser una visita guiada y pasa a ser un documento, así que se retira. */
+  [data-emi-expresion] {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   UTILIDADES DE MARCA
+   ========================================================================== */
+
+/* §5 · Etiqueta de sección: monoespaciada, caja alta, cian, tracking amplio.
+   Nunca más de cinco palabras. */
+.ay-etiqueta {
+  font-family: var(--ay-fuente-tecnica);
+  font-size: var(--ay-texto-etiqueta);
+  font-weight: var(--ay-texto-etiqueta-peso);
+  letter-spacing: var(--ay-texto-etiqueta-track);
+  line-height: var(--ay-texto-etiqueta-lh);
+  text-transform: uppercase;
+  color: var(--ay-acento);
+}
+
+/* Dato técnico: monoespaciada con cifras de ancho fijo, para poder comparar
+   columnas de números en vertical. */
+.ay-dato {
+  font-family: var(--ay-fuente-tecnica);
+  font-variant-numeric: tabular-nums;
+}
+
+/* §4 · Superficie con el degradado Corriente.
+   NORMA: nunca lleva texto encima. */
+.ay-corriente {
+  background-image: var(--ay-corriente);
+}
+
+/* §5 · Medida de línea óptima: entre 60 y 80 caracteres. */
+.ay-lectura {
+  max-width: var(--ay-cont-lectura);
+}
+
+/* Oculta las barras de desplazamiento sin perder la funcionalidad ni el
+   recorrido por teclado. */
+.ay-sin-barra::-webkit-scrollbar {
+  display: none;
+}
+.ay-sin-barra {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* §8 · Área mínima de toque de 44 × 44 px aunque el control se vea menor. */
+.ay-toque {
+  position: relative;
+}
+.ay-toque::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: 100%;
+  height: 100%;
+  min-width: var(--ay-toque-min);
+  min-height: var(--ay-toque-min);
+}
+
+/* Enlace de salto al contenido: visible solo con foco de teclado. */
+.ay-salto {
+  position: absolute;
+  left: var(--ay-esp-4);
+  top: var(--ay-esp-4);
+  z-index: 100;
+  translate: 0 -200%;
+  padding: var(--ay-esp-3) var(--ay-esp-4);
+  border-radius: var(--ay-radio-md);
+  background-color: var(--ay-acento);
+  color: var(--ay-sobre-acento);
+  font-size: var(--ay-texto-cuerpo-s);
+  font-weight: var(--ay-peso-bold);
+  text-decoration: none;
+  transition: translate var(--ay-dur-rapida) var(--ay-curva-entrada);
+}
+.ay-salto:focus-visible {
+  translate: 0 0;
+}

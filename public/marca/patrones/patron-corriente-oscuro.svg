@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =====================================================================
+     AYEMI · Sistema de Identidad Corporativa v2.0
+     Ayemi · patron corriente, tema oscuro
+     Corriente · caudal de datos. Fondos de cabecera y portadas.
+     Tipografia vectorizada desde Plus Jakarta Sans (SIL OFL 1.1).
+     Archivo matriz: no editar contornos. Escalar siempre proporcional.
+     ===================================================================== -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240.00 120.00" width="240.00" height="120.00" role="img" aria-label="Ayemi · patron corriente, tema oscuro">
+  <title>Ayemi · patron corriente, tema oscuro</title>
+
+  <rect width="240.0" height="120.0" fill="#0E1217"/>
+  <g fill="none" stroke="#0BC5EA" stroke-width="2" stroke-linecap="round" opacity="0.3">
+      <path d="M -120 18 Q -90 6 -60 18 Q -30 30 0 18 Q 30 6 60 18 Q 90 30 120 18 Q 150 6 180 18 Q 210 30 240 18 Q 270 6 300 18 Q 330 30 360 18"/>
+      <path d="M -60 42 Q -30 30 0 42 Q 30 54 60 42 Q 90 30 120 42 Q 150 54 180 42 Q 210 30 240 42 Q 270 54 300 42 Q 330 30 360 42 Q 390 54 420 42"/>
+      <path d="M -120 66 Q -90 54 -60 66 Q -30 78 0 66 Q 30 54 60 66 Q 90 78 120 66 Q 150 54 180 66 Q 210 78 240 66 Q 270 54 300 66 Q 330 78 360 66"/>
+      <path d="M -60 90 Q -30 78 0 90 Q 30 102 60 90 Q 90 78 120 90 Q 150 102 180 90 Q 210 78 240 90 Q 270 102 300 90 Q 330 78 360 90 Q 390 102 420 90"/>
+      <path d="M -120 114 Q -90 102 -60 114 Q -30 126 0 114 Q 30 102 60 114 Q 90 126 120 114 Q 150 102 180 114 Q 210 126 240 114 Q 270 102 300 114 Q 330 126 360 114"/>
+  </g>
+</svg>

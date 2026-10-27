@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =====================================================================
+     AYEMI · Sistema de Identidad Corporativa v2.0
+     Emi · avatar circular
+     Avatar de Emi. Chat de soporte, comunidad, bot.
+     Tipografia vectorizada desde Plus Jakarta Sans (SIL OFL 1.1).
+     Archivo matriz: no editar contornos. Escalar siempre proporcional.
+     ===================================================================== -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.00 512.00" width="512.00" height="512.00" role="img" aria-label="Emi · avatar circular">
+  <title>Emi · avatar circular</title>
+  <defs>
+    <clipPath id="cabezaAv">
+      <rect x="112.0" y="94.0" width="288.0" height="246.0" rx="86.0" ry="86.0"/>
+    </clipPath>
+  </defs>
+  <rect width="512" height="512" rx="256" ry="256" fill="#1A1D21"/>
+  <g transform="translate(-50.31 41.22) scale(1.1965)">
+    <path d="M 256.0 96.0 L 256.0 56.0" stroke="#3B4FE3" stroke-width="11.0" stroke-linecap="round"/>
+    <circle cx="256.0" cy="40.0" r="21.0" fill="#0BC5EA"/>
+    <rect x="84.0" y="176.0" width="36.0" height="84.0" rx="18.0" fill="#3B4FE3"/>
+    <rect x="392.0" y="176.0" width="36.0" height="84.0" rx="18.0" fill="#3B4FE3"/>
+    <rect x="91.0" y="198.0" width="22.0" height="40" rx="11" fill="#22C79B"/>
+    <rect x="399.0" y="198.0" width="22.0" height="40" rx="11" fill="#22C79B"/>
+    <rect x="112.0" y="94.0" width="288.0" height="246.0" rx="86.0" ry="86.0" fill="#F4F7FA"/>
+    <g clip-path="url(#cabezaAv)">
+      <rect x="112.0" y="94.0" width="288.0" height="62.0" fill="#3B4FE3"/>
+    </g>
+    <circle cx="256.0" cy="124.0" r="15.0" fill="#22C79B"/>
+    <rect x="148.0" y="168.0" width="216.0" height="148.0" rx="54.0" ry="54.0" fill="#0A0D10"/>
+    <circle cx="212.0" cy="236.0" r="23.0" fill="#0BC5EA"/>
+    <circle cx="300.0" cy="236.0" r="23.0" fill="#0BC5EA"/>
+    <path d="M 222.0 274.0 Q 256.0 298.0 290.0 274.0" fill="none" stroke="#0BC5EA" stroke-width="9.0" stroke-linecap="round"/>
+  </g>
+</svg>

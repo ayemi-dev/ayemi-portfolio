@@ -1,0 +1,242 @@
+/* AYEMI · Tokens de diseno v2.0.0
+   Generado automaticamente. No editar a mano: modificar el generador.
+   Fuente de verdad: Manual de Identidad Corporativa Ayemi v2.0 */
+
+:root {
+  /* ---- Escalas cromaticas ---------------------------------- */
+  --ay-grafito-950: #0A0D10;
+  --ay-grafito-900: #0E1217;
+  --ay-grafito-850: #14181D;
+  --ay-grafito-800: #1A1D21;
+  --ay-grafito-700: #24282E;
+  --ay-grafito-600: #333941;
+  --ay-grafito-500: #4A515B;
+  --ay-grafito-400: #7A8391;
+  --ay-grafito-300: #949CA8;
+  --ay-grafito-200: #BFC6D0;
+  --ay-grafito-100: #E2E8F0;
+  --ay-grafito-050: #F4F7FA;
+
+  --ay-cian-950: #063542;
+  --ay-cian-900: #0F5261;
+  --ay-cian-800: #0E6478;
+  --ay-cian-700: #0A7F98;
+  --ay-cian-600: #08A0C0;
+  --ay-cian-500: #0BC5EA;
+  --ay-cian-400: #22CDEE;
+  --ay-cian-300: #4DD8F2;
+  --ay-cian-200: #8AE7F8;
+  --ay-cian-100: #C0F2FB;
+  --ay-cian-050: #E6FAFE;
+
+  --ay-azul-900: #1A2570;
+  --ay-azul-700: #2637A8;
+  --ay-azul-500: #3B4FE3;
+  --ay-azul-300: #8E9BF2;
+  --ay-azul-100: #DDE2FD;
+
+  --ay-verde-900: #0D5443;
+  --ay-verde-700: #158268;
+  --ay-verde-500: #22C79B;
+  --ay-verde-300: #7ADFC3;
+  --ay-verde-100: #D2F6EB;
+
+  /* ---- Semanticos ------------------------------------------ */
+  --ay-exito: #22C79B;
+  --ay-info: #0BC5EA;
+  --ay-atencion: #F5A524;
+  --ay-error: #F0475E;
+
+  /* ---- Tipografia ------------------------------------------ */
+  --ay-fuente-corporativa: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --ay-fuente-editorial: 'Instrument Serif', ui-serif, Georgia, Cambria, 'Times New Roman', serif;
+  --ay-fuente-tecnica: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --ay-peso-extralight: 200;
+  --ay-peso-light: 300;
+  --ay-peso-regular: 400;
+  --ay-peso-medium: 500;
+  --ay-peso-semibold: 600;
+  --ay-peso-bold: 700;
+  --ay-peso-extrabold: 800;
+
+  --ay-texto-display-2xl: 4.7500rem;
+  --ay-texto-display-2xl-peso: 800;
+  --ay-texto-display-2xl-track: -0.030em;
+  --ay-texto-display-2xl-lh: 1.02;
+  --ay-texto-display-xl: 3.8125rem;
+  --ay-texto-display-xl-peso: 800;
+  --ay-texto-display-xl-track: -0.025em;
+  --ay-texto-display-xl-lh: 1.05;
+  --ay-texto-display-l: 3.0625rem;
+  --ay-texto-display-l-peso: 700;
+  --ay-texto-display-l-track: -0.020em;
+  --ay-texto-display-l-lh: 1.1;
+  --ay-texto-titulo-1: 2.4375rem;
+  --ay-texto-titulo-1-peso: 700;
+  --ay-texto-titulo-1-track: -0.015em;
+  --ay-texto-titulo-1-lh: 1.15;
+  --ay-texto-titulo-2: 1.9375rem;
+  --ay-texto-titulo-2-peso: 700;
+  --ay-texto-titulo-2-track: -0.010em;
+  --ay-texto-titulo-2-lh: 1.2;
+  --ay-texto-titulo-3: 1.5625rem;
+  --ay-texto-titulo-3-peso: 600;
+  --ay-texto-titulo-3-track: -0.005em;
+  --ay-texto-titulo-3-lh: 1.25;
+  --ay-texto-titulo-4: 1.2500rem;
+  --ay-texto-titulo-4-peso: 600;
+  --ay-texto-titulo-4-track: 0.000em;
+  --ay-texto-titulo-4-lh: 1.35;
+  --ay-texto-cuerpo-l: 1.1250rem;
+  --ay-texto-cuerpo-l-peso: 400;
+  --ay-texto-cuerpo-l-track: 0.000em;
+  --ay-texto-cuerpo-l-lh: 1.6;
+  --ay-texto-cuerpo: 1.0000rem;
+  --ay-texto-cuerpo-peso: 400;
+  --ay-texto-cuerpo-track: 0.000em;
+  --ay-texto-cuerpo-lh: 1.65;
+  --ay-texto-cuerpo-s: 0.8750rem;
+  --ay-texto-cuerpo-s-peso: 400;
+  --ay-texto-cuerpo-s-track: 0.000em;
+  --ay-texto-cuerpo-s-lh: 1.6;
+  --ay-texto-micro: 0.7500rem;
+  --ay-texto-micro-peso: 500;
+  --ay-texto-micro-track: 0.020em;
+  --ay-texto-micro-lh: 1.45;
+  --ay-texto-etiqueta: 0.6875rem;
+  --ay-texto-etiqueta-peso: 700;
+  --ay-texto-etiqueta-track: 0.120em;
+  --ay-texto-etiqueta-lh: 1.3;
+
+  /* ---- Espaciado (base 4 px) ------------------------------- */
+  --ay-esp-0: 0.0000rem;
+  --ay-esp-1: 0.2500rem;
+  --ay-esp-2: 0.5000rem;
+  --ay-esp-3: 0.7500rem;
+  --ay-esp-4: 1.0000rem;
+  --ay-esp-5: 1.2500rem;
+  --ay-esp-6: 1.5000rem;
+  --ay-esp-8: 2.0000rem;
+  --ay-esp-10: 2.5000rem;
+  --ay-esp-12: 3.0000rem;
+  --ay-esp-16: 4.0000rem;
+  --ay-esp-20: 5.0000rem;
+  --ay-esp-24: 6.0000rem;
+  --ay-esp-32: 8.0000rem;
+  --ay-esp-40: 10.0000rem;
+  --ay-esp-48: 12.0000rem;
+
+  /* ---- Radios ---------------------------------------------- */
+  --ay-radio-nulo: 0px;
+  --ay-radio-xs: 3px;
+  --ay-radio-sm: 4px;
+  --ay-radio-md: 6px;
+  --ay-radio-lg: 10px;
+  --ay-radio-xl: 16px;
+  --ay-radio-2xl: 24px;
+  --ay-radio-completo: 9999px;
+
+  /* ---- Sombras --------------------------------------------- */
+  --ay-sombra-sm: 0 1px 2px 0 rgb(0 0 0 / 0.28);
+  --ay-sombra-md: 0 4px 10px -2px rgb(0 0 0 / 0.34);
+  --ay-sombra-lg: 0 12px 28px -6px rgb(0 0 0 / 0.42);
+  --ay-sombra-xl: 0 24px 56px -12px rgb(0 0 0 / 0.50);
+  --ay-sombra-foco: 0 0 0 3px #0BC5EA59;
+
+  /* ---- Movimiento ------------------------------------------ */
+  --ay-dur-instante: 80ms;
+  --ay-dur-rapida: 150ms;
+  --ay-dur-media: 240ms;
+  --ay-dur-lenta: 400ms;
+  --ay-curva-estandar: cubic-bezier(0.20, 0, 0.13, 1);
+  --ay-curva-entrada: cubic-bezier(0.00, 0, 0.20, 1);
+  --ay-curva-salida: cubic-bezier(0.40, 0, 1.00, 1);
+
+  /* ---- Contenedores ---------------------------------------- */
+  --ay-cont-sm: 640px;
+  --ay-cont-md: 768px;
+  --ay-cont-lg: 1024px;
+  --ay-cont-xl: 1280px;
+  --ay-cont-2xl: 1440px;
+  --ay-cont-lectura: 720px;
+
+  /* ---- Degradado Corriente (uso restringido) --------------- */
+  --ay-corriente: linear-gradient(135deg, #3B4FE3 0%, #0BC5EA 52%, #22C79B 100%);
+}
+
+/* ===== Tema oscuro · por defecto ============================ */
+:root, [data-tema="oscuro"] {
+  --ay-lienzo: #0E1217;
+  --ay-superficie: #1A1D21;
+  --ay-superficie-elevada: #24282E;
+  --ay-borde: #24282E;
+  --ay-borde-fuerte: #333941;
+  --ay-texto: #E2E8F0;
+  --ay-texto-suave: #949CA8;
+  --ay-texto-tenue: #7A8391;
+  --ay-acento: #0BC5EA;
+  --ay-acento-hover: #22CDEE;
+  --ay-acento-activo: #08A0C0;
+  --ay-sobre-acento: #0E1217;
+  color-scheme: dark;
+}
+
+/* ===== Tema claro =========================================== */
+[data-tema="claro"] {
+  --ay-lienzo: #F4F7FA;
+  --ay-superficie: #FFFFFF;
+  --ay-superficie-elevada: #FFFFFF;
+  --ay-borde: #BFC6D0;
+  --ay-borde-fuerte: #949CA8;
+  --ay-texto: #1A1D21;
+  --ay-texto-suave: #333941;
+  --ay-texto-tenue: #4A515B;
+  --ay-acento: #0E6478;
+  --ay-acento-hover: #0A7F98;
+  --ay-acento-activo: #0F5261;
+  --ay-sobre-acento: #FFFFFF;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-tema]) {
+    --ay-lienzo: #F4F7FA;
+    --ay-superficie: #FFFFFF;
+    --ay-superficie-elevada: #FFFFFF;
+    --ay-borde: #BFC6D0;
+    --ay-borde-fuerte: #949CA8;
+    --ay-texto: #1A1D21;
+    --ay-texto-suave: #333941;
+    --ay-texto-tenue: #4A515B;
+    --ay-acento: #0E6478;
+    --ay-acento-hover: #0A7F98;
+    --ay-acento-activo: #0F5261;
+    --ay-sobre-acento: #FFFFFF;
+    color-scheme: light;
+  }
+}
+
+/* ===== Base recomendada ===================================== */
+body {
+  background: var(--ay-lienzo);
+  color: var(--ay-texto);
+  font-family: var(--ay-fuente-corporativa);
+  font-size: var(--ay-texto-cuerpo);
+  line-height: var(--ay-texto-cuerpo-lh);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* El foco visible es obligatorio: nunca eliminar el anillo. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--ay-acento);
+  outline-offset: 2px;
+  border-radius: var(--ay-radio-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

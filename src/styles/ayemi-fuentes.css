@@ -1,0 +1,41 @@
+/* AYEMI · Fuentes · implementación de la Opción B del kit
+   ------------------------------------------------------------------------
+   El archivo `.ayemi/tokens/ayemi-fuentes.css` ofrece dos caminos:
+     Opción A · CDN de Google Fonts
+     Opción B · autoalojado (recomendado en producción)
+   y declara `@font-face` apuntando a `/fuentes/*.woff2`.
+
+   DESVÍO DECLARADO: el kit no incluye esos binarios, así que servir su
+   archivo tal cual dejaría el sitio sin las tres familias. Aquí se resuelve
+   la Opción B con los paquetes `@fontsource`, que traen los mismos ficheros
+   bajo la misma licencia (SIL OFL 1.1) y los deja versionar y cachear a
+   Vite. El resultado es el que el kit pide: autoalojado, sin terceros y sin
+   dependencia de red externa.
+
+   Familias y funciones (AGENTE.md §5):
+     Plus Jakarta Sans   corporativa   interfaz, titulares, cuerpo
+     Instrument Serif    editorial     solo portadas, citas y manifiesto
+     JetBrains Mono      técnica       código, IDs, importes, rutas
+   ------------------------------------------------------------------------ */
+
+/* --- Plus Jakarta Sans · corporativa ------------------------------------- */
+/* La escala de doce peldaños usa 400, 500, 600, 700 y 800. ExtraLight (200) y
+   Light (300) están reservados por Recomendación a titulares de más de 40 px,
+   que este sitio no compone, así que no se descargan. */
+@import '@fontsource/plus-jakarta-sans/latin-400.css';
+@import '@fontsource/plus-jakarta-sans/latin-500.css';
+@import '@fontsource/plus-jakarta-sans/latin-600.css';
+@import '@fontsource/plus-jakarta-sans/latin-700.css';
+@import '@fontsource/plus-jakarta-sans/latin-800.css';
+@import '@fontsource/plus-jakarta-sans/latin-ext-400.css';
+@import '@fontsource/plus-jakarta-sans/latin-ext-700.css';
+
+/* --- Instrument Serif · editorial ---------------------------------------- */
+@import '@fontsource/instrument-serif/latin-400.css';
+@import '@fontsource/instrument-serif/latin-ext-400.css';
+
+/* --- JetBrains Mono · técnica -------------------------------------------- */
+@import '@fontsource/jetbrains-mono/latin-300.css';
+@import '@fontsource/jetbrains-mono/latin-400.css';
+@import '@fontsource/jetbrains-mono/latin-500.css';
+@import '@fontsource/jetbrains-mono/latin-700.css';

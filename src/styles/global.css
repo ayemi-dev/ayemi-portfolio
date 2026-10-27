@@ -1,0 +1,448 @@
+/* ==========================================================================
+   global.css · punto de entrada de estilos
+   --------------------------------------------------------------------------
+   Orden obligatorio (AGENTE.md §3): las fuentes y los tokens van antes que
+   cualquier otro CSS.
+
+     1. Tailwind ................. preflight y motor de utilidades
+     2. ayemi-fuentes.css ........ las tres familias, autoalojadas
+     3. ayemi-tokens.css ......... tokens del kit, generados · NO EDITAR
+     4. ayemi-complementos.css ... lo que el generador no cubre
+
+   Este archivo no contiene ni un color, ni un tamaño, ni un radio literal:
+   todo se referencia con `var(--ay-*)`. Así el verificador de marca lo
+   atraviesa sin hallazgos y el día que el generador recalibre un tinte no hay
+   nada que buscar aquí.
+   ========================================================================== */
+
+@import 'tailwindcss';
+@import './ayemi-fuentes.css';
+@import './ayemi-tokens.css';
+@import './ayemi-complementos.css';
+
+/* ==========================================================================
+   VARIANTES DE TEMA
+   El tema vive en `data-tema` del elemento <html>, como prescribe el kit. Sin
+   atributo se respeta `prefers-color-scheme`, que es el modo «sistema».
+   ========================================================================== */
+
+@custom-variant dark {
+  &:where([data-tema='oscuro'], [data-tema='oscuro'] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-tema]), :root:not([data-tema]) *) {
+      @slot;
+    }
+  }
+}
+
+@custom-variant claro {
+  &:where([data-tema='claro'], [data-tema='claro'] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: light) {
+    &:where(:root:not([data-tema]), :root:not([data-tema]) *) {
+      @slot;
+    }
+  }
+}
+
+/* ==========================================================================
+   TEMA DE TAILWIND
+   `inline` hace que cada utilidad emita `var(--ay-…)` en lugar de una copia
+   del valor. Dos consecuencias: el cambio de tema es automático y en este
+   archivo no queda ningún literal.
+   ========================================================================== */
+
+@theme {
+  /* Se vacían las escalas por defecto de Tailwind. Así `bg-slate-900`,
+     `text-4xl` y `rounded-3xl` no compilan, y el sistema queda cerrado. */
+  --color-*: initial;
+  --text-*: initial;
+  --radius-*: initial;
+}
+
+@theme inline {
+  /* ----------------------------------------------------------------------
+     COLOR · escalas del kit
+     ---------------------------------------------------------------------- */
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-inherit: inherit;
+  --color-white: #fff; /* ayemi-ok · neutro puro, legítimo para velos */
+  --color-black: #000; /* ayemi-ok · neutro puro */
+
+  --color-grafito-950: var(--ay-grafito-950);
+  --color-grafito-900: var(--ay-grafito-900);
+  --color-grafito-850: var(--ay-grafito-850);
+  --color-grafito-800: var(--ay-grafito-800);
+  --color-grafito-700: var(--ay-grafito-700);
+  --color-grafito-600: var(--ay-grafito-600);
+  --color-grafito-500: var(--ay-grafito-500);
+  --color-grafito-400: var(--ay-grafito-400);
+  --color-grafito-300: var(--ay-grafito-300);
+  --color-grafito-200: var(--ay-grafito-200);
+  --color-grafito-100: var(--ay-grafito-100);
+  --color-grafito-050: var(--ay-grafito-050);
+
+  --color-cian-950: var(--ay-cian-950);
+  --color-cian-900: var(--ay-cian-900);
+  --color-cian-800: var(--ay-cian-800);
+  --color-cian-700: var(--ay-cian-700);
+  --color-cian-600: var(--ay-cian-600);
+  --color-cian-500: var(--ay-cian-500);
+  --color-cian-400: var(--ay-cian-400);
+  --color-cian-300: var(--ay-cian-300);
+  --color-cian-200: var(--ay-cian-200);
+  --color-cian-100: var(--ay-cian-100);
+  --color-cian-050: var(--ay-cian-050);
+
+  /* El Azul Núcleo no compite con el cian: nunca en botón primario, enlace
+     ni foco. Está aquí para ilustración y para el degradado Corriente. */
+  --color-azul-900: var(--ay-azul-900);
+  --color-azul-700: var(--ay-azul-700);
+  --color-azul-500: var(--ay-azul-500);
+  --color-azul-300: var(--ay-azul-300);
+  --color-azul-100: var(--ay-azul-100);
+
+  --color-verde-900: var(--ay-verde-900);
+  --color-verde-700: var(--ay-verde-700);
+  --color-verde-500: var(--ay-verde-500);
+  --color-verde-300: var(--ay-verde-300);
+  --color-verde-100: var(--ay-verde-100);
+
+  --color-ambar-500: var(--ay-atencion);
+  --color-rojo-500: var(--ay-error);
+
+  /* ----------------------------------------------------------------------
+     COLOR · roles semánticos. Es lo que se usa en la interfaz.
+     ---------------------------------------------------------------------- */
+  --color-lienzo: var(--ay-lienzo);
+  --color-lienzo-alterno: var(--ay-lienzo-alterno);
+  --color-lienzo-profundo: var(--ay-lienzo-profundo);
+  --color-superficie: var(--ay-superficie);
+  --color-superficie-elevada: var(--ay-superficie-elevada);
+  --color-borde: var(--ay-borde);
+  --color-borde-fuerte: var(--ay-borde-fuerte);
+  --color-texto: var(--ay-texto);
+  --color-texto-suave: var(--ay-texto-suave);
+  --color-texto-tenue: var(--ay-texto-tenue);
+  --color-acento: var(--ay-acento);
+  --color-acento-hover: var(--ay-acento-hover);
+  --color-acento-activo: var(--ay-acento-activo);
+  --color-sobre-acento: var(--ay-sobre-acento);
+
+  --color-exito: var(--ay-exito-texto);
+  --color-info: var(--ay-info-texto);
+  --color-atencion: var(--ay-atencion-texto);
+  --color-error: var(--ay-error-texto);
+
+  /* ----------------------------------------------------------------------
+     TIPOGRAFÍA
+     ---------------------------------------------------------------------- */
+  --font-sans: var(--ay-fuente-corporativa);
+  --font-serif: var(--ay-fuente-editorial);
+  --font-mono: var(--ay-fuente-tecnica);
+
+  /* Los doce peldaños, cada uno con su peso, tracking e interlínea. Una sola
+     utilidad deja el texto correcto y no hay forma de inventar un tamaño. */
+  --text-display-2xl: var(--ay-texto-display-2xl);
+  --text-display-2xl--line-height: var(--ay-texto-display-2xl-lh);
+  --text-display-2xl--letter-spacing: var(--ay-texto-display-2xl-track);
+  --text-display-2xl--font-weight: var(--ay-texto-display-2xl-peso);
+
+  --text-display-xl: var(--ay-texto-display-xl);
+  --text-display-xl--line-height: var(--ay-texto-display-xl-lh);
+  --text-display-xl--letter-spacing: var(--ay-texto-display-xl-track);
+  --text-display-xl--font-weight: var(--ay-texto-display-xl-peso);
+
+  --text-display-l: var(--ay-texto-display-l);
+  --text-display-l--line-height: var(--ay-texto-display-l-lh);
+  --text-display-l--letter-spacing: var(--ay-texto-display-l-track);
+  --text-display-l--font-weight: var(--ay-texto-display-l-peso);
+
+  --text-titulo-1: var(--ay-texto-titulo-1);
+  --text-titulo-1--line-height: var(--ay-texto-titulo-1-lh);
+  --text-titulo-1--letter-spacing: var(--ay-texto-titulo-1-track);
+  --text-titulo-1--font-weight: var(--ay-texto-titulo-1-peso);
+
+  --text-titulo-2: var(--ay-texto-titulo-2);
+  --text-titulo-2--line-height: var(--ay-texto-titulo-2-lh);
+  --text-titulo-2--letter-spacing: var(--ay-texto-titulo-2-track);
+  --text-titulo-2--font-weight: var(--ay-texto-titulo-2-peso);
+
+  --text-titulo-3: var(--ay-texto-titulo-3);
+  --text-titulo-3--line-height: var(--ay-texto-titulo-3-lh);
+  --text-titulo-3--letter-spacing: var(--ay-texto-titulo-3-track);
+  --text-titulo-3--font-weight: var(--ay-texto-titulo-3-peso);
+
+  --text-titulo-4: var(--ay-texto-titulo-4);
+  --text-titulo-4--line-height: var(--ay-texto-titulo-4-lh);
+  --text-titulo-4--letter-spacing: var(--ay-texto-titulo-4-track);
+  --text-titulo-4--font-weight: var(--ay-texto-titulo-4-peso);
+
+  --text-cuerpo-l: var(--ay-texto-cuerpo-l);
+  --text-cuerpo-l--line-height: var(--ay-texto-cuerpo-l-lh);
+  --text-cuerpo-l--letter-spacing: var(--ay-texto-cuerpo-l-track);
+  --text-cuerpo-l--font-weight: var(--ay-texto-cuerpo-l-peso);
+
+  --text-cuerpo: var(--ay-texto-cuerpo);
+  --text-cuerpo--line-height: var(--ay-texto-cuerpo-lh);
+  --text-cuerpo--letter-spacing: var(--ay-texto-cuerpo-track);
+  --text-cuerpo--font-weight: var(--ay-texto-cuerpo-peso);
+
+  --text-cuerpo-s: var(--ay-texto-cuerpo-s);
+  --text-cuerpo-s--line-height: var(--ay-texto-cuerpo-s-lh);
+  --text-cuerpo-s--letter-spacing: var(--ay-texto-cuerpo-s-track);
+  --text-cuerpo-s--font-weight: var(--ay-texto-cuerpo-s-peso);
+
+  --text-micro: var(--ay-texto-micro);
+  --text-micro--line-height: var(--ay-texto-micro-lh);
+  --text-micro--letter-spacing: var(--ay-texto-micro-track);
+  --text-micro--font-weight: var(--ay-texto-micro-peso);
+
+  --text-etiqueta: var(--ay-texto-etiqueta);
+  --text-etiqueta--line-height: var(--ay-texto-etiqueta-lh);
+  --text-etiqueta--letter-spacing: var(--ay-texto-etiqueta-track);
+  --text-etiqueta--font-weight: var(--ay-texto-etiqueta-peso);
+
+  /* ----------------------------------------------------------------------
+     RADIOS, CONTENEDORES, SOMBRAS Y CURVAS
+     ---------------------------------------------------------------------- */
+  --radius-xs: var(--ay-radio-xs);
+  --radius-sm: var(--ay-radio-sm);
+  --radius-md: var(--ay-radio-md);
+  --radius-lg: var(--ay-radio-lg);
+  --radius-xl: var(--ay-radio-xl);
+  --radius-2xl: var(--ay-radio-2xl);
+  --radius-completo: var(--ay-radio-completo);
+
+  --container-lectura: var(--ay-cont-lectura);
+  --container-lg: var(--ay-cont-lg);
+  --container-xl: var(--ay-cont-xl);
+  --container-2xl: var(--ay-cont-2xl);
+
+  --shadow-sm: var(--ay-sombra-sm);
+  --shadow-md: var(--ay-sombra-md);
+  --shadow-lg: var(--ay-sombra-lg);
+
+  --ease-estandar: var(--ay-curva-estandar);
+  --ease-entrada: var(--ay-curva-entrada);
+  --ease-salida: var(--ay-curva-salida);
+
+  /* Nada rebota: ninguna de estas animaciones tiene sobreimpulso. */
+  --animate-latido: latido 2.4s ease-in-out infinite;
+  --animate-entrada: entrada var(--ay-dur-media) var(--ay-curva-entrada) both;
+}
+
+/* ==========================================================================
+   DURACIONES COMO UTILIDADES
+   Tailwind no expone un espacio de tema para `duration-*`, así que los cuatro
+   peldaños del kit se declaran a mano. Con esto `duration-[300ms]` deja de
+   hacer falta y la escala queda cerrada.
+   ========================================================================== */
+
+@utility duration-instante {
+  --tw-duration: var(--ay-dur-instante);
+  transition-duration: var(--ay-dur-instante);
+}
+
+@utility duration-rapida {
+  --tw-duration: var(--ay-dur-rapida);
+  transition-duration: var(--ay-dur-rapida);
+}
+
+@utility duration-media {
+  --tw-duration: var(--ay-dur-media);
+  transition-duration: var(--ay-dur-media);
+}
+
+@utility duration-lenta {
+  --tw-duration: var(--ay-dur-lenta);
+  transition-duration: var(--ay-dur-lenta);
+}
+
+/* ==========================================================================
+   FOTOGRAMAS CLAVE
+   Todas las curvas salen de los tres tokens del kit. Ninguna rebota.
+   ========================================================================== */
+
+/* Órbitas del sistema de tecnologías. Lineal es correcto: es un movimiento
+   perpetuo, no una transición. */
+@keyframes ay-orbita {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ay-orbita-inversa {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+/* Nodos orbitales siempre a nivel: cancelan la rotación del anillo. Ningún
+   contenido de marca se lee inclinado. */
+@keyframes ay-nodo-horario {
+  from {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) rotate(-360deg);
+  }
+}
+
+@keyframes ay-nodo-antihorario {
+  from {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
+/* Estrellas: solo opacidad. Sin escala, sin sobreimpulso. */
+@keyframes ay-destello {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+/* Respiración de los anillos del Núcleo. */
+@keyframes ay-nucleo-pulso {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.14);
+    opacity: 0.1;
+  }
+}
+
+/* Latido de opacidad para distintivos. */
+@keyframes latido {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+/* Entrada de paneles: desplazamiento mínimo, sin rebote. */
+@keyframes entrada {
+  from {
+    opacity: 0;
+    transform: translateY(var(--ay-esp-2));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hoja inferior en móvil. */
+@keyframes ay-hoja-sube {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   CLASES DE ANIMACIÓN
+   Se separan las propiedades para poder fijar la duración por elemento.
+   ========================================================================== */
+
+.ay-anim-orbita {
+  animation-name: ay-orbita;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.ay-anim-orbita-inversa {
+  animation-name: ay-orbita-inversa;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.ay-anim-nodo-horario {
+  animation-name: ay-nodo-horario;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.ay-anim-nodo-antihorario {
+  animation-name: ay-nodo-antihorario;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.ay-anim-destello {
+  animation-name: ay-destello;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.ay-anim-nucleo-pulso {
+  animation-name: ay-nucleo-pulso;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.ay-anim-hoja-sube {
+  animation: ay-hoja-sube var(--ay-dur-media) var(--ay-curva-estandar) forwards;
+}
+
+/* Pausa de las órbitas al pasar el puntero. Solo con puntero fino: en táctil
+   no existe hover y la regla estorbaría. */
+@media (hover: hover) and (pointer: fine) {
+  .ay-pausa-grupo:hover .ay-anim-orbita,
+  .ay-pausa-grupo:hover .ay-anim-orbita-inversa,
+  .ay-pausa-grupo:hover .ay-anim-nodo-horario,
+  .ay-pausa-grupo:hover .ay-anim-nodo-antihorario {
+    animation-play-state: paused;
+  }
+}
+
+/* Pausa explícita, sin depender del puntero. La aplica el componente cuando
+   alguien entra con el teclado o toca el lienzo: no se puede pedir que se
+   acierte a un objetivo en movimiento. */
+.ay-detenida .ay-anim-orbita,
+.ay-detenida .ay-anim-orbita-inversa,
+.ay-detenida .ay-anim-nodo-horario,
+.ay-detenida .ay-anim-nodo-antihorario {
+  animation-play-state: paused;
+}
+
+/* Con movimiento reducido las órbitas se detienen del todo, en lugar de
+   comprimirse a 0.01ms como hace la regla general de los tokens, que aquí
+   produciría un parpadeo. */
+@media (prefers-reduced-motion: reduce) {
+  .ay-anim-orbita,
+  .ay-anim-orbita-inversa,
+  .ay-anim-nodo-horario,
+  .ay-anim-nodo-antihorario,
+  .ay-anim-destello,
+  .ay-anim-nucleo-pulso {
+    animation: none !important;
+  }
+}

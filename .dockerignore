@@ -1,0 +1,13 @@
+node_modules
+dist
+.git
+.github
+.env
+.env.local
+.env.production
+*.log
+README.md
+docker-compose.yml
+.claude
+vercel.json
+setup_repo.py
