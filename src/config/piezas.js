@@ -24,7 +24,7 @@
  *     titulo: 'Monitor de temperatura v2',
  *     estado: 'entregada',             // 'entregada' | 'en-curso'
  *     anio: 2025,
- *     sector: 'Agricultura protegida',
+ *     sector: 'Monitoreo industrial',
  *     cliente: { nombre: 'Acme' },     // ver «MARCAS AJENAS» más abajo
  *     resuelve: 'Qué problema quita, en una línea.',
  *     medidas: [                       // §1.3 · una fábrica tiene medidas
@@ -38,7 +38,17 @@
  *       { tipo: 'render', url: '/piezas/temperatura-v2.png' },
  *     ],
  *     imagen: '/piezas/temperatura-v2.png',  // opcional, para la ficha
+ *     arquitectura: [                  // opcional · capas, en orden
+ *       { capa: 'Firmware', que: 'Qué hace esta capa, en una frase.' },
+ *     ],
+ *     oferta: {                        // opcional · si se ofrece como servicio
+ *       titulo, texto, incluye: [..], nota?, boton,
+ *       mensaje: 'Texto prellenado de WhatsApp',
+ *     },
  *   }
+ *
+ * Con `oferta`, la ficha cierra con ese servicio y su botón de WhatsApp en
+ * lugar de la llamada genérica: una sola acción primaria por vista (§5.3).
  *
  * ── PLAZAS LIBRES ──────────────────────────────────────────────────────────
  *
@@ -123,6 +133,71 @@ export const NATURALEZAS = ['hardware', 'software'];
  * recalculan solos.
  */
 export const PIEZAS = [
+  {
+    linea: 'paneles',
+    slug: 'wabot',
+    titulo: 'WaBot · avisos por WhatsApp',
+    estado: 'entregada',
+    anio: 2026,
+    sector: 'Avisos y recordatorios',
+    resuelve:
+      'Los recordatorios se mandaban uno por uno desde el teléfono. Ahora cualquier sistema los programa con una petición HTTP, y el panel muestra qué salió y a quién.',
+    medidas: [
+      { que: 'Servidores', valor: '2 VMs · 1 GB de RAM c/u' },
+      { que: 'RAM del emisor', valor: '≈ 170 MB, sin navegador' },
+      { que: 'Cómputo', valor: 'Capa gratuita de Oracle Cloud' },
+      { que: 'Cadencia', valor: '1 mensaje cada 1.5–4 s' },
+      { que: 'Puertos abiertos a internet', valor: '0 (Cloudflare Tunnel)' },
+    ],
+    pila: [
+      'Node.js 22',
+      'Baileys',
+      'SQLite',
+      'React',
+      'Vite',
+      'Tailwind CSS',
+      'Oracle Cloud',
+      'Cloudflare Tunnel',
+      'Vercel',
+      'systemd',
+    ],
+    // El panel y los repositorios son privados: se enlaza solo la documentación,
+    // que es pública y no muestra datos.
+    enlaces: [{ tipo: 'ficha', url: 'https://wabot-panel.vercel.app/docs' }],
+    arquitectura: [
+      {
+        capa: 'Panel',
+        que: 'React en Vercel. Se vincula el número con un QR, se envía o se programa, y cada envío muestra su resultado por número.',
+      },
+      {
+        capa: 'Núcleo',
+        que: 'La API, los envíos programados y el registro en SQLite, en una VM de Oracle Cloud. Sale a internet por Cloudflare Tunnel, sin abrir puertos.',
+      },
+      {
+        capa: 'Puente',
+        que: 'Las dos VMs viven en redes distintas. El núcleo llega al emisor por un túnel SSH cuya llave solo puede abrir un puerto.',
+      },
+      {
+        capa: 'Emisor',
+        que: 'Una sesión de WhatsApp con Baileys, sin navegador: 170 MB de RAM en lugar de los 500 de un Chromium. Envía en fila, con pausas, y se reinicia solo.',
+      },
+    ],
+    oferta: {
+      titulo: 'Avisos por WhatsApp para tu negocio',
+      texto:
+        'Para la pyme que hoy manda a mano sus recordatorios de citas, cobros o pedidos listos. Lo montamos con el número de tu negocio, lo conectamos a tus sistemas y te entregamos el panel y la documentación.',
+      incluye: [
+        'El número de tu negocio vinculado y vigilado',
+        'Panel para enviar, programar y ver qué salió',
+        'Conexión con tu agenda, tu sistema de ventas o tu hoja de cálculo',
+        'Documentación de la API y sesión de traspaso',
+      ],
+      nota: 'Para envíos de volumen usamos la API oficial de WhatsApp Business: no pone en riesgo tu número.',
+      boton: 'Cotiza tus avisos',
+      mensaje:
+        'Hola, quiero cotizar avisos por WhatsApp para mi negocio. Hoy mandamos estos mensajes:',
+    },
+  },
   {
     linea: 'interfaces',
     slug: 'calculadora-series',

@@ -16,6 +16,7 @@ import {
   vecinasDePieza,
 } from '../../config/piezas';
 import { RUTA_PORTAFOLIO } from '../../config/secciones';
+import { enlaceWhatsapp } from '../../config/sitio';
 import { NoEncontrada } from '../../pages/NoEncontrada';
 
 /**
@@ -232,6 +233,32 @@ export const FichaPieza = () => {
         </section>
       )}
 
+      {/* ── Arquitectura ───────────────────────────────────────────────────── */}
+      {/* Capa por capa, primero lo que hace y después con qué (§1.10, regla 1). */}
+      {pieza.arquitectura?.length > 0 && (
+        <section className="mt-12" aria-labelledby="arquitectura">
+          <h2 id="arquitectura" className="ay-etiqueta">
+            {t('fabrica.ficha.arquitectura')}
+          </h2>
+          <ol className="mt-4 max-w-lectura">
+            {pieza.arquitectura.map(({ capa, que }, i) => (
+              <li
+                key={capa}
+                className="grid grid-cols-[2rem_1fr] gap-x-4 border-t border-borde py-4"
+              >
+                <span className="font-mono text-micro text-acento">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div>
+                  <h3 className="text-cuerpo font-bold text-texto">{capa}</h3>
+                  <p className="mt-1 text-cuerpo-s text-texto-suave">{que}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
+
       {/* ── Anterior y siguiente de la misma línea ─────────────────────────── */}
       {(anterior || siguiente) && (
         <nav
@@ -272,7 +299,48 @@ export const FichaPieza = () => {
         </nav>
       )}
 
-      {/* ── Llamada de cierre ──────────────────────────────────────────────── */}
+      {/* ── Servicio que se puede contratar ────────────────────────────────── */}
+      {/* Si la pieza se ofrece como servicio, su llamada sustituye a la de
+          cierre: §5.3 pide una sola acción primaria por vista. */}
+      {pieza.oferta ? (
+        <section
+          className="mt-24 rounded-lg border border-borde bg-superficie p-6 md:p-8"
+          aria-labelledby="oferta"
+        >
+          <Microetiqueta>{t('fabrica.ficha.servicio')}</Microetiqueta>
+          <h2 id="oferta" className="mt-3 max-w-lectura text-titulo-2">
+            {pieza.oferta.titulo}
+          </h2>
+          <p className="mt-4 max-w-lectura text-cuerpo-l text-texto-suave">
+            {pieza.oferta.texto}
+          </p>
+          <h3 className="mt-8 ay-etiqueta">{t('fabrica.ficha.incluye')}</h3>
+          <ul className="mt-3 flex max-w-lectura flex-col gap-2">
+            {pieza.oferta.incluye.map((punto) => (
+              <li key={punto} className="flex gap-3 text-cuerpo text-texto">
+                <span className="text-acento" aria-hidden="true">·</span>
+                {punto}
+              </li>
+            ))}
+          </ul>
+          {pieza.oferta.nota && (
+            <p className="mt-6 max-w-lectura text-cuerpo-s text-texto-tenue">
+              {pieza.oferta.nota}
+            </p>
+          )}
+          <div className="mt-8">
+            <Boton
+              variante="primario"
+              tamano="grande"
+              href={enlaceWhatsapp(pieza.oferta.mensaje)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {pieza.oferta.boton}
+            </Boton>
+          </div>
+        </section>
+      ) : (
       <div className="mt-24 border-t border-borde pt-8">
         <p className="max-w-lectura text-cuerpo-l text-texto">
           {t('fabrica.ficha.cierre')}
@@ -283,6 +351,7 @@ export const FichaPieza = () => {
           </Boton>
         </div>
       </div>
+      )}
     </article>
   );
 };

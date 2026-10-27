@@ -34,7 +34,7 @@
  * física: el render no demuestra que se fabricó.
  */
 
-import { CONTACTO } from './sitio';
+import { enlaceWhatsapp } from './sitio';
 
 export const ESTADOS_PLACA = ['disenoVerificado', 'fabricadoProbado'];
 
@@ -45,5 +45,4 @@ export const PLACAS = [
 ];
 
 /** WhatsApp con el mensaje prellenado del servicio. */
-export const enlaceWhatsappPcb = (mensaje) =>
-  `${CONTACTO.whatsapp.enlace}?text=${encodeURIComponent(mensaje)}`;
+export const enlaceWhatsappPcb = enlaceWhatsapp;

@@ -86,6 +86,10 @@ export const CONTACTO = {
   },
 };
 
+/** WhatsApp con un mensaje prellenado. */
+export const enlaceWhatsapp = (mensaje) =>
+  `${CONTACTO.whatsapp.enlace}?text=${encodeURIComponent(mensaje)}`;
+
 /**
  * Cuenta de GitHub de Ayemi.
  *
