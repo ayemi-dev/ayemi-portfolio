@@ -16,14 +16,14 @@
  *   clic_red_social     GA4 clic_red_social    Meta ClicRedSocial (custom)
  */
 
+import { AGENDA_URL } from '../config/externos';
+
 const IDS = {
   ga4: import.meta.env.VITE_GA4_ID ?? '',
   meta: import.meta.env.VITE_META_PIXEL_ID ?? '',
   clarity: import.meta.env.VITE_CLARITY_ID ?? '',
 };
 
-/** URL de la agenda de 30 min. Los clics a ella cuentan como clic_agenda. */
-export const AGENDA_URL = import.meta.env.VITE_AGENDA_URL ?? '';
 
 const EVENTOS = {
   clic_whatsapp: { ga4: 'clic_whatsapp', meta: 'Contact' },

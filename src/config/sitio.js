@@ -12,7 +12,15 @@
  * relleno, así que el sitio funciona igual mientras completas los datos.
  */
 
+import { WHATSAPP_NEGOCIO } from './externos';
+
 const PENDIENTE = 'PENDIENTE';
+
+/** 5215512345678 → «+52 55 1234 5678». Otro formato se muestra tal cual. */
+const whatsappLegible = (digitos) => {
+  const m = digitos.match(/^521?(\d{2})(\d{4})(\d{4})$/);
+  return m ? `+52 ${m[1]} ${m[2]} ${m[3]}` : `+${digitos}`;
+};
 
 /** Un valor está pendiente si no se ha rellenado. */
 export const esPendiente = (valor) =>
@@ -80,11 +88,13 @@ export const CONTACTO = {
    *
    * Se muestra en formato nacional porque es como se lee en México, y va en
    * monoespaciada porque es un dato copiable (§3.6).
+   *
+   * VITE_WHATSAPP_NUMERO (config/externos.js) lo reemplaza por el número de
+   * WhatsApp Business cuando exista. Mientras esté vacía, sigue este.
    */
-  whatsapp: {
-    valor: '+52 55 2442 6155',
-    enlace: 'https://wa.me/5215524426155',
-  },
+  whatsapp: WHATSAPP_NEGOCIO
+    ? { valor: whatsappLegible(WHATSAPP_NEGOCIO), enlace: `https://wa.me/${WHATSAPP_NEGOCIO}` }
+    : { valor: '+52 55 2442 6155', enlace: 'https://wa.me/5215524426155' },
 };
 
 /** WhatsApp con un mensaje prellenado. */

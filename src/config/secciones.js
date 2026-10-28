@@ -31,6 +31,12 @@ export const RUTA_PCB = '/pcb';
 /** Aviso de privacidad (LFPDPPP). Lo enlazan el pie y el aviso de cookies. */
 export const RUTA_PRIVACIDAD = '/privacidad';
 
+/** Página de la bio de las redes: un logotipo y botones, sin cabecera ni pie. */
+export const RUTA_ENLACES = '/enlaces';
+
+/** Caso de ITA. De aquí sale todo enlace hacia él (/enlaces, la ficha). */
+export const RUTA_CASO_ITA = `${RUTA_PORTAFOLIO}/ita-2026`;
+
 /**
  * Secciones que SÍ son ancla dentro de la portada.
  *

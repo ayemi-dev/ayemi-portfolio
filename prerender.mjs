@@ -100,7 +100,7 @@ async function main() {
     const { PIEZAS, buscarLinea, rutaDePieza } = await servidor.ssrLoadModule(
       '/src/config/piezas.js'
     );
-    const { RUTA_PCB, RUTA_PORTAFOLIO, RUTA_PRIVACIDAD } = await servidor.ssrLoadModule(
+    const { RUTA_ENLACES, RUTA_PCB, RUTA_PORTAFOLIO, RUTA_PRIVACIDAD } = await servidor.ssrLoadModule(
       '/src/config/secciones.js'
     );
     const { SITIO } = await servidor.ssrLoadModule('/src/config/sitio.js');
@@ -131,6 +131,13 @@ async function main() {
         descripcion:
           'Diseñamos tu placa en KiCad y te entregamos Gerber, BOM y CPL listos para fabricar en JLCPCB. Mira el proceso paso a paso y lo que recibes en cada uno.',
         imagen: '/pcb/og-pcb.png',
+      },
+      {
+        url: RUTA_ENLACES,
+        archivo: path.join('enlaces', 'index.html'),
+        titulo: 'Enlaces · Ayemi',
+        descripcion:
+          'WhatsApp, cotización de PCB, diagnóstico de 30 min y el trabajo de Ayemi, en un solo lugar.',
       },
       {
         url: RUTA_PRIVACIDAD,

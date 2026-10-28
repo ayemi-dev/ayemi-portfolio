@@ -21,3 +21,41 @@ export const RESPONSABLE = {
   /** Correo para derechos ARCO. Si falta, se usa el de contacto del sitio. */
   correo: env('VITE_PRIVACIDAD_CORREO'),
 };
+
+/**
+ * Redes sociales de Ayemi. Alimentan el pie, /enlaces y el `sameAs` del
+ * JSON-LD. Cada una aparece solo cuando su URL existe.
+ */
+export const REDES = [
+  { clave: 'instagram', nombre: 'Instagram', url: env('VITE_INSTAGRAM_URL') },
+  { clave: 'facebook', nombre: 'Facebook', url: env('VITE_FACEBOOK_URL') },
+  { clave: 'tiktok', nombre: 'TikTok', url: env('VITE_TIKTOK_URL') },
+  { clave: 'youtube', nombre: 'YouTube', url: env('VITE_YOUTUBE_URL') },
+  { clave: 'linkedin', nombre: 'LinkedIn', url: env('VITE_LINKEDIN_URL') },
+  { clave: 'x', nombre: 'X', url: env('VITE_X_URL') },
+];
+
+/** URL de una red, o '' si no está publicada. */
+export const urlRed = (clave) => REDES.find((r) => r.clave === clave)?.url ?? '';
+
+/**
+ * Número de WhatsApp Business, en formato internacional y solo dígitos, con
+ * el 1 de México después del 52 (5215512345678). Vacío: se usa el número
+ * actual de `sitio.js`, que funciona hoy.
+ */
+export const WHATSAPP_NEGOCIO = env('VITE_WHATSAPP_NUMERO').replace(/\D/g, '');
+
+/** Agenda del diagnóstico de 30 min (Cal.com, Calendly…). Vacía: sin botón. */
+export const AGENDA_URL = env('VITE_AGENDA_URL');
+
+/**
+ * Precios «desde», en pesos mexicanos y solo el número (1500). Vacío: la
+ * oferta se muestra sin precio, nunca con uno inventado.
+ */
+export const PRECIOS = {
+  revisionPcb: Number(env('VITE_PRECIO_REVISION_PCB').replace(/[^\d.]/g, '')) || 0,
+};
+
+/** «$1,500 MXN». */
+export const formatoPrecio = (pesos) =>
+  `${new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 }).format(pesos)} MXN`;

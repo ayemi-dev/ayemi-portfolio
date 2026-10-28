@@ -861,6 +861,19 @@ const es = {
     soloEspanol: 'Este aviso se publica en español, el idioma que exige la ley mexicana de protección de datos.',
   },
 
+  enlaces: {
+    propuesta: 'Software interno y placas electrónicas, documentados y en tus manos.',
+    mensajeWhatsapp: 'Hola, los vi en redes y quiero platicar de un proyecto.',
+    botones: {
+      whatsapp: 'Escríbenos por WhatsApp',
+      pcb: 'Cotiza tu PCB',
+      agenda: 'Agenda un diagnóstico de 30 min',
+      youtube: 'Míranos en YouTube',
+      caso: 'Caso: sitio de ITA',
+      sitio: 'Conoce Ayemi',
+    },
+  },
+
   cookies: {
     region: 'Aviso de cookies',
     texto: 'Usamos cookies de Google Analytics, Meta y Microsoft Clarity para medir qué funciona en el sitio. Tus datos y cómo desactivarlas, en el',
@@ -1675,6 +1688,19 @@ const en = {
   privacidad: {
     etiqueta: 'PRIVACY',
     soloEspanol: 'This notice is published in Spanish, the language required by Mexican data protection law.',
+  },
+
+  enlaces: {
+    propuesta: 'Internal software and circuit boards, documented and in your hands.',
+    mensajeWhatsapp: 'Hi, I saw you on social media and want to talk about a project.',
+    botones: {
+      whatsapp: 'Message us on WhatsApp',
+      pcb: 'Get a PCB quote',
+      agenda: 'Book a 30-min diagnosis',
+      youtube: 'Watch us on YouTube',
+      caso: 'Case: ITA website',
+      sitio: 'Meet Ayemi',
+    },
   },
 
   cookies: {
