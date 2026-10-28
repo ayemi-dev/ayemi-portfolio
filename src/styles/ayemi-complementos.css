@@ -119,13 +119,18 @@ pre {
   font-family: var(--ay-fuente-tecnica);
 }
 
-/* Red de seguridad: un enlace sin clase sigue siendo reconocible y accesible. */
-a {
-  color: var(--ay-acento);
-  text-underline-offset: 0.18em;
-}
-a:hover {
-  color: var(--ay-acento-hover);
+/* Red de seguridad: un enlace sin clase sigue siendo reconocible y accesible.
+   Va en la capa base para que cualquier utilidad de Tailwind le gane: fuera de
+   capa le ganaba a `text-sobre-acento` y dejaba los botones-enlace primarios
+   con el texto del mismo cian que el fondo. */
+@layer base {
+  a {
+    color: var(--ay-acento);
+    text-underline-offset: 0.18em;
+  }
+  a:hover {
+    color: var(--ay-acento-hover);
+  }
 }
 
 hr {

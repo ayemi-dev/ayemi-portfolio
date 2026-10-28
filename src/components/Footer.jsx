@@ -118,7 +118,7 @@ export const Footer = () => {
             <span aria-hidden="true"> · </span>
             <Link
               to={RUTA_PRIVACIDAD}
-              className="rounded-sm transition-colors duration-rapida ease-estandar hover:text-acento"
+              className="rounded-sm text-texto-tenue transition-colors duration-rapida ease-estandar hover:text-acento"
             >
               {t('pie.privacidad')}
             </Link>
