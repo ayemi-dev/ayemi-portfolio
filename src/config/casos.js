@@ -12,7 +12,8 @@
  *   testimonio        null → sin bloque de testimonio
  *
  * Las capturas viven en public/casos/<slug>/ y se tomaron del sitio en
- * producción el 28 de octubre de 2026.
+ * producción el 28 de octubre de 2026. Las que muestran personal del cliente
+ * van aparte (capturasConPersonal) y solo salen con permisoPersonal: true.
  */
 
 export const CASOS = [
@@ -50,7 +51,42 @@ export const CASOS = [
     /** Resultado comercial (solicitudes recibidas, tiempo de respuesta…). */
     resultadoNegocio: '',
 
+    /**
+     * true cuando ITA autorice por escrito mostrar a su personal. Mientras sea
+     * false se publican las capturas sin personas.
+     */
+    permisoPersonal: false, // TODO(Agustín): true al llegar el permiso de ITA
+
     capturas: [
+      {
+        src: '/casos/ita/problema-escritorio.jpg',
+        ancho: 1440,
+        alto: 900,
+        alt: 'Sección «El problema» del sitio de ITA en escritorio: el titular «La estabilidad de una línea no depende de un solo equipo» y un diagrama de señales de falla.',
+        pie: 'El problema, explicado en el idioma de la planta.',
+      },
+      {
+        src: '/casos/ita/beneficios-escritorio.jpg',
+        ancho: 1440,
+        alto: 900,
+        alt: 'Sección de beneficios del sitio de ITA: una línea de recubrimiento metálico y la lista «Lo que buscamos en cada intervención».',
+        pie: 'Beneficios en lista desplegable, con fotografía de su operación.',
+      },
+      {
+        src: '/casos/ita/experiencia-movil.jpg',
+        ancho: 780,
+        alto: 1688,
+        alt: 'Sección «Experiencia aplicada en procesos industriales críticos» del sitio de ITA en un teléfono.',
+        pie: 'La misma página en el teléfono.',
+      },
+    ],
+
+    /**
+     * Capturas con personal de ITA: se publican solo con su permiso por
+     * escrito. Hasta entonces los archivos viven en pendientes/casos/ita/,
+     * fuera de public/ (pasos en pendientes/LEEME.md).
+     */
+    capturasConPersonal: [
       {
         src: '/casos/ita/inicio-escritorio.jpg',
         ancho: 1440,
@@ -80,3 +116,7 @@ export const CASOS = [
 ];
 
 export const buscarCaso = (slug) => CASOS.find((c) => c.slug === slug);
+
+/** Las capturas que se pueden publicar hoy según el permiso del cliente. */
+export const capturasDe = (caso) =>
+  caso.permisoPersonal && caso.capturasConPersonal ? caso.capturasConPersonal : caso.capturas;

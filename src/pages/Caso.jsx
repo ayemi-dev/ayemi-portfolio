@@ -4,7 +4,7 @@ import { Microetiqueta } from '../components/marca/Logotipo';
 import { IconoEnlaceExterno } from '../components/marca/Iconos';
 import { Aviso } from '../components/ui/Aviso';
 import { Boton } from '../components/ui/Boton';
-import { buscarCaso } from '../config/casos';
+import { buscarCaso, capturasDe } from '../config/casos';
 import { rutaDePieza } from '../config/piezas';
 import { enlaceWhatsapp } from '../config/sitio';
 import { NoEncontrada } from './NoEncontrada';
@@ -101,7 +101,7 @@ export const Caso = () => {
 
       <Bloque etiqueta={t('caso.capturas')}>
         <div className="grid gap-6 md:grid-cols-[2fr_1fr]">
-          {caso.capturas.map((c, i) => (
+          {capturasDe(caso).map((c, i) => (
             <figure key={c.src} className={i === 0 ? 'md:col-span-2' : undefined}>
               <img
                 src={c.src}
