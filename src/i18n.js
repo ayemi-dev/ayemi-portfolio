@@ -861,6 +861,28 @@ const es = {
     soloEspanol: 'Este aviso se publica en español, el idioma que exige la ley mexicana de protección de datos.',
   },
 
+  ofertas: {
+    etiqueta: 'PARA EMPEZAR',
+    titulo: 'Dos formas de ',
+    acento: 'probarnos',
+    tituloDespues: ' antes de un proyecto.',
+    desde: 'Desde {{precio}}',
+    gratis: 'Sin costo',
+    revisionPcb: {
+      titulo: 'Revisión de tu PCB',
+      texto: 'Nos mandas tu proyecto de KiCad antes de fabricar y te devolvemos un reporte con cada hallazgo: reglas de JLCPCB, huellas contra la hoja de datos, desacoplo y ruteo. El precio queda cerrado antes de empezar.',
+      boton: 'Pide tu revisión',
+      mensaje: 'Hola, quiero una revisión de mi PCB antes de fabricarla. Mi proyecto es:',
+    },
+    diagnostico: {
+      titulo: 'Diagnóstico de 30 min',
+      texto: 'Una videollamada para que nos cuentes qué se rompe hoy en tu operación. Te decimos qué haríamos primero y cuánto costaría, sin compromiso.',
+      botonAgenda: 'Agenda 30 min',
+      botonWhatsapp: 'Pide tu diagnóstico',
+      mensaje: 'Hola, quiero agendar el diagnóstico de 30 min. Lo que se rompe hoy es:',
+    },
+  },
+
   caso: {
     etiqueta: 'CASO · {{cliente}}',
     problema: 'El problema',
@@ -1699,6 +1721,28 @@ const en = {
   privacidad: {
     etiqueta: 'PRIVACY',
     soloEspanol: 'This notice is published in Spanish, the language required by Mexican data protection law.',
+  },
+
+  ofertas: {
+    etiqueta: 'TO GET STARTED',
+    titulo: 'Two ways to ',
+    acento: 'try us',
+    tituloDespues: ' before a project.',
+    desde: 'From {{precio}}',
+    gratis: 'Free',
+    revisionPcb: {
+      titulo: 'PCB review',
+      texto: 'Send us your KiCad project before manufacturing and get back a report with every finding: JLCPCB rules, footprints against the datasheet, decoupling and routing. The price is fixed before we start.',
+      boton: 'Request your review',
+      mensaje: 'Hi, I want a review of my PCB before manufacturing it. My project is:',
+    },
+    diagnostico: {
+      titulo: '30-min diagnosis',
+      texto: 'A video call where you tell us what breaks today in your operation. We tell you what we would do first and what it would cost, no strings attached.',
+      botonAgenda: 'Book 30 min',
+      botonWhatsapp: 'Request your diagnosis',
+      mensaje: 'Hi, I want to book the 30-min diagnosis. What breaks today is:',
+    },
   },
 
   caso: {

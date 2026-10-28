@@ -4,6 +4,7 @@ import { Proceso } from '../features/pcb/Proceso';
 import { GaleriaPlacas } from '../features/pcb/GaleriaPlacas';
 import { PreguntasPcb } from '../features/pcb/PreguntasPcb';
 import { CierrePcb } from '../features/pcb/CierrePcb';
+import { OfertasEntrada } from '../features/ofertas/OfertasEntrada';
 
 /**
  * Pcb · `/pcb`
@@ -16,11 +17,13 @@ import { CierrePcb } from '../features/pcb/CierrePcb';
  * tablero y orbital se difieren porque viven dentro de una landing más larga).
  *
  * Fondos alternos, design.md §4: lienzo, alterno, lienzo, alterno, lienzo,
- * alterno.
+ * alterno. Las ofertas de entrada van en profundo entre la portada y los
+ * entregables, para separarse de las dos.
  */
 export const Pcb = () => (
   <>
     <PortadaPcb />
+    <OfertasEntrada fondo="profundo" />
     <Entregables />
     <Proceso />
     <GaleriaPlacas />
