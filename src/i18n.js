@@ -853,6 +853,19 @@ const es = {
     nuevaPestana: '(abre en una pestaña nueva)',
     sinCanales: 'Pendiente de publicar',
     sistema: 'Sistema de identidad · edición 2.0',
+    privacidad: 'Aviso de privacidad',
+  },
+
+  privacidad: {
+    etiqueta: 'PRIVACIDAD',
+    soloEspanol: 'Este aviso se publica en español, el idioma que exige la ley mexicana de protección de datos.',
+  },
+
+  cookies: {
+    region: 'Aviso de cookies',
+    texto: 'Usamos cookies de Google Analytics, Meta y Microsoft Clarity para medir qué funciona en el sitio. Tus datos y cómo desactivarlas, en el',
+    enlace: 'aviso de privacidad',
+    aceptar: 'Entendido',
   },
 };
 
@@ -1656,6 +1669,19 @@ const en = {
     nuevaPestana: '(opens in a new tab)',
     sinCanales: 'Not published yet',
     sistema: 'Identity system · edition 2.0',
+    privacidad: 'Privacy notice',
+  },
+
+  privacidad: {
+    etiqueta: 'PRIVACY',
+    soloEspanol: 'This notice is published in Spanish, the language required by Mexican data protection law.',
+  },
+
+  cookies: {
+    region: 'Cookie notice',
+    texto: 'We use Google Analytics, Meta and Microsoft Clarity cookies to measure what works on this site. Your data and how to turn them off are in the',
+    enlace: 'privacy notice',
+    aceptar: 'Got it',
   },
 };
 

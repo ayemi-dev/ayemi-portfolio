@@ -100,7 +100,7 @@ async function main() {
     const { PIEZAS, buscarLinea, rutaDePieza } = await servidor.ssrLoadModule(
       '/src/config/piezas.js'
     );
-    const { RUTA_PCB, RUTA_PORTAFOLIO } = await servidor.ssrLoadModule(
+    const { RUTA_PCB, RUTA_PORTAFOLIO, RUTA_PRIVACIDAD } = await servidor.ssrLoadModule(
       '/src/config/secciones.js'
     );
     const { SITIO } = await servidor.ssrLoadModule('/src/config/sitio.js');
@@ -131,6 +131,13 @@ async function main() {
         descripcion:
           'Diseñamos tu placa en KiCad y te entregamos Gerber, BOM y CPL listos para fabricar en JLCPCB. Mira el proceso paso a paso y lo que recibes en cada uno.',
         imagen: '/pcb/og-pcb.png',
+      },
+      {
+        url: RUTA_PRIVACIDAD,
+        archivo: path.join('privacidad', 'index.html'),
+        titulo: 'Aviso de privacidad · Ayemi',
+        descripcion:
+          'Qué datos usa Ayemi, para qué, con quién los comparte y cómo ejercer tus derechos ARCO. Incluye cookies de GA4, Meta Pixel y Microsoft Clarity.',
       },
       ...PIEZAS.map((pieza) => {
         const linea = buscarLinea(pieza.linea);

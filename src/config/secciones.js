@@ -28,6 +28,9 @@ export const RUTA_PORTAFOLIO = '/portafolio';
 /** Ruta del servicio de PCBs. De aquí sale todo enlace hacia él. */
 export const RUTA_PCB = '/pcb';
 
+/** Aviso de privacidad (LFPDPPP). Lo enlazan el pie y el aviso de cookies. */
+export const RUTA_PRIVACIDAD = '/privacidad';
+
 /**
  * Secciones que SÍ son ancla dentro de la portada.
  *

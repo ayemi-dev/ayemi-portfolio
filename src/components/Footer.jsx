@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { FirmaVertical } from './marca/Logotipo';
 import { DESCRIPTOR } from './marca/verbales';
 import { IconoEnlaceExterno } from './marca/Iconos';
-import { NAVEGACION } from '../config/secciones';
+import { NAVEGACION, RUTA_PRIVACIDAD } from '../config/secciones';
 import { CONTACTO, PERFILES, SITIO, esPendiente } from '../config/sitio';
 
 /**
@@ -115,6 +115,13 @@ export const Footer = () => {
             <span>© {anio} Ayemi</span>
             <span aria-hidden="true"> · </span>
             <span>{t('pie.derechos')}</span>
+            <span aria-hidden="true"> · </span>
+            <Link
+              to={RUTA_PRIVACIDAD}
+              className="rounded-sm transition-colors duration-rapida ease-estandar hover:text-acento"
+            >
+              {t('pie.privacidad')}
+            </Link>
           </p>
 
           {/* Trazabilidad del sistema aplicado. */}
