@@ -9,7 +9,7 @@ import { RUTA_CASO_ITA, RUTA_PCB, RUTA_PRIVACIDAD } from '../config/secciones';
 /**
  * Enlaces · `/enlaces`
  *
- * La página de la bio de las redes: logotipo, una línea de propuesta y los
+ * La página de la bio de las redes: logotipo, el claim y los
  * botones, sin cabecera ni pie para que nada compita con ellos.
  *
  * Medición: todos llevan `data-ubicacion="enlaces"`, y el escuchador global
@@ -54,7 +54,9 @@ export const Enlaces = () => {
       </Link>
       <Microetiqueta className="mt-4" />
 
-      <h1 className="mt-8 text-center text-titulo-3 text-texto">{t('enlaces.propuesta')}</h1>
+      <h1 className="mt-8 text-center text-titulo-1 text-texto">
+        {t('enlaces.claim')} <span className="block text-acento">{t('enlaces.claimAcento')}</span>
+      </h1>
 
       <ul className="mt-10 flex w-full flex-col gap-3">
         {botones.map(({ clave, variante = 'secundario', ...destino }) => (

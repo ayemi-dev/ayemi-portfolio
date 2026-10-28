@@ -895,7 +895,9 @@ const es = {
   },
 
   enlaces: {
-    propuesta: 'Software interno y placas electrónicas, documentados y en tus manos.',
+    // Claim de marca (addendum 01 del manual, §1.11): dos frases, la segunda en cian.
+    claim: 'Lo construimos.',
+    claimAcento: 'Es tuyo.',
     mensajeWhatsapp: 'Hola, los vi en redes y quiero platicar de un proyecto.',
     botones: {
       whatsapp: 'Escríbenos por WhatsApp',
@@ -1757,7 +1759,9 @@ const en = {
   },
 
   enlaces: {
-    propuesta: 'Internal software and circuit boards, documented and in your hands.',
+    // TODO(Agustín): aprobar la versión en inglés del claim (addendum 01).
+    claim: 'We build it.',
+    claimAcento: "It's yours.",
     mensajeWhatsapp: 'Hi, I saw you on social media and want to talk about a project.',
     botones: {
       whatsapp: 'Message us on WhatsApp',
