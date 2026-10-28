@@ -185,17 +185,19 @@ export const PIEZAS = [
     oferta: {
       titulo: 'Avisos por WhatsApp para tu negocio',
       texto:
-        'Para la pyme que hoy manda a mano sus recordatorios de citas, cobros o pedidos listos. Lo montamos con el número de tu negocio, lo conectamos a tus sistemas y te entregamos el panel y la documentación.',
+        'Para la pyme que hoy manda a mano sus recordatorios de citas, cobros o pedidos listos. Estamos preparando la versión para clientes: únete a la lista de espera y te avisamos primero, con el precio, antes de abrirla.',
       incluye: [
         'El número de tu negocio vinculado y vigilado',
         'Panel para enviar, programar y ver qué salió',
         'Conexión con tu agenda, tu sistema de ventas o tu hoja de cálculo',
         'Documentación de la API y sesión de traspaso',
       ],
-      nota: 'Para envíos de volumen usamos la API oficial de WhatsApp Business: no pone en riesgo tu número.',
-      boton: 'Cotiza tus avisos',
+      // Esta pieza usa Baileys (una sesión de WhatsApp Web). Para clientes no
+      // basta: la versión que se ofrece irá sobre la API oficial.
+      nota: 'La versión para clientes usará la API oficial de WhatsApp Business, no la sesión de WhatsApp Web de esta pieza. Así tu número no corre riesgo de bloqueo.',
+      boton: 'Únete a la lista de espera',
       mensaje:
-        'Hola, quiero cotizar avisos por WhatsApp para mi negocio. Hoy mandamos estos mensajes:',
+        'Hola, quiero unirme a la lista de espera de avisos por WhatsApp. Mi negocio es:',
     },
   },
   {
