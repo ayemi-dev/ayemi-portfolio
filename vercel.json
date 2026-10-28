@@ -1,6 +1,28 @@
 {
   "redirects": [
     {
+      "source": "/:ruta*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.ayemi.org"
+        }
+      ],
+      "destination": "https://ayemi.org/:ruta*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:ruta*",
+      "has": [
+        {
+          "type": "host",
+          "value": "portafolio.ayemi.org"
+        }
+      ],
+      "destination": "https://ayemi.org/:ruta*",
+      "statusCode": 301
+    },
+    {
       "source": "/:base(portafolio|piezas)/:slug(panel-inventario-integradores|plataforma-contactos-whatsapp|tecnificacion-agricola)",
       "destination": "/portafolio",
       "permanent": true

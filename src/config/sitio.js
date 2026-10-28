@@ -31,12 +31,13 @@ export const SITIO = {
    * el sitemap y el robots.txt, y el build falla si alguna ruta sale con otro
    * dominio o con una imagen relativa.
    *
-   * Desde la migración de octubre de 2026, `ayemi.org`, `www.ayemi.org` y
-   * `portafolio.ayemi.org` sirven el mismo sitio. Para cambiar el canónico,
-   * cambia esta línea y agrega en vercel.json la redirección 301 de los otros
-   * dos hosts hacia él.
+   * Canónico: `ayemi.org` (decisión de octubre de 2026, por ser la marca y la
+   * dirección más corta para las redes). `www.ayemi.org` y
+   * `portafolio.ayemi.org` siguen asignados al proyecto, pero vercel.json los
+   * manda con 301 a este dominio conservando la ruta y los parámetros (UTM
+   * incluidos). Si cambias esta línea, cambia también esas redirecciones.
    */
-  url: 'https://portafolio.ayemi.org',
+  url: 'https://ayemi.org',
 
   /** §1.11 · Elementos verbales fijos. No se editan aquí. */
   nombre: 'Ayemi',
