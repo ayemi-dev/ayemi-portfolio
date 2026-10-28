@@ -100,10 +100,11 @@ async function main() {
     const { PIEZAS, buscarLinea, rutaDePieza } = await servidor.ssrLoadModule(
       '/src/config/piezas.js'
     );
-    const { RUTA_ENLACES, RUTA_PCB, RUTA_PORTAFOLIO, RUTA_PRIVACIDAD } = await servidor.ssrLoadModule(
+    const { RUTA_CASOS, RUTA_ENLACES, RUTA_PCB, RUTA_PORTAFOLIO, RUTA_PRIVACIDAD } = await servidor.ssrLoadModule(
       '/src/config/secciones.js'
     );
     const { SITIO } = await servidor.ssrLoadModule('/src/config/sitio.js');
+    const { CASOS } = await servidor.ssrLoadModule('/src/config/casos.js');
 
     /* Rutas a generar, cada una con su título y descripción propios: una ficha
        compartida en un chat debe decir de qué pieza habla.
@@ -146,6 +147,12 @@ async function main() {
         descripcion:
           'Qué datos usa Ayemi, para qué, con quién los comparte y cómo ejercer tus derechos ARCO. Incluye cookies de GA4, Meta Pixel y Microsoft Clarity.',
       },
+      ...CASOS.map((caso) => ({
+        url: `${RUTA_CASOS}/${caso.slug}`,
+        archivo: path.join(RUTA_CASOS.replace(/^\//, ''), caso.slug, 'index.html'),
+        titulo: `Caso ${caso.cliente} · Ayemi`,
+        descripcion: caso.problema[0],
+      })),
       ...PIEZAS.map((pieza) => {
         const linea = buscarLinea(pieza.linea);
         return {

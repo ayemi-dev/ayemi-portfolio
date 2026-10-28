@@ -861,6 +861,17 @@ const es = {
     soloEspanol: 'Este aviso se publica en español, el idioma que exige la ley mexicana de protección de datos.',
   },
 
+  caso: {
+    etiqueta: 'CASO · {{cliente}}',
+    problema: 'El problema',
+    hicimos: 'Qué hicimos',
+    resultado: 'Resultado',
+    capturas: 'Capturas',
+    testimonio: 'Testimonio',
+    ficha: 'Ver la ficha técnica',
+    mensajeWhatsapp: 'Hola, vi el caso de {{cliente}} y tengo algo parecido en mi operación.',
+  },
+
   enlaces: {
     propuesta: 'Software interno y placas electrónicas, documentados y en tus manos.',
     mensajeWhatsapp: 'Hola, los vi en redes y quiero platicar de un proyecto.',
@@ -1688,6 +1699,17 @@ const en = {
   privacidad: {
     etiqueta: 'PRIVACY',
     soloEspanol: 'This notice is published in Spanish, the language required by Mexican data protection law.',
+  },
+
+  caso: {
+    etiqueta: 'CASE · {{cliente}}',
+    problema: 'The problem',
+    hicimos: 'What we did',
+    resultado: 'Result',
+    capturas: 'Screenshots',
+    testimonio: 'Testimonial',
+    ficha: 'See the technical sheet',
+    mensajeWhatsapp: 'Hi, I saw the {{cliente}} case and have something similar in my operation.',
   },
 
   enlaces: {

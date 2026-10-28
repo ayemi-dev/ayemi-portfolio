@@ -9,11 +9,18 @@ import { RedireccionPieza } from './pages/RedireccionPieza';
 import { NoEncontrada } from './pages/NoEncontrada';
 import { Privacidad } from './pages/Privacidad';
 import { Enlaces } from './pages/Enlaces';
+import { Caso } from './pages/Caso';
 import { AvisoCookies } from './components/AvisoCookies';
 import { FichaPieza } from './features/piezas/FichaPieza';
 import { useAncla } from './hooks/useAncla';
 import { useVistaDePagina } from './medicion/useVistaDePagina';
-import { RUTA_ENLACES, RUTA_PCB, RUTA_PORTAFOLIO, RUTA_PRIVACIDAD } from './config/secciones';
+import {
+  RUTA_CASOS,
+  RUTA_ENLACES,
+  RUTA_PCB,
+  RUTA_PORTAFOLIO,
+  RUTA_PRIVACIDAD,
+} from './config/secciones';
 
 /**
  * Armazón de la aplicación
@@ -26,6 +33,7 @@ import { RUTA_ENLACES, RUTA_PCB, RUTA_PORTAFOLIO, RUTA_PRIVACIDAD } from './conf
  *   /pcb                   servicio de diseño de PCBs, destino del anuncio
  *   /privacidad            aviso de privacidad (LFPDPPP)
  *   /enlaces               bio de las redes, sin cabecera ni pie
+ *   /casos/:slug           caso de estudio de una pieza
  *   /piezas/:slug          dirección antigua, redirige a /portafolio/:slug
  *   cualquier otra         no encontrada
  *
@@ -67,6 +75,7 @@ function App() {
           <Route path={RUTA_PCB} element={<Pcb />} />
           <Route path={RUTA_PRIVACIDAD} element={<Privacidad />} />
           <Route path={RUTA_ENLACES} element={<Enlaces />} />
+          <Route path={`${RUTA_CASOS}/:slug`} element={<Caso />} />
           {/* Dirección antigua de las fichas. Ver pages/RedireccionPieza.jsx */}
           <Route path="/piezas/:slug" element={<RedireccionPieza />} />
           <Route path="*" element={<NoEncontrada />} />

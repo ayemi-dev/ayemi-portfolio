@@ -93,7 +93,7 @@
  */
 
 import { GITHUB } from './sitio';
-import { RUTA_PORTAFOLIO } from './secciones';
+import { RUTA_CASO_ITA, RUTA_PORTAFOLIO } from './secciones';
 
 /** Plazas por línea. Cambiarlo aquí lo cambia en todo el tablero. */
 export const PLAZAS_POR_LINEA = 5;
@@ -294,7 +294,10 @@ export const PIEZAS = [
     // `ita.ayemi.org` se usó para compartir avances durante el desarrollo y
     // sirve el mismo contenido; enseñar ese en el portafolio daría a entender
     // que la web vive en infraestructura de Ayemi, y no es el caso.
-    enlaces: [{ tipo: 'demo', url: 'https://soluciones-ita.com' }],
+    enlaces: [
+      { tipo: 'demo', url: 'https://soluciones-ita.com' },
+      { tipo: 'caso', url: RUTA_CASO_ITA },
+    ],
   },
 ];
 
