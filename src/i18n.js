@@ -870,7 +870,7 @@ const es = {
     gratis: 'Sin costo',
     revisionPcb: {
       titulo: 'Revisión de tu PCB',
-      texto: 'Nos mandas tu proyecto de KiCad antes de fabricar y te devolvemos un reporte con cada hallazgo: reglas de JLCPCB, huellas contra la hoja de datos, desacoplo y ruteo. El precio queda cerrado antes de empezar.',
+      texto: 'Nos mandas tu proyecto de KiCad antes de fabricar y te devolvemos un reporte con cada hallazgo: reglas de JLCPCB, huellas contra la hoja de datos, desacoplo, ruteo y la BOM (si cada pieza existe en LCSC y si es Basic o Extended). Cuando apliques los cambios, revisamos una vez más. No incluye rediseño. El precio queda cerrado antes de empezar.',
       boton: 'Pide tu revisión',
       mensaje: 'Hola, quiero una revisión de mi PCB antes de fabricarla. Mi proyecto es:',
     },
@@ -1732,7 +1732,7 @@ const en = {
     gratis: 'Free',
     revisionPcb: {
       titulo: 'PCB review',
-      texto: 'Send us your KiCad project before manufacturing and get back a report with every finding: JLCPCB rules, footprints against the datasheet, decoupling and routing. The price is fixed before we start.',
+      texto: 'Send us your KiCad project before manufacturing and get back a report with every finding: JLCPCB rules, footprints against the datasheet, decoupling, routing and the BOM (whether each part exists at LCSC and whether it is Basic or Extended). Once you apply the changes, we review it one more time. Redesign is not included. The price is fixed before we start.',
       boton: 'Request your review',
       mensaje: 'Hi, I want a review of my PCB before manufacturing it. My project is:',
     },
