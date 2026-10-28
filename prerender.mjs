@@ -103,7 +103,7 @@ async function main() {
     const { RUTA_CASOS, RUTA_ENLACES, RUTA_PCB, RUTA_PORTAFOLIO, RUTA_PRIVACIDAD } = await servidor.ssrLoadModule(
       '/src/config/secciones.js'
     );
-    const { SITIO } = await servidor.ssrLoadModule('/src/config/sitio.js');
+    const { SITIO, PERFILES, esPendiente } = await servidor.ssrLoadModule('/src/config/sitio.js');
     const { CASOS } = await servidor.ssrLoadModule('/src/config/casos.js');
 
     /* Rutas a generar, cada una con su título y descripción propios: una ficha
@@ -171,6 +171,20 @@ async function main() {
       }),
     ];
 
+    /* JSON-LD · `sameAs` con los perfiles publicados (GitHub y las redes con
+       URL). Se reescribe el bloque como JSON para no dejar un marcador que
+       rompa el JSON en desarrollo. Sin perfiles, no se añade la clave. */
+    const sameAs = PERFILES.map((p) => p.url).filter((url) => !esPendiente(url));
+    const conSameAs = (html) =>
+      html.replace(
+        /(<script type="application\/ld\+json">)([\s\S]*?)(<\/script>)/,
+        (_, abre, json, cierra) => {
+          const datos = JSON.parse(json);
+          if (sameAs.length) datos.sameAs = sameAs;
+          return `${abre}\n${JSON.stringify(datos, null, 2)}\n    ${cierra}`;
+        }
+      );
+
     for (const ruta of rutas) {
       const { prelude } = await prerenderToNodeStream(
         React.createElement(
@@ -183,7 +197,7 @@ async function main() {
       const cuerpo = await aTexto(prelude);
 
       /* Un solo dominio: todo lo absoluto de la plantilla sale de SITIO.url. */
-      let html = plantilla.replaceAll('__SITIO_URL__', SITIO.url).replace(
+      let html = conSameAs(plantilla.replaceAll('__SITIO_URL__', SITIO.url)).replace(
         '<div id="root"></div>',
         `<div id="root">${cuerpo}</div>`
       );
@@ -279,6 +293,7 @@ async function main() {
     );
 
     console.log(`\n  sitemap.xml con ${rutas.length} URL · robots.txt → ${SITIO.url}`);
+    console.log(`  JSON-LD sameAs: ${sameAs.join(', ') || '(sin perfiles)'}`);
     console.log('Prerenderizado completo.');
   } finally {
     await servidor.close();

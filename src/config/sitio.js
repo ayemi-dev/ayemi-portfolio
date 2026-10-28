@@ -12,7 +12,7 @@
  * relleno, así que el sitio funciona igual mientras completas los datos.
  */
 
-import { WHATSAPP_NEGOCIO } from './externos';
+import { REDES, WHATSAPP_NEGOCIO } from './externos';
 
 const PENDIENTE = 'PENDIENTE';
 
@@ -129,31 +129,20 @@ export const GITHUB = {
 };
 
 /**
- * Perfiles públicos.
+ * Perfiles públicos: GitHub y las redes de Ayemi.
  * Se muestran solo los que tengan URL. Los nombres son de las plataformas, no
  * de la marca, así que no siguen el léxico del §1.11.
  *
- * El de GitHub se compone desde GITHUB.usuario para no repetir el dato.
+ * El de GitHub se compone desde GITHUB.usuario para no repetir el dato. Las
+ * redes salen de config/externos.js (VITE_*_URL); de ahí también sale el
+ * `sameAs` del JSON-LD que escribe prerender.mjs.
+ *
+ * LinkedIn ya no apunta al perfil personal: Ayemi es una casa, no una marca
+ * personal (§1.1). Va la página de Ayemi en VITE_LINKEDIN_URL.
  */
 export const PERFILES = [
   { clave: 'github', nombre: 'GitHub', url: GITHUB.url || PENDIENTE },
-  {
-    clave: 'linkedin',
-    nombre: 'LinkedIn',
-    /**
-     * La ruta del perfil lleva acentos, y en un atributo `href` tienen que ir
-     * porcentaje-codificados (RFC 3986): ú es %C3%BA e í es %C3%AD. Escrito con
-     * los acentos en crudo, un navegador suele arreglarlo solo, pero un
-     * rastreador o un cliente de correo puede no hacerlo.
-     *
-     * ⚠️ NO VERIFICADO. LinkedIn responde 999 a las peticiones automatizadas,
-     *    así que no se pudo comprobar que el perfil exista en esta forma.
-     *    Si el enlace da error, lo más probable es que LinkedIn haya generado
-     *    el identificador sin acentos:
-     *    .../in/raul-agustin-antonio-de-jesus-94b092211
-     */
-    url: 'https://www.linkedin.com/in/ra%C3%BAl-agust%C3%ADn-antonio-de-jes%C3%BAs-94b092211',
-  },
+  ...REDES,
 ];
 
 /**
