@@ -9,11 +9,20 @@ public/pcb/esp32/
 public/pcb/stm32/
 ```
 
-1. Exporta tres vistas desde el visor 3D de KiCad: `perspectiva`, `superior` e
-   `inferior`. Guárdalas como WebP, de unos 1600 px de ancho.
-2. Anota el ancho y el alto de cada imagen: van en `ficha.dimensiones` para que
-   la página no salte al cargar.
-3. Rellena `estado` y `ficha` de la placa en `src/config/placas.js`.
+1. Pide los renders de KiCad con fondo transparente (`superior.png`,
+   `inferior.png` e `isometrico.png`, con `kicad-cli pcb render --background
+   transparent`).
+2. Conviértelos y obtén el bloque `ficha` con sus medidas:
+
+   ```bash
+   python scripts/renders_placa.py <carpeta de renders> <slug>        --ancho-mm 90 --alto-mm 60 --capas 2 --componentes 71 --vias 436
+   ```
+
+   Deja `perspectiva.webp`, `superior.webp` e `inferior.webp` de 1600 px en
+   esta carpeta. Las dimensiones van en `ficha.dimensiones` para que la página
+   no salte al cargar.
+3. Pega `ficha` en la placa de `src/config/placas.js` y pon el `estado` que
+   alcanzó de verdad.
 
 Estados, en orden. Nunca se marca uno que la placa no alcanzó:
 
