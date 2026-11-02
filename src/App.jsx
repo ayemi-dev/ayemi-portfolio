@@ -6,6 +6,7 @@ import { Inicio } from './pages/Inicio';
 import { Portafolio } from './pages/Portafolio';
 import { Pcb } from './pages/Pcb';
 import { RedireccionPieza } from './pages/RedireccionPieza';
+import { RedireccionPlaca } from './pages/RedireccionPlaca';
 import { NoEncontrada } from './pages/NoEncontrada';
 import { Privacidad } from './pages/Privacidad';
 import { Enlaces } from './pages/Enlaces';
@@ -21,6 +22,7 @@ import {
   RUTA_PORTAFOLIO,
   RUTA_PRIVACIDAD,
 } from './config/secciones';
+import { RUTA_CORTA_PLACA } from './config/placas';
 
 /**
  * Armazón de la aplicación
@@ -34,6 +36,7 @@ import {
  *   /privacidad            aviso de privacidad (LFPDPPP)
  *   /enlaces               bio de las redes, sin cabecera ni pie
  *   /casos/:slug           caso de estudio de una pieza
+ *   /p/:corto              dirección corta del QR de una placa, redirige a /pcb#<slug>
  *   /piezas/:slug          dirección antigua, redirige a /portafolio/:slug
  *   cualquier otra         no encontrada
  *
@@ -78,6 +81,8 @@ function App() {
           <Route path={`${RUTA_CASOS}/:slug`} element={<Caso />} />
           {/* Dirección antigua de las fichas. Ver pages/RedireccionPieza.jsx */}
           <Route path="/piezas/:slug" element={<RedireccionPieza />} />
+          {/* QR de las placas. Ver pages/RedireccionPlaca.jsx */}
+          <Route path={`${RUTA_CORTA_PLACA}/:corto`} element={<RedireccionPlaca />} />
           <Route path="*" element={<NoEncontrada />} />
         </Routes>
       </main>

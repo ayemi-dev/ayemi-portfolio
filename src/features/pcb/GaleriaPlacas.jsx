@@ -139,7 +139,8 @@ const TarjetaPlaca = ({ placa, t }) => {
   const { ficha } = placa;
 
   return (
-    <Tarjeta como="li">
+    /* El id es el destino de la dirección corta del QR (`/p/<corto>`). */
+    <Tarjeta como="li" id={placa.slug} className="scroll-mt-20">
       {ficha ? (
         <VistasPlaca ficha={ficha} nombre={nombre} t={t} />
       ) : (

@@ -36,6 +36,21 @@
       "source": "/piezas",
       "destination": "/portafolio",
       "permanent": true
+    },
+    {
+      "source": "/p/328",
+      "destination": "/pcb#atmega328p",
+      "permanent": false
+    },
+    {
+      "source": "/p/esp32",
+      "destination": "/pcb#esp32",
+      "permanent": false
+    },
+    {
+      "source": "/p/stm32",
+      "destination": "/pcb#stm32",
+      "permanent": false
     }
   ],
   "rewrites": [

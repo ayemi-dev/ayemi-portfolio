@@ -23,6 +23,15 @@
  *     },
  *   }
  *
+ * ── DIRECCIÓN CORTA (QR) ───────────────────────────────────────────────────
+ *
+ * El QR de la serigrafía apunta a `ayemi.org/p/<corto>`, que redirige a la
+ * tarjeta de la placa (`/pcb#<slug>`). La dirección corta es permanente porque
+ * está impresa en cobre; el destino puede cambiar. Por eso la redirección es
+ * temporal (307/302): si la ficha se muda, se cambia el destino y los QR
+ * fabricados siguen funcionando. Vive en tres sitios que deben coincidir:
+ * `corto` aquí, `vercel.json` y `nginx.conf`.
+ *
  * El nombre y la descripción viven en i18n: `pcb.placas.lista.<slug>`. El
  * nombre se escribe «Chispa por Ayemi»; el micro va aparte, en `micro`.
  *
@@ -43,10 +52,19 @@ import { enlaceWhatsapp } from './sitio';
 export const ESTADOS_PLACA = ['disenoCompleto', 'disenoVerificado', 'fabricadoProbado'];
 
 export const PLACAS = [
-  { slug: 'atmega328p', micro: 'ATmega328P', estado: null, ficha: null },
-  { slug: 'esp32', micro: 'ESP32', estado: null, ficha: null },
-  { slug: 'stm32', micro: 'STM32', estado: null, ficha: null },
+  { slug: 'atmega328p', corto: '328', micro: 'ATmega328P', estado: null, ficha: null },
+  { slug: 'esp32', corto: 'esp32', micro: 'ESP32', estado: null, ficha: null },
+  { slug: 'stm32', corto: 'stm32', micro: 'STM32', estado: null, ficha: null },
 ];
+
+/** Prefijo de las direcciones cortas de los QR: `/p/<corto>`. */
+export const RUTA_CORTA_PLACA = '/p';
+
+/** Destino de una dirección corta, o la galería si el código no existe. */
+export const destinoCorto = (corto) => {
+  const placa = PLACAS.find((p) => p.corto === corto);
+  return placa ? `/pcb#${placa.slug}` : '/pcb#placas';
+};
 
 /** WhatsApp con el mensaje prellenado del servicio. */
 export const enlaceWhatsappPcb = enlaceWhatsapp;
