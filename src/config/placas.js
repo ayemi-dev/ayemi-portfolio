@@ -52,7 +52,22 @@ import { enlaceWhatsapp } from './sitio';
 export const ESTADOS_PLACA = ['disenoCompleto', 'disenoVerificado', 'fabricadoProbado'];
 
 export const PLACAS = [
-  { slug: 'atmega328p', corto: '328', micro: 'ATmega328P', estado: null, ficha: null },
+  {
+    slug: 'atmega328p',
+    corto: '328',
+    micro: 'ATmega328P',
+    // Diseño completo: ERC y DRC en 0, firmware compilado (pcbAyemi, cierre 2026-11-02).
+    estado: 'disenoCompleto',
+    ficha: {
+      ancho_mm: 90, alto_mm: 60, capas: 2, componentes: 71, vias: 436,
+      imagenes: {
+        perspectiva: '/pcb/atmega328p/perspectiva.webp',
+        superior: '/pcb/atmega328p/superior.webp',
+        inferior: '/pcb/atmega328p/inferior.webp',
+      },
+      dimensiones: { perspectiva: [1600, 1203], superior: [1600, 1105], inferior: [1600, 1105] },
+    },
+  },
   { slug: 'esp32', corto: 'esp32', micro: 'ESP32', estado: null, ficha: null },
   { slug: 'stm32', corto: 'stm32', micro: 'STM32', estado: null, ficha: null },
 ];
