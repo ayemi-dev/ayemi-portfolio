@@ -1761,7 +1761,7 @@ const en = {
   },
 
   enlaces: {
-    // TODO(Agustín): aprobar la versión en inglés del claim (addendum 01).
+    // Aprobado por Dirección el 2 de noviembre de 2026 (manual 2.1, §1.11).
     claim: 'We build it.',
     claimAcento: "It's yours.",
     mensajeWhatsapp: 'Hi, I saw you on social media and want to talk about a project.',
