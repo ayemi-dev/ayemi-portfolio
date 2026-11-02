@@ -15,9 +15,11 @@ public/pcb/stm32/
    la página no salte al cargar.
 3. Rellena `estado` y `ficha` de la placa en `src/config/placas.js`.
 
-Estados:
+Estados, en orden. Nunca se marca uno que la placa no alcanzó:
 
-- `disenoVerificado`: ERC y DRC sin errores, archivos listos para fabricar.
+- `disenoCompleto`: ERC y DRC en 0, renders completos (sin huellas vacías) y
+  firmware que compila.
+- `disenoVerificado`: además, el DFM de JLCPCB aprobado, con su captura.
 - `fabricadoProbado`: solo cuando exista la foto de la placa física probada.
   El render no demuestra que se fabricó.
 

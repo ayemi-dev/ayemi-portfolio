@@ -290,26 +290,27 @@ const es = {
       alt: 'Render 3D de {{nombre}}, vista {{vista}}.',
       estados: {
         rotulo: 'ESTADO',
+        disenoCompleto: 'Diseño completo · ERC y DRC en 0',
         disenoVerificado: 'Diseño verificado · listo para fabricar',
-        fabricadoProbado: 'Fabricado y probado',
+        fabricadoProbado: 'Fabricada y probada',
         alcanzado: '(alcanzado)',
         pendiente: '(pendiente)',
       },
       lista: {
         atmega328p: {
-          nombre: 'Placa ATmega328P',
+          nombre: 'Chispa por Ayemi',
           descripcion:
-            'Microcontrolador de 8 bits: para lecturas y control sencillos, con bajo consumo.',
+            'ATmega328P para aprender a programar de 10 a 15 años: luces, botones, sonido y sensores ya montados, sin cables.',
         },
         esp32: {
-          nombre: 'Placa ESP32',
+          nombre: 'Enlace por Ayemi',
           descripcion:
-            'WiFi y Bluetooth integrados: para equipos que mandan sus datos a un sistema en la nube.',
+            'ESP32 con WiFi para secundaria y prepa: mide temperatura y humedad y se controla desde el celular.',
         },
         stm32: {
-          nombre: 'Placa STM32',
+          nombre: 'Impulso por Ayemi',
           descripcion:
-            'Microcontrolador de 32 bits: para control en tiempo real y buses industriales.',
+            'STM32 de 32 bits para la universidad: USB nativo, depuración por SWD, sensor de movimiento y microSD.',
         },
       },
     },
@@ -1174,6 +1175,7 @@ const en = {
       alt: '3D render of {{nombre}}, {{vista}} view.',
       estados: {
         rotulo: 'STATUS',
+        disenoCompleto: 'Design complete · ERC and DRC clean',
         disenoVerificado: 'Design verified · ready to manufacture',
         fabricadoProbado: 'Manufactured and tested',
         alcanzado: '(reached)',
@@ -1181,19 +1183,19 @@ const en = {
       },
       lista: {
         atmega328p: {
-          nombre: 'ATmega328P board',
+          nombre: 'Chispa by Ayemi',
           descripcion:
-            '8-bit microcontroller: for simple readings and control, with low power draw.',
+            'ATmega328P for learning to code from age 10 to 15: lights, buttons, sound and sensors already on board, no wires.',
         },
         esp32: {
-          nombre: 'ESP32 board',
+          nombre: 'Enlace by Ayemi',
           descripcion:
-            'Built-in WiFi and Bluetooth: for devices that send their data to a cloud system.',
+            'ESP32 with WiFi for middle and high school: reads temperature and humidity and is controlled from a phone.',
         },
         stm32: {
-          nombre: 'STM32 board',
+          nombre: 'Impulso by Ayemi',
           descripcion:
-            '32-bit microcontroller: for real-time control and industrial buses.',
+            '32-bit STM32 for university: native USB, SWD debugging, motion sensor and microSD.',
         },
       },
     },

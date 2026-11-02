@@ -1,9 +1,10 @@
 /**
  * Galería de PCBs · `/pcb`
  *
- * Tres espacios preparados para las placas propias de Ayemi, uno por familia
- * de microcontrolador. Hoy ninguno tiene diseño publicado: la tarjeta lo dice
- * y no muestra cifras (manual §1.10, regla 4: se admite lo que no se sabe).
+ * Tres placas educativas propias de Ayemi, una por familia de microcontrolador:
+ * Chispa (ATmega328P), Enlace (ESP32) e Impulso (STM32). Mientras una placa no
+ * tiene ficha, la tarjeta lo dice y no muestra cifras (manual §1.10, regla 4:
+ * se admite lo que no se sabe).
  *
  * ── CÓMO SE PUBLICA UNA PLACA ──────────────────────────────────────────────
  *
@@ -14,7 +15,7 @@
  *   {
  *     slug: 'esp32',
  *     micro: 'ESP32',
- *     estado: 'disenoVerificado',
+ *     estado: 'disenoCompleto',
  *     ficha: {
  *       ancho_mm: 60, alto_mm: 40, capas: 2, componentes: 48, vias: 120,
  *       imagenes: { perspectiva: '/pcb/esp32/perspectiva.webp', superior: '…', inferior: '…' },
@@ -22,21 +23,24 @@
  *     },
  *   }
  *
- * El nombre y la descripción viven en i18n: `pcb.placas.lista.<slug>`.
+ * El nombre y la descripción viven en i18n: `pcb.placas.lista.<slug>`. El
+ * nombre se escribe «Chispa por Ayemi»; el micro va aparte, en `micro`.
  *
  * ── ESTADOS ────────────────────────────────────────────────────────────────
  *
  *   null ................ espacio preparado, sin diseño publicado
- *   disenoVerificado .... ERC y DRC sin errores, archivos listos para fabricar
+ *   disenoCompleto ...... ERC y DRC en 0, renders completos y firmware que compila
+ *   disenoVerificado .... además, DFM de JLCPCB aprobado: lista para fabricar
  *   fabricadoProbado .... fabricada y probada en banco con su firmware
  *
- * Una placa no pasa a `fabricadoProbado` hasta que exista la foto de la placa
- * física: el render no demuestra que se fabricó.
+ * Nunca se marca un peldaño que la placa no alcanzó. Una placa no pasa a
+ * `disenoVerificado` sin la captura del DFM aprobado, ni a `fabricadoProbado`
+ * sin la foto de la placa física: el render no demuestra que se fabricó.
  */
 
 import { enlaceWhatsapp } from './sitio';
 
-export const ESTADOS_PLACA = ['disenoVerificado', 'fabricadoProbado'];
+export const ESTADOS_PLACA = ['disenoCompleto', 'disenoVerificado', 'fabricadoProbado'];
 
 export const PLACAS = [
   { slug: 'atmega328p', micro: 'ATmega328P', estado: null, ficha: null },

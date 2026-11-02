@@ -13,13 +13,15 @@ import { ESTADOS_PLACA, PLACAS } from '../../config/placas';
  * espacio preparado: no inventa render ni cifras. Con `ficha`, muestra las
  * vistas y la hoja de medidas.
  *
- * El estado se lee como una escala de dos peldaños, siempre visible, para que
- * nadie confunda «listo para fabricar» con «fabricado»: el peldaño alcanzado
+ * El estado se lee como una escala de tres peldaños, siempre visible, para que
+ * nadie confunda «diseño completo» con «listo para fabricar» ni con
+ * «fabricada»: el peldaño alcanzado
  * se marca con punto lleno y texto, nunca solo con color (§5.5).
  */
 
 /* Clases escritas enteras: Tailwind no ve las que se componen con plantillas. */
 const COLOR_ESTADO = {
+  disenoCompleto: { texto: 'text-acento', punto: 'bg-acento' },
   disenoVerificado: { texto: 'text-info', punto: 'bg-info' },
   fabricadoProbado: { texto: 'text-exito', punto: 'bg-exito' },
 };
