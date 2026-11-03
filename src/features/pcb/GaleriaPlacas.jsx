@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Seccion } from '../../components/layout/Seccion';
 import { Tarjeta } from '../../components/ui/Tarjeta';
-import { IconoCapas } from '../../components/marca/Iconos';
+import { IconoCapas, Pictograma } from '../../components/marca/Iconos';
 import { ControlSegmentado } from './ControlSegmentado';
-import { ESTADOS_PLACA, PLACAS } from '../../config/placas';
+import { ESTADOS_PLACA, PLACAS, urlCarpetaPlaca } from '../../config/placas';
 
 /**
  * Galería de placas propias
@@ -137,6 +137,7 @@ const HojaMedidas = ({ ficha, t }) => (
 const TarjetaPlaca = ({ placa, t }) => {
   const nombre = t(`pcb.placas.lista.${placa.slug}.nombre`);
   const { ficha } = placa;
+  const repo = urlCarpetaPlaca(placa);
 
   return (
     /* El id es el destino de la dirección corta del QR (`/p/<corto>`). */
@@ -157,6 +158,20 @@ const TarjetaPlaca = ({ placa, t }) => {
       </div>
 
       {ficha && <HojaMedidas ficha={ficha} t={t} />}
+
+      {/* Diseño libre: la carpeta de la placa en GitHub, solo si hay ficha. */}
+      {ficha && repo && (
+        <a
+          href={repo}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="ay-toque mt-5 inline-flex h-10 items-center gap-2 rounded-md border border-borde-fuerte px-4 text-cuerpo-s font-bold text-texto transition-colors duration-rapida ease-estandar hover:border-acento hover:text-acento"
+        >
+          <Pictograma nombre="repositorio" tamano={16} />
+          {t('pcb.placas.repositorio')}
+          <span className="sr-only">{t('contacto.nuevaPestana')}</span>
+        </a>
+      )}
     </Tarjeta>
   );
 };

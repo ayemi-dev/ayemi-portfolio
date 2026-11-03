@@ -288,6 +288,7 @@ const es = {
         vias: 'Vías',
       },
       alt: 'Render 3D de {{nombre}}, vista {{vista}}.',
+      repositorio: 'Ver el diseño en GitHub',
       estados: {
         rotulo: 'ESTADO',
         disenoCompleto: 'Diseño completo · ERC y DRC en 0',
@@ -1173,6 +1174,7 @@ const en = {
         vias: 'Vias',
       },
       alt: '3D render of {{nombre}}, {{vista}} view.',
+      repositorio: 'View the design on GitHub',
       estados: {
         rotulo: 'STATUS',
         disenoCompleto: 'Design complete · ERC and DRC clean',

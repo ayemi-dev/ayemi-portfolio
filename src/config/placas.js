@@ -48,6 +48,20 @@
  */
 
 import { enlaceWhatsapp } from './sitio';
+import { urlRepositorio } from './piezas';
+
+/**
+ * Repositorio público de las placas (KiCad, Gerber, BOM y firmware). Cada
+ * placa vive en `placas/<carpeta>/`. La tarjeta enlaza a su carpeta solo
+ * cuando tiene ficha: una placa sin diseño publicado no tiene nada que ver.
+ */
+export const REPO_PLACAS = { repo: 'pcb-ayemi', rama: 'main' };
+
+/** Carpeta de la placa en el repositorio, o null si no hay repositorio. */
+export const urlCarpetaPlaca = (placa) => {
+  const base = urlRepositorio(REPO_PLACAS.repo);
+  return base && placa.carpeta ? `${base}/tree/${REPO_PLACAS.rama}/placas/${placa.carpeta}` : null;
+};
 
 export const ESTADOS_PLACA = ['disenoCompleto', 'disenoVerificado', 'fabricadoProbado'];
 
@@ -55,6 +69,7 @@ export const PLACAS = [
   {
     slug: 'atmega328p',
     corto: '328',
+    carpeta: 'entrenamiento-328p',
     micro: 'ATmega328P',
     // Diseño completo: ERC y DRC en 0, firmware compilado (pcbAyemi, cierre 2026-11-02).
     estado: 'disenoCompleto',
@@ -71,6 +86,7 @@ export const PLACAS = [
   {
     slug: 'esp32',
     corto: 'esp32',
+    carpeta: 'enlace-esp32s3',
     micro: 'ESP32-S3',
     // Diseño completo: ERC y DRC en 0, firmware compilado (pcbAyemi, cierre 2026-11-02).
     estado: 'disenoCompleto',
@@ -84,7 +100,7 @@ export const PLACAS = [
       dimensiones: { perspectiva: [1600, 1204], superior: [1600, 1105], inferior: [1600, 1105] },
     },
   },
-  { slug: 'stm32', corto: 'stm32', micro: 'STM32', estado: null, ficha: null },
+  { slug: 'stm32', corto: 'stm32', carpeta: 'impulso-stm32', micro: 'STM32', estado: null, ficha: null },
 ];
 
 /** Prefijo de las direcciones cortas de los QR: `/p/<corto>`. */
