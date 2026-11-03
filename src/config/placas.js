@@ -68,7 +68,22 @@ export const PLACAS = [
       dimensiones: { perspectiva: [1600, 1203], superior: [1600, 1105], inferior: [1600, 1105] },
     },
   },
-  { slug: 'esp32', corto: 'esp32', micro: 'ESP32', estado: null, ficha: null },
+  {
+    slug: 'esp32',
+    corto: 'esp32',
+    micro: 'ESP32-S3',
+    // Diseño completo: ERC y DRC en 0, firmware compilado (pcbAyemi, cierre 2026-11-02).
+    estado: 'disenoCompleto',
+    ficha: {
+      ancho_mm: 90, alto_mm: 60, capas: 2, componentes: 65, vias: 425,
+      imagenes: {
+        perspectiva: '/pcb/esp32/perspectiva.webp',
+        superior: '/pcb/esp32/superior.webp',
+        inferior: '/pcb/esp32/inferior.webp',
+      },
+      dimensiones: { perspectiva: [1600, 1204], superior: [1600, 1105], inferior: [1600, 1105] },
+    },
+  },
   { slug: 'stm32', corto: 'stm32', micro: 'STM32', estado: null, ficha: null },
 ];
 
