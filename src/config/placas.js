@@ -100,7 +100,23 @@ export const PLACAS = [
       dimensiones: { perspectiva: [1600, 1204], superior: [1600, 1105], inferior: [1600, 1105] },
     },
   },
-  { slug: 'stm32', corto: 'stm32', carpeta: 'impulso-stm32', micro: 'STM32', estado: null, ficha: null },
+  {
+    slug: 'stm32',
+    corto: 'stm32',
+    carpeta: 'impulso-stm32',
+    micro: 'STM32F411',
+    // Diseño completo: ERC y DRC en 0, firmware compilado (pcbAyemi, cierre 2026-11-04).
+    estado: 'disenoCompleto',
+    ficha: {
+      ancho_mm: 100, alto_mm: 70, capas: 2, componentes: 87, vias: 550,
+      imagenes: {
+        perspectiva: '/pcb/stm32/perspectiva.webp',
+        superior: '/pcb/stm32/superior.webp',
+        inferior: '/pcb/stm32/inferior.webp',
+      },
+      dimensiones: { perspectiva: [1600, 1202], superior: [1600, 1155], inferior: [1600, 1155] },
+    },
+  },
 ];
 
 /** Prefijo de las direcciones cortas de los QR: `/p/<corto>`. */
