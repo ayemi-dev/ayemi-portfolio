@@ -24,8 +24,13 @@
     },
     {
       "source": "/:base(portafolio|piezas)/:slug(panel-inventario-integradores|plataforma-contactos-whatsapp|tecnificacion-agricola)",
-      "destination": "/portafolio",
-      "permanent": true
+      "destination": "/casos",
+      "statusCode": 301
+    },
+    {
+      "source": "/:base(portafolio|piezas)/wabot",
+      "destination": "/laboratorio#wabot",
+      "statusCode": 301
     },
     {
       "source": "/:base(portafolio|piezas)/:slug",
@@ -33,9 +38,9 @@
       "statusCode": 301
     },
     {
-      "source": "/piezas",
-      "destination": "/portafolio",
-      "permanent": true
+      "source": "/:base(portafolio|piezas)",
+      "destination": "/casos",
+      "statusCode": 301
     },
     {
       "source": "/p/328",

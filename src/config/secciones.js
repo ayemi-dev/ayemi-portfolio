@@ -22,8 +22,15 @@
  * poner en un CV.
  */
 
-/** Ruta del portafolio. De aquí sale todo enlace hacia él. */
+/**
+ * Ruta vieja del portafolio (el tablero de La Fábrica). Se retiró en la edición
+ * 2.2 del sitio: `/portafolio` redirige a `/casos` y `/portafolio/<slug>` a
+ * `/casos/<slug>`, con 301 en vercel.json y con <Navigate> dentro de la app.
+ */
 export const RUTA_PORTAFOLIO = '/portafolio';
+
+/** Laboratorio: placas abiertas y servicios propios (manual 2.2, §1.3). */
+export const RUTA_LABORATORIO = '/laboratorio';
 
 /** Ruta del servicio de PCBs. De aquí sale todo enlace hacia él. */
 export const RUTA_PCB = '/pcb';
@@ -71,7 +78,7 @@ export const NAVEGACION = [
   { id: 'servicios', tipo: 'ancla' },
   { id: 'pcb', tipo: 'ruta', destino: RUTA_PCB },
   { id: 'metodo', tipo: 'ancla' },
-  { id: 'fabrica', tipo: 'ruta', destino: RUTA_PORTAFOLIO },
+  { id: 'laboratorio', tipo: 'ruta', destino: RUTA_LABORATORIO },
   { id: 'capacidad', tipo: 'ancla' },
   { id: 'posicionamiento', tipo: 'ancla' },
   { id: 'contacto', tipo: 'ancla' },

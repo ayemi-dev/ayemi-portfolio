@@ -1,6 +1,9 @@
 import { Navigate, useParams } from 'react-router-dom';
 import { rutaDePieza } from '../config/piezas';
-import { RUTA_CASOS } from '../config/secciones';
+import { RUTA_CASOS, RUTA_LABORATORIO } from '../config/secciones';
+
+/** Piezas que salieron de /casos: su ficha vieja lleva a su sitio nuevo. */
+const MUDADAS = { wabot: `${RUTA_LABORATORIO}#wabot` };
 
 /**
  * Redirección de las fichas antiguas
@@ -18,5 +21,6 @@ import { RUTA_CASOS } from '../config/secciones';
  */
 export const RedireccionPieza = () => {
   const { slug } = useParams();
-  return <Navigate to={slug ? rutaDePieza(slug) : RUTA_CASOS} replace />;
+  const destino = MUDADAS[slug] ?? (slug ? rutaDePieza(slug) : RUTA_CASOS);
+  return <Navigate to={destino} replace />;
 };

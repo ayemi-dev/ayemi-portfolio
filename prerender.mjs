@@ -9,8 +9,8 @@
  * Este paso corre después de `vite build` y escribe el HTML de cada ruta:
  *
  *   dist/index.html
- *   dist/portafolio/index.html
- *   dist/portafolio/<slug>/index.html
+ *   dist/laboratorio/index.html, dist/casos/index.html, dist/pcb/index.html…
+ *   dist/casos/<slug>/index.html
  *   dist/sitemap.xml
  *
  * Tanto la reescritura de Vercel como la de nginx sirven un archivo estático si
@@ -100,7 +100,7 @@ async function main() {
     const { PIEZAS, buscarLinea, piezasSinCaso, rutaDePieza } = await servidor.ssrLoadModule(
       '/src/config/piezas.js'
     );
-    const { RUTA_CASOS, RUTA_ENLACES, RUTA_PCB, RUTA_PORTAFOLIO, RUTA_PRIVACIDAD } = await servidor.ssrLoadModule(
+    const { RUTA_CASOS, RUTA_ENLACES, RUTA_LABORATORIO, RUTA_PCB, RUTA_PRIVACIDAD } = await servidor.ssrLoadModule(
       '/src/config/secciones.js'
     );
     const { SITIO, PERFILES, esPendiente } = await servidor.ssrLoadModule('/src/config/sitio.js');
@@ -119,11 +119,11 @@ async function main() {
         descripcion: null,
       },
       {
-        url: RUTA_PORTAFOLIO,
-        archivo: path.join('portafolio', 'index.html'),
-        titulo: 'Portafolio · Ayemi',
+        url: RUTA_LABORATORIO,
+        archivo: path.join('laboratorio', 'index.html'),
+        titulo: 'Laboratorio · Ayemi',
         descripcion:
-          'El tablero de La Fábrica: ocho líneas de producción, del microcontrolador a la nube, con las piezas entregadas y las plazas libres a la vista.',
+          'Lo que Ayemi construye por iniciativa propia y publica abierto: Chispa, Enlace e Impulso por Ayemi, placas educativas con su diseño en GitHub, y WaBot, avisos por WhatsApp.',
       },
       {
         url: RUTA_PCB,

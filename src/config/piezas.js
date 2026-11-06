@@ -1,17 +1,19 @@
 /**
- * La Fábrica · líneas de producción y piezas
+ * Trabajo entregado · piezas con ficha en /casos/<slug>
  *
  * ┌─────────────────────────────────────────────────────────────────────────┐
  * │ ESTE ES EL ARCHIVO QUE EDITAS PARA AÑADIR TRABAJOS.                     │
  * │ No hace falta tocar ningún componente.                                  │
  * └─────────────────────────────────────────────────────────────────────────┘
  *
- * Manual de Identidad Ayemi · Edición 2.0 · §1.3
- * «La palabra fábrica es deliberada. Una fábrica tiene procesos, tiene
- * medidas, entrega piezas que encajan y repite resultados.»
+ * Manual de Identidad Ayemi · Edición 2.2 · §1.3
+ * «La Fábrica construye por encargo»: aquí van las piezas entregadas, cada una
+ * con su ficha. Se listan en /casos; las que tienen caso de estudio escrito
+ * (config/casos.js) salen como caso. Lo que Ayemi construye por iniciativa
+ * propia vive en el Laboratorio (config/laboratorio.js y config/placas.js).
  *
- * De ahí el vocabulario: LÍNEAS de producción, PIEZAS, PLAZAS y FICHAS. No
- * «proyectos» ni «portafolio».
+ * El tablero de ocho líneas con plazas libres se retiró en la edición 2.2 del
+ * sitio: enseñaba huecos. Las líneas se conservan solo como rótulo de la ficha.
  *
  * ── CÓMO AÑADIR UNA PIEZA ──────────────────────────────────────────────────
  *
@@ -19,8 +21,8 @@
  * son obligatorios; el resto se omite si no aplica y la ficha se adapta.
  *
  *   {
- *     linea: 'pcb',                    // id de una de las ocho líneas
- *     slug: 'monitor-temperatura-v2',    // va en la URL: /portafolio/<slug>
+ *     linea: 'pcb',                    // id de una de las líneas de LINEAS
+ *     slug: 'monitor-temperatura-v2',    // va en la URL: /casos/<slug>
  *     titulo: 'Monitor de temperatura v2',
  *     estado: 'entregada',             // 'entregada' | 'en-curso'
  *     anio: 2025,
@@ -49,15 +51,6 @@
  *
  * Con `oferta`, la ficha cierra con ese servicio y su botón de WhatsApp en
  * lugar de la llamada genérica: una sola acción primaria por vista (§5.3).
- *
- * ── PLAZAS LIBRES ──────────────────────────────────────────────────────────
- *
- * NUNCA escribes un placeholder. Cada línea declara cinco plazas y el tablero
- * rellena las que faltan por su cuenta. Así solo existen en este archivo los
- * trabajos que existen de verdad, y no hay que acordarse de borrar nada.
- *
- * Una plaza libre no finge un proyecto: dice que esa línea tiene hueco. Es lo
- * que pide §1.10, regla 4: se admite lo que no se sabe.
  *
  * ── MARCAS AJENAS ──────────────────────────────────────────────────────────
  *
@@ -96,17 +89,12 @@ import { GITHUB } from './sitio';
 import { CASOS } from './casos';
 import { RUTA_CASO_ITA, RUTA_CASOS } from './secciones';
 
-/** Plazas por línea. Cambiarlo aquí lo cambia en todo el tablero. */
-export const PLAZAS_POR_LINEA = 5;
-
 /**
- * Las ocho líneas de producción.
- *
- * Cuatro de hardware y cuatro de software: eso es «del microcontrolador a la
- * nube» dibujado, y es lo que casi nadie cubre completo.
+ * Líneas con que se rotula cada pieza en su ficha y en /casos.
  *
  * `icono` es el nombre de un pictograma del inventario del §3.10. La resolución
- * a componente vive en el tablero para que este archivo no importe JSX.
+ * a componente vive en Iconos.jsx (`Pictograma`) para que este archivo no
+ * importe JSX.
  */
 export const LINEAS = [
   // ── Hardware ────────────────────────────────────────────────────────────
@@ -121,86 +109,15 @@ export const LINEAS = [
   { id: 'tiendas', naturaleza: 'software', icono: 'integracion' },
 ];
 
-export const NATURALEZAS = ['hardware', 'software'];
-
 /**
  * Las piezas.
  *
  * Solo trabajos reales, sin métricas inventadas. Cuando una pieza se hizo
  * para otra marca, se titula por lo entregado y declara el cliente aparte:
  * ver «MARCAS AJENAS» arriba.
- *
- * Al añadir las tuyas, el contador de producción y el llenado de cada línea se
- * recalculan solos.
+
  */
 export const PIEZAS = [
-  {
-    linea: 'paneles',
-    slug: 'wabot',
-    titulo: 'WaBot · avisos por WhatsApp',
-    estado: 'entregada',
-    anio: 2026,
-    sector: 'Avisos y recordatorios',
-    resuelve:
-      'Los recordatorios se mandaban uno por uno desde el teléfono. Ahora cualquier sistema los programa con una petición HTTP, y el panel muestra qué salió y a quién.',
-    medidas: [
-      { que: 'Servidores', valor: '2 VMs · 1 GB de RAM c/u' },
-      { que: 'RAM del emisor', valor: '≈ 170 MB, sin navegador' },
-      { que: 'Cómputo', valor: 'Capa gratuita de Oracle Cloud' },
-      { que: 'Cadencia', valor: '1 mensaje cada 1.5–4 s' },
-      { que: 'Puertos abiertos a internet', valor: '0 (Cloudflare Tunnel)' },
-    ],
-    pila: [
-      'Node.js 22',
-      'Baileys',
-      'SQLite',
-      'React',
-      'Vite',
-      'Tailwind CSS',
-      'Oracle Cloud',
-      'Cloudflare Tunnel',
-      'Vercel',
-      'systemd',
-    ],
-    // El panel y los repositorios son privados: se enlaza solo la documentación,
-    // que es pública y no muestra datos.
-    enlaces: [{ tipo: 'ficha', url: 'https://wabot-panel.vercel.app/docs' }],
-    arquitectura: [
-      {
-        capa: 'Panel',
-        que: 'React en Vercel. Se vincula el número con un QR, se envía o se programa, y cada envío muestra su resultado por número.',
-      },
-      {
-        capa: 'Núcleo',
-        que: 'La API, los envíos programados y el registro en SQLite, en una VM de Oracle Cloud. Sale a internet por Cloudflare Tunnel, sin abrir puertos.',
-      },
-      {
-        capa: 'Puente',
-        que: 'Las dos VMs viven en redes distintas. El núcleo llega al emisor por un túnel SSH cuya llave solo puede abrir un puerto.',
-      },
-      {
-        capa: 'Emisor',
-        que: 'Una sesión de WhatsApp con Baileys, sin navegador: 170 MB de RAM en lugar de los 500 de un Chromium. Envía en fila, con pausas, y se reinicia solo.',
-      },
-    ],
-    oferta: {
-      titulo: 'Avisos por WhatsApp para tu negocio',
-      texto:
-        'Para el negocio que hoy manda a mano sus recordatorios de citas, cobros o pedidos listos. Estamos preparando la versión para clientes: únete a la lista de espera y te avisamos primero, con el precio, antes de abrirla.',
-      incluye: [
-        'El número de tu negocio vinculado y vigilado',
-        'Panel para enviar, programar y ver qué salió',
-        'Conexión con tu agenda o tu sistema de ventas',
-        'Documentación de la API y sesión de traspaso',
-      ],
-      // Esta pieza usa Baileys (una sesión de WhatsApp Web). Para clientes no
-      // basta: la versión que se ofrece irá sobre la API oficial.
-      nota: 'La versión para clientes usará la API oficial de WhatsApp Business, no la sesión de WhatsApp Web de esta pieza. Así tu número no corre riesgo de bloqueo.',
-      boton: 'Únete a la lista de espera',
-      mensaje:
-        'Hola, quiero unirme a la lista de espera de avisos por WhatsApp. Mi negocio es:',
-    },
-  },
   {
     linea: 'interfaces',
     slug: 'calculadora-series',
@@ -341,66 +258,8 @@ export const piezasDeLinea = (idLinea) =>
   PIEZAS.filter((pieza) => pieza.linea === idLinea);
 
 /**
- * Las cinco plazas de una línea: primero las piezas reales, después las
- * plazas libres necesarias para completar.
- *
- * Una plaza libre lleva `estado: 'libre'` y un `indice` para poder rotularla.
- */
-export function plazasDeLinea(idLinea) {
-  const piezas = piezasDeLinea(idLinea);
-  const libres = Math.max(0, PLAZAS_POR_LINEA - piezas.length);
-
-  return [
-    ...piezas,
-    ...Array.from({ length: libres }, (_, i) => ({
-      estado: 'libre',
-      linea: idLinea,
-      indice: piezas.length + i + 1,
-    })),
-  ];
-}
-
-/** Llenado de una línea, para el tablero: { ocupadas, total }. */
-export const llenadoDeLinea = (idLinea) => ({
-  ocupadas: piezasDeLinea(idLinea).length,
-  total: PLAZAS_POR_LINEA,
-});
-
-/**
- * Línea con la que abre el tablero: la primera que tenga piezas.
- *
- * Antes abría en `LINEAS[0]`, que es `pcb` y hoy está vacía, así que lo primero
- * que veía alguien al entrar al portafolio era «esta línea todavía no tiene
- * piezas». Cinco de las ocho líneas están abiertas y sin publicar, de modo que
- * la probabilidad de caer en una vacía era alta.
- *
- * Las plazas libres se siguen viendo, que es lo honesto (§1.10, regla 4). Lo
- * que cambia es por dónde se empieza a mirar: primero el trabajo que existe.
- */
-export const primeraLineaConPiezas = () =>
-  LINEAS.find((linea) => piezasDeLinea(linea.id).length > 0)?.id ?? LINEAS[0].id;
-
-/**
- * Contador de producción de toda la fábrica.
- * §1.10, regla 2 · Cifras concretas. Y salen de los datos, así que no mienten.
- */
-export function contadorDeProduccion() {
-  const entregadas = PIEZAS.filter((p) => p.estado === 'entregada').length;
-  const enCurso = PIEZAS.filter((p) => p.estado === 'en-curso').length;
-  const total = LINEAS.length * PLAZAS_POR_LINEA;
-
-  return {
-    entregadas,
-    enCurso,
-    libres: total - entregadas - enCurso,
-    lineas: LINEAS.length,
-    total,
-  };
-}
-
-/**
  * Pieza anterior y siguiente dentro de su línea, para navegar desde la ficha
- * sin volver al tablero.
+ * sin volver a /casos.
  */
 export function vecinasDePieza(slug) {
   const pieza = buscarPieza(slug);
@@ -415,16 +274,6 @@ export function vecinasDePieza(slug) {
   };
 }
 
-/**
- * Piezas para el anticipo de la portada.
- *
- * La landing no lleva el tablero entero: lleva unas pocas piezas y un enlace al
- * portafolio completo. Se toman las entregadas, en el orden en que están
- * escritas, así que para cambiar el escaparate basta reordenar el array de
- * arriba. No hay una bandera `destacada` que mantener sincronizada.
- */
-export const piezasDestacadas = (cuantas = 3) =>
-  PIEZAS.filter((p) => p.estado === 'entregada').slice(0, cuantas);
 
 /**
  * Ruta de la ficha de una pieza.

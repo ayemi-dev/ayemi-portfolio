@@ -3,8 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Boton } from '../components/ui/Boton';
 import { Microetiqueta } from '../components/marca/Logotipo';
 import { EstadoConEmi } from '../components/marca/EstadoConEmi';
-import { LINEAS } from '../config/piezas';
-import { RUTA_PORTAFOLIO } from '../config/secciones';
+import { NAVEGACION, RUTA_LABORATORIO } from '../config/secciones';
 
 /**
  * Página no encontrada
@@ -54,28 +53,29 @@ export const NoEncontrada = () => {
           <Boton variante="primario" tamano="grande" to="/">
             {t('noEncontrada.inicio')}
           </Boton>
-          <Boton variante="secundario" tamano="grande" to={RUTA_PORTAFOLIO}>
-            {t('noEncontrada.fabrica')}
+          <Boton variante="secundario" tamano="grande" to={RUTA_LABORATORIO}>
+            {t('noEncontrada.laboratorio')}
           </Boton>
         </div>
       </div>
 
-      {/* Las ocho líneas, para que la página no sea un callejón sin salida. */}
+      {/* La navegación del sitio, para que la página no sea un callejón sin
+          salida. Sale de la misma lista que la cabecera. */}
       <nav
         className="mt-24 border-t border-borde pt-8"
-        aria-labelledby="lineas-404"
+        aria-labelledby="secciones-404"
       >
-        <h2 id="lineas-404" className="ay-etiqueta">
-          {t('noEncontrada.lineas')}
+        <h2 id="secciones-404" className="ay-etiqueta">
+          {t('noEncontrada.secciones')}
         </h2>
         <ul className="mt-4 flex flex-wrap gap-2">
-          {LINEAS.map((linea) => (
-            <li key={linea.id}>
+          {NAVEGACION.map(({ id, tipo, destino }) => (
+            <li key={id}>
               <Link
-                to={RUTA_PORTAFOLIO}
+                to={tipo === 'ruta' ? destino : `/#${id}`}
                 className="inline-block rounded-completo border border-borde px-3 py-2 text-cuerpo-s text-texto-suave transition-colors duration-rapida ease-estandar hover:border-borde-fuerte hover:text-texto"
               >
-                {t(`trabajos.lineas.${linea.id}.nombre`)}
+                {t(`nav.${id}`)}
               </Link>
             </li>
           ))}

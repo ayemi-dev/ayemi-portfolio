@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
  * useAncla
  *
  * Con enrutado en cliente el navegador ya no resuelve las anclas por su cuenta:
- * al llegar a `/#fabrica` desde otra ruta, el desplazamiento hay que hacerlo a
+ * al llegar a `/#contacto` desde otra ruta, el desplazamiento hay que hacerlo a
  * mano. Este hook se encarga de las dos situaciones:
  *
  *   Con ancla ... desplaza hasta la sección. Si el bloque todavía no está en el

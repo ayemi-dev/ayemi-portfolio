@@ -13,6 +13,13 @@ import { ESTADOS_PLACA, PLACAS, urlCarpetaPlaca } from '../../config/placas';
  * espacio preparado: no inventa render ni cifras. Con `ficha`, muestra las
  * vistas y la hoja de medidas.
  *
+ * La lista de tarjetas (`ListaPlacas`) se comparte con /laboratorio: las mismas
+ * placas, con los mismos datos, en las dos rutas.
+ *
+ * NORMA (§1.9, 2.2) · composición en pantalla. `Nombre` en Plus Jakarta Sans y,
+ * debajo, `POR AYEMI` en microetiqueta. El nombre del producto es texto, nunca
+ * lleva el cian del logotipo.
+ *
  * El estado se lee como una escala de tres peldaños, siempre visible, para que
  * nadie confunda «diseño completo» con «listo para fabricar» ni con
  * «fabricada»: el peldaño alcanzado
@@ -148,7 +155,11 @@ const TarjetaPlaca = ({ placa, t }) => {
         <EspacioPreparado micro={placa.micro} t={t} />
       )}
 
-      <h3 className="mt-5 text-titulo-4">{nombre}</h3>
+      <h3 className="mt-5 text-titulo-4">
+        {t(`pcb.placas.lista.${placa.slug}.producto`)}
+        {/* El respaldo va aparte para el lector de pantalla: «Chispa por Ayemi». */}
+        <span className="ay-etiqueta mt-1 block">{t('pcb.placas.respaldo')}</span>
+      </h3>
       <p className="mt-2 text-cuerpo-s text-texto-suave">
         {t(`pcb.placas.lista.${placa.slug}.descripcion`)}
       </p>
@@ -176,6 +187,19 @@ const TarjetaPlaca = ({ placa, t }) => {
   );
 };
 
+/** Las tres tarjetas. La usan /pcb (abajo) y /laboratorio. */
+export const ListaPlacas = ({ className = '' }) => {
+  const { t } = useTranslation();
+
+  return (
+    <ul className={`grid gap-6 md:grid-cols-3 ${className}`}>
+      {PLACAS.map((placa) => (
+        <TarjetaPlaca key={placa.slug} placa={placa} t={t} />
+      ))}
+    </ul>
+  );
+};
+
 export const GaleriaPlacas = () => {
   const { t } = useTranslation();
 
@@ -189,11 +213,7 @@ export const GaleriaPlacas = () => {
       entradilla={t('pcb.placas.entradilla')}
       fondo="alterno"
     >
-      <ul className="grid gap-6 md:grid-cols-3">
-        {PLACAS.map((placa) => (
-          <TarjetaPlaca key={placa.slug} placa={placa} t={t} />
-        ))}
-      </ul>
+      <ListaPlacas />
     </Seccion>
   );
 };

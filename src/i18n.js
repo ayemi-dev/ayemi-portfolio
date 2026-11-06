@@ -47,7 +47,7 @@ const es = {
     servicios: 'Servicios',
     pcb: 'PCB',
     metodo: 'Método',
-    fabrica: 'La Fábrica',
+    laboratorio: 'Laboratorio',
     capacidad: 'Capacidad',
     posicionamiento: 'Posicionamiento',
     contacto: 'Contacto',
@@ -288,6 +288,8 @@ const es = {
       },
       alt: 'Render 3D de {{nombre}}, vista {{vista}}.',
       repositorio: 'Ver el diseño en GitHub',
+      /* §1.9 · Respaldo en microetiqueta. En inglés, «BY AYEMI» (§1.11). */
+      respaldo: 'POR AYEMI',
       estados: {
         rotulo: 'ESTADO',
         disenoCompleto: 'Diseño completo · ERC y DRC en 0',
@@ -299,16 +301,19 @@ const es = {
       lista: {
         atmega328p: {
           nombre: 'Chispa por Ayemi',
+          producto: 'Chispa',
           descripcion:
             'ATmega328P para aprender a programar de 10 a 15 años: luces, botones, sonido y sensores ya montados, sin cables.',
         },
         esp32: {
           nombre: 'Enlace por Ayemi',
+          producto: 'Enlace',
           descripcion:
             'ESP32 con WiFi para secundaria y prepa: mide temperatura y humedad y se controla desde el celular.',
         },
         stm32: {
           nombre: 'Impulso por Ayemi',
+          producto: 'Impulso',
           descripcion:
             'STM32 de 32 bits para la universidad: USB nativo, depuración por SWD, sensor de movimiento y microSD.',
         },
@@ -392,50 +397,9 @@ const es = {
 
   // ── Trabajos entregados: líneas, fichas y enlaces ───────────────────────
   trabajos: {
-    etiqueta: 'LA FÁBRICA',
-    titulo: 'Ocho líneas, de la placa a la ',
-    acento: 'nube',
-    tituloDespues: '.',
-    entradilla:
-      'Una fábrica tiene procesos, tiene medidas y entrega piezas que encajan. Estas son las líneas de producción y lo que ha salido de cada una.',
-    guiaEmi:
-      'Elige una línea y verás sus cinco plazas. Los nodos encendidos se pueden abrir; los apagados están libres.',
-
-    contador: {
-      entregadas: 'PIEZAS ENTREGADAS',
-      enCurso: 'EN LÍNEA',
-      libres: 'PLAZAS LIBRES',
-      lineas: 'LÍNEAS ABIERTAS',
-    },
-
-    naturalezas: {
-      hardware: 'HARDWARE',
-      software: 'SOFTWARE',
-    },
-
-    llenado: '{{ocupadas}} de {{total}} plazas ocupadas',
-    plazaLibre: 'Plaza libre',
-    /* Rótulo de marca ajena en el tablero. «para» es deliberado: marca que el
-       trabajo se hizo para alguien, no que la pieza sea de Ayemi. */
-    paraCliente: 'para {{cliente}}',
-    indice: 'TODAS LAS PIEZAS',
-
-    /* Anticipo de la portada. La landing no lleva el tablero entero: lleva las
-       cifras, tres piezas y la puerta. */
-    anticipoCierre:
-      'El tablero completo tiene ocho líneas de producción, del microcontrolador a la nube, con las plazas libres a la vista.',
-    anticipoBoton: 'Ver el portafolio completo',
-
-    /* Voz de Emi: segunda persona, dos frases, sin emojis, nunca culpa. */
-    lineaVaciaTitulo: 'Esta línea está abierta y todavía sin piezas.',
-    lineaVaciaEmi:
-      'Aquí no hay nada publicado todavía. Si tienes un proyecto de esta línea, puede ser el primero.',
-    lineaVaciaBoton: 'Proponer un proyecto',
-
     estados: {
       entregada: 'Entregada',
       'en-curso': 'En línea',
-      libre: 'Plaza libre',
     },
 
     lineas: {
@@ -524,22 +488,17 @@ const es = {
         '¿Tienes algo parecido? Cuéntanos tu idea o qué se rompe hoy.',
       cierreBoton: 'Hablemos de tu caso',
     },
-
-    /* §1.10, regla 4 · Las plazas vacías se explican, no se disimulan.
-       La segunda frase describe lo que el sitio hace de verdad: antes prometía
-       omitir todo nombre de cliente, y eso dejó de ser cierto. */
-    nota: 'Las plazas libres son eso: huecos en la línea. Preferimos mostrarlas antes que rellenar el tablero con trabajos que no existen. Cuando una pieza se hizo para otra marca, esa marca se nombra y se deja claro que es independiente de Ayemi; lo que no se publica sin permiso son los datos, el código y las cifras del cliente.',
   },
 
   noEncontrada: {
     titulo: 'Esta página no está.',
     texto:
-      'La dirección no corresponde a nada publicado. Puede que el enlace haya cambiado o que la pieza todavía no esté en el tablero.',
+      'La dirección no corresponde a nada publicado. Puede que el enlace haya cambiado.',
     /* Voz de Emi. Nunca culpa al usuario (§10, regla 3). */
     emi: 'No es nada que hayas hecho mal. Te dejo por dónde seguir.',
     inicio: 'Ir al inicio',
-    fabrica: 'Ver La Fábrica',
-    lineas: 'LÍNEAS DE PRODUCCIÓN',
+    laboratorio: 'Ver el Laboratorio',
+    secciones: 'POR DÓNDE SEGUIR',
   },
 
   // ── Emi · §4 del manual 2.2 ─────────────────────────────────────────────
@@ -892,6 +851,85 @@ const es = {
     },
   },
 
+  // ── Laboratorio · §1.3 y §1.9 del manual 2.2 ────────────────────────────
+  laboratorio: {
+    etiqueta: 'LABORATORIO',
+    titulo: 'Lo que construimos por ',
+    acento: 'iniciativa propia',
+    tituloDespues: ' y publicamos abierto.',
+    entradilla:
+      'Nada entra al Laboratorio sin algo que se pueda revisar: un repositorio, un render, una demo o una cifra. Cada pieza dice en qué estado está, y lo que madura sale como producto con nombre, «por Ayemi».',
+    guiaEmi:
+      'Cada placa tiene su diseño en GitHub y dice en qué paso va. Empieza por la que se parezca a lo que quieres aprender.',
+
+    placas: {
+      etiqueta: 'PLACAS EDUCATIVAS · DISEÑO LIBRE',
+      titulo: 'Chispa, Enlace e Impulso',
+      entradilla:
+        'Tres placas para aprender sin cables, una por familia de microcontrolador. El diseño es libre: el proyecto de KiCad, los Gerber, la BOM y el firmware están en GitHub. El nombre y el logotipo siguen siendo de Ayemi.',
+    },
+
+    wabot: {
+      etiqueta: 'SERVICIO PROPIO',
+      titulo: 'WaBot, avisos por ',
+      acento: 'WhatsApp',
+      tituloDespues: '.',
+      entradilla:
+        'Los recordatorios se mandaban uno por uno desde el teléfono. Ahora cualquier sistema los programa con una petición HTTP, y el panel muestra qué salió y a quién.',
+      estadoRotulo: 'ESTADO',
+      estadoActual: 'En operación para uso propio, con una sesión de WhatsApp Web',
+      estadoSiguiente: 'Versión para clientes sobre la API oficial de WhatsApp Business',
+      medidasRotulo: 'MEDIDAS',
+      medidas: [
+        { que: 'Servidores', valor: '2 VMs · 1 GB de RAM c/u' },
+        { que: 'RAM del emisor', valor: '≈ 170 MB, sin navegador' },
+        { que: 'Cómputo', valor: 'Capa gratuita de Oracle Cloud' },
+        { que: 'Cadencia', valor: '1 mensaje cada 1.5–4 s' },
+        { que: 'Puertos abiertos a internet', valor: '0 (Cloudflare Tunnel)' },
+      ],
+      pilaRotulo: 'PILA TÉCNICA',
+      documentacion: 'Leer la documentación de la API',
+      arquitecturaRotulo: 'CÓMO ESTÁ HECHO',
+      arquitectura: [
+        {
+          capa: 'Panel',
+          que: 'React en Vercel. Se vincula el número con un QR, se envía o se programa, y cada envío muestra su resultado por número.',
+        },
+        {
+          capa: 'Núcleo',
+          que: 'La API, los envíos programados y el registro en SQLite, en una VM de Oracle Cloud. Sale a internet por Cloudflare Tunnel, sin abrir puertos.',
+        },
+        {
+          capa: 'Puente',
+          que: 'Las dos VMs viven en redes distintas. El núcleo llega al emisor por un túnel SSH cuya llave solo puede abrir un puerto.',
+        },
+        {
+          capa: 'Emisor',
+          que: 'Una sesión de WhatsApp con Baileys, sin navegador: 170 MB de RAM en lugar de los 500 de un Chromium. Envía en fila, con pausas, y se reinicia solo.',
+        },
+      ],
+      esperaTitulo: 'Avisos por WhatsApp para tu negocio',
+      esperaTexto:
+        'Para el negocio que hoy manda a mano sus recordatorios de citas, cobros o pedidos listos. Únete a la lista de espera y te avisamos primero, con el precio, antes de abrirla.',
+      incluyeRotulo: 'QUÉ INCLUYE',
+      incluye: [
+        'El número de tu negocio vinculado y vigilado',
+        'Panel para enviar, programar y ver qué salió',
+        'Conexión con tu agenda o tu sistema de ventas',
+        'Documentación de la API y sesión de traspaso',
+      ],
+      nota: 'La versión para clientes usará la API oficial de WhatsApp Business, no la sesión de WhatsApp Web de la versión de uso propio. Así tu número no corre riesgo de bloqueo.',
+      boton: 'Únete a la lista de espera',
+      mensaje:
+        'Hola, quiero unirme a la lista de espera de WaBot, los avisos por WhatsApp. Mi negocio es:',
+    },
+
+    cierre: {
+      titulo: '¿Necesitas algo más específico? ',
+      acento: 'Lo construimos.',
+    },
+  },
+
   // ── Casos · /casos ──────────────────────────────────────────────────────
   casos: {
     etiqueta: 'CASOS',
@@ -965,7 +1003,7 @@ const en = {
     servicios: 'Services',
     pcb: 'PCB',
     metodo: 'Method',
-    fabrica: 'The Factory',
+    laboratorio: 'Lab',
     capacidad: 'Capability',
     posicionamiento: 'Positioning',
     contacto: 'Contact',
@@ -1200,6 +1238,7 @@ const en = {
       },
       alt: '3D render of {{nombre}}, {{vista}} view.',
       repositorio: 'View the design on GitHub',
+      respaldo: 'BY AYEMI',
       estados: {
         rotulo: 'STATUS',
         disenoCompleto: 'Design complete · ERC and DRC clean',
@@ -1211,16 +1250,19 @@ const en = {
       lista: {
         atmega328p: {
           nombre: 'Chispa by Ayemi',
+          producto: 'Chispa',
           descripcion:
             'ATmega328P for learning to code from age 10 to 15: lights, buttons, sound and sensors already on board, no wires.',
         },
         esp32: {
           nombre: 'Enlace by Ayemi',
+          producto: 'Enlace',
           descripcion:
             'ESP32 with WiFi for middle and high school: reads temperature and humidity and is controlled from a phone.',
         },
         stm32: {
           nombre: 'Impulso by Ayemi',
+          producto: 'Impulso',
           descripcion:
             '32-bit STM32 for university: native USB, SWD debugging, motion sensor and microSD.',
         },
@@ -1302,46 +1344,9 @@ const en = {
   },
 
   trabajos: {
-    etiqueta: 'THE FACTORY',
-    titulo: 'Eight lines, from the board to the ',
-    acento: 'cloud',
-    tituloDespues: '.',
-    entradilla:
-      'A factory has processes, has measurements and delivers parts that fit. These are the production lines and what has come off each one.',
-    guiaEmi:
-      'Pick a line and you will see its five slots. Lit nodes open; unlit ones are free.',
-
-    contador: {
-      entregadas: 'PARTS DELIVERED',
-      enCurso: 'ON THE LINE',
-      libres: 'OPEN SLOTS',
-      lineas: 'LINES RUNNING',
-    },
-
-    naturalezas: {
-      hardware: 'HARDWARE',
-      software: 'SOFTWARE',
-    },
-
-    llenado: '{{ocupadas}} of {{total}} slots filled',
-    plazaLibre: 'Open slot',
-    /* Third-party brand label on the board. */
-    paraCliente: 'for {{cliente}}',
-    indice: 'ALL PARTS',
-
-    anticipoCierre:
-      'The full board has eight production lines, from the microcontroller to the cloud, with the open slots in plain sight.',
-    anticipoBoton: 'See the full portfolio',
-
-    lineaVaciaTitulo: 'This line is running and has no parts yet.',
-    lineaVaciaEmi:
-      'Nothing is published here yet. If you have a project on this line, it could be the first.',
-    lineaVaciaBoton: 'Propose a project',
-
     estados: {
       entregada: 'Delivered',
       'en-curso': 'On the line',
-      libre: 'Open slot',
     },
 
     lineas: {
@@ -1428,18 +1433,16 @@ const en = {
         'Have something similar? Tell us your idea or what breaks today.',
       cierreBoton: 'Let’s talk about your case',
     },
-
-    nota: 'Open slots are exactly that: gaps in the line. We would rather show them than fill the board with work that does not exist. When a part was built for another brand, that brand is named and marked as independent from Ayemi; what we do not publish without permission is the client’s data, code and figures.',
   },
 
   noEncontrada: {
     titulo: 'This page is not here.',
     texto:
-      'The address does not match anything published. The link may have changed, or the part may not be on the board yet.',
+      'The address does not match anything published. The link may have changed.',
     emi: 'Nothing you did wrong. Here is where to go next.',
     inicio: 'Go to the start',
-    fabrica: 'See the Factory',
-    lineas: 'PRODUCTION LINES',
+    laboratorio: 'See the Lab',
+    secciones: 'WHERE TO GO NEXT',
   },
 
   emi: {
@@ -1775,6 +1778,84 @@ const en = {
       botonAgenda: 'Book 30 min',
       botonWhatsapp: 'Request your diagnosis',
       mensaje: 'Hi, I want to book the 30-min diagnosis. What I want to build or solve is:',
+    },
+  },
+
+  laboratorio: {
+    etiqueta: 'LAB',
+    titulo: 'What we build on our ',
+    acento: 'own initiative',
+    tituloDespues: ' and publish in the open.',
+    entradilla:
+      'Nothing goes into the Lab without something you can check: a repository, a render, a demo or a figure. Every piece says where it stands, and what matures comes out as a named product, “by Ayemi”.',
+    guiaEmi:
+      'Each board has its design on GitHub and says which step it is on. Start with the one closest to what you want to learn.',
+
+    placas: {
+      etiqueta: 'LEARNING BOARDS · OPEN DESIGN',
+      titulo: 'Chispa, Enlace and Impulso',
+      entradilla:
+        'Three boards to learn without wires, one per microcontroller family. The design is open: the KiCad project, the Gerbers, the BOM and the firmware are on GitHub. The name and the logo remain Ayemi’s.',
+    },
+
+    wabot: {
+      etiqueta: 'OUR OWN SERVICE',
+      titulo: 'WaBot, notifications over ',
+      acento: 'WhatsApp',
+      tituloDespues: '.',
+      entradilla:
+        'Reminders used to be sent one by one from a phone. Now any system schedules them with an HTTP request, and the panel shows what went out and to whom.',
+      estadoRotulo: 'STATUS',
+      estadoActual: 'Running for our own use, on a WhatsApp Web session',
+      estadoSiguiente: 'Client version on the official WhatsApp Business API',
+      medidasRotulo: 'MEASUREMENTS',
+      medidas: [
+        { que: 'Servers', valor: '2 VMs · 1 GB RAM each' },
+        { que: 'Sender RAM', valor: '≈ 170 MB, no browser' },
+        { que: 'Compute', valor: 'Oracle Cloud free tier' },
+        { que: 'Pace', valor: '1 message every 1.5–4 s' },
+        { que: 'Ports open to the internet', valor: '0 (Cloudflare Tunnel)' },
+      ],
+      pilaRotulo: 'TECHNICAL STACK',
+      documentacion: 'Read the API documentation',
+      arquitecturaRotulo: 'HOW IT IS BUILT',
+      arquitectura: [
+        {
+          capa: 'Panel',
+          que: 'React on Vercel. The number is linked with a QR code, messages are sent or scheduled, and every send shows its result per number.',
+        },
+        {
+          capa: 'Core',
+          que: 'The API, the scheduled sends and the SQLite log, on an Oracle Cloud VM. It reaches the internet through Cloudflare Tunnel, with no open ports.',
+        },
+        {
+          capa: 'Bridge',
+          que: 'The two VMs live on different networks. The core reaches the sender through an SSH tunnel whose key can only open one port.',
+        },
+        {
+          capa: 'Sender',
+          que: 'A WhatsApp session with Baileys, no browser: 170 MB of RAM instead of the 500 of a Chromium. It sends in a queue, with pauses, and restarts itself.',
+        },
+      ],
+      esperaTitulo: 'WhatsApp notifications for your business',
+      esperaTexto:
+        'For the business that sends its appointment, payment or order-ready reminders by hand today. Join the waiting list and we will tell you first, with the price, before we open it.',
+      incluyeRotulo: 'WHAT IT INCLUDES',
+      incluye: [
+        'Your business number linked and monitored',
+        'A panel to send, schedule and see what went out',
+        'Connection to your calendar or your sales system',
+        'API documentation and a handover session',
+      ],
+      nota: 'The client version will use the official WhatsApp Business API, not the WhatsApp Web session of our own version. That way your number is not at risk of being blocked.',
+      boton: 'Join the waiting list',
+      mensaje:
+        'Hi, I want to join the WaBot waiting list for WhatsApp notifications. My business is:',
+    },
+
+    cierre: {
+      titulo: 'Need something more specific? ',
+      acento: 'We build it.',
     },
   },
 

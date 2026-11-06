@@ -1,9 +1,9 @@
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { Inicio } from './pages/Inicio';
-import { Portafolio } from './pages/Portafolio';
+import { Laboratorio } from './pages/Laboratorio';
 import { Pcb } from './pages/Pcb';
 import { RedireccionPieza } from './pages/RedireccionPieza';
 import { RedireccionPlaca } from './pages/RedireccionPlaca';
@@ -18,6 +18,7 @@ import { useVistaDePagina } from './medicion/useVistaDePagina';
 import {
   RUTA_CASOS,
   RUTA_ENLACES,
+  RUTA_LABORATORIO,
   RUTA_PCB,
   RUTA_PORTAFOLIO,
   RUTA_PRIVACIDAD,
@@ -29,8 +30,9 @@ import { RUTA_CORTA_PLACA } from './config/placas';
  * Manual de Identidad Ayemi · Edición 2.0
  *
  * RUTAS
- *   /                      la landing, con el anticipo del portafolio
- *   /portafolio            el tablero completo de La Fábrica
+ *   /                      la landing
+ *   /laboratorio           placas abiertas y WaBot (manual 2.2, §1.3)
+ *   /portafolio            dirección vieja del tablero, redirige a /casos
  *   /portafolio/:slug      dirección vieja, redirige a /casos/:slug
  *   /pcb                   servicio de diseño de PCBs, destino del anuncio
  *   /privacidad            aviso de privacidad (LFPDPPP)
@@ -74,7 +76,9 @@ function App() {
       <main id="contenido" className={conMarco ? 'pt-16' : undefined}>
         <Routes>
           <Route path="/" element={<Inicio />} />
-          <Route path={RUTA_PORTAFOLIO} element={<Portafolio />} />
+          <Route path={RUTA_LABORATORIO} element={<Laboratorio />} />
+          {/* El tablero de La Fábrica se retiró: su URL lleva a /casos. */}
+          <Route path={RUTA_PORTAFOLIO} element={<Navigate to={RUTA_CASOS} replace />} />
           {/* Fichas viejas: redirigen a /casos/<slug>. Ver RedireccionPieza. */}
           <Route path={`${RUTA_PORTAFOLIO}/:slug`} element={<RedireccionPieza />} />
           <Route path={RUTA_PCB} element={<Pcb />} />

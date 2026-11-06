@@ -3,7 +3,6 @@ import Hero from '../features/hero/Hero';
 import { Servicios } from '../features/servicios/Servicios';
 import { OfertasEntrada } from '../features/ofertas/OfertasEntrada';
 import { Metodo } from '../features/metodo/Metodo';
-import { AnticipoFabrica } from '../features/piezas/AnticipoFabrica';
 import { Posicionamiento } from '../features/posicionamiento/Posicionamiento';
 import { QuienesSomos } from '../features/quienes/QuienesSomos';
 import { Contacto } from '../features/contact/Contacto';
@@ -56,7 +55,6 @@ export const Inicio = () => (
     <Servicios />
     <OfertasEntrada fondo="profundo" />
     <Metodo />
-    <AnticipoFabrica />
 
     <Suspense fallback={<Reserva id="capacidad" alto="80vh" />}>
       <TechStack />
