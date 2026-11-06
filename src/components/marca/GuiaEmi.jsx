@@ -20,7 +20,7 @@ import { Emi } from './Emi';
  *
  * ── SU VOZ ─────────────────────────────────────────────────────────────────
  * Segunda persona del singular. Máximo dos frases. Sin emojis: su rostro ya es
- * la expresión. Nunca culpa al usuario y no habla de sí misma en tercera
+ * la expresión. Nunca culpa al usuario y no habla de sí mismo en tercera
  * persona: dice «te ayudo», no «Emi te ayudará».
  * ───────────────────────────────────────────────────────────────────────────
  *
@@ -28,7 +28,7 @@ import { Emi } from './Emi';
  * siendo el logotipo de la cabecera; Emi está al lado, acompañando.
  *
  * NORMA (§2, regla 9). El color no es el único portador de significado: lo que
- * Emi dice va en texto real, y ella queda como decorativa para que el lector de
+ * Emi dice va en texto real, y él queda como decorativo para que el lector de
  * pantalla no anuncie «Emi» antes del mensaje útil.
  */
 

@@ -1,11 +1,12 @@
 /**
  * AYEMI · Emi
  * ===========
- * La mascota, generada desde la misma geometria que los SVG matriz.
+ * Emi, generado desde la misma geometria que los SVG matriz. Se trata en
+ * masculino (manual 2.2, §4.1).
  * Lienzo 512 x 600 · modulo C (cabeza) = 246u · altura total 2.23 C
  *
  * Su antena remata en El Nucleo: el mismo circulo cian que corona la letra
- * "i" del logotipo. Es lo que la hace pertenecer al sistema.
+ * "i" del logotipo. Es lo que lo hace pertenecer al sistema.
  *
  *   <Emi expresion="procesando" alto={200} />
  *   <Emi expresion="celebrando" pose="celebrando" alto={240} />

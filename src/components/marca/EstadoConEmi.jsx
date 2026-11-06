@@ -27,7 +27,7 @@ import { Emi } from './Emi';
  * económicas, papelería, firma de correo, incidente grave.
  *
  * SU VOZ (§7). Segunda persona del singular. Máximo dos frases. Sin emojis: su
- * rostro ya es la expresión. Nunca culpa al usuario. No habla de sí misma en
+ * rostro ya es la expresión. Nunca culpa al usuario. No habla de sí mismo en
  * tercera persona.
  */
 

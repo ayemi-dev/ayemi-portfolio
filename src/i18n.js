@@ -579,14 +579,17 @@ const es = {
     lineas: 'LÍNEAS DE PRODUCCIÓN',
   },
 
-  // ── Emi · §7 y steering ayemi-emi ───────────────────────────────────────
+  // ── Emi · §4 del manual 2.2 ─────────────────────────────────────────────
+  /* NORMA (§4.1, 2.2). Emi es masculino: «el asistente», «Emi está atento»,
+     «lo acompaña». En inglés, «he». El origen de su nombre no se explica en
+     público (§1.1). */
   emi: {
-    etiqueta: 'LA TERCERA SÍLABA',
+    etiqueta: 'EMI',
     titulo: 'Emi',
     quienEs:
-      'Emi toma su nombre de Emilio, el tercero de los tres. Es la parte de la marca que habla contigo cuando necesitas ayuda: acompaña, avisa, celebra y explica. Nunca vende y nunca firma.',
+      'Emi es un asistente: la parte de Ayemi que habla contigo cuando necesitas ayuda. Acompaña, avisa, celebra y explica; no cotiza ni firma.',
     nucleo:
-      'Su antena remata en El Núcleo, el mismo círculo cian que corona la «i» del logotipo. Ese detalle es lo que la hace pertenecer al sistema y no ser un dibujo suelto.',
+      'Su antena remata en El Núcleo, el mismo círculo cian que corona la «i» del logotipo. Ese detalle es lo que lo hace pertenecer al sistema y no ser un dibujo suelto.',
 
     lasExpresiones: 'LAS OCHO EXPRESIONES',
     lasPoses: 'LAS CUATRO POSES',
@@ -654,6 +657,7 @@ const es = {
         'Documentación de producto',
         'Redes y comunidad',
         'Páginas de estado y de error',
+        'Anuncios y piezas sin precio',
       ],
       no: [
         'Contratos y anexos legales',
@@ -662,10 +666,11 @@ const es = {
         'Papelería corporativa',
         'Firma de correo',
         'Comunicación de incidente grave',
+        'Anuncios y piezas con precio',
       ],
     },
 
-    nota: 'En este sitio Emi hace las dos cosas que le corresponden: te da la bienvenida y te conduce por cada sección, y sostiene los estados en los que algo falta, algo carga o algo sale bien. Lo que nunca hace es firmar: la firma es el logotipo, no ella.',
+    nota: 'En este sitio Emi hace las dos cosas que le corresponden: te da la bienvenida y te conduce por cada sección, y está atento en los estados en los que algo falta, algo carga o algo sale bien. Lo que nunca hace es firmar: la firma es el logotipo, no él.',
   },
 
   // ── Capacidad técnica ───────────────────────────────────────────────────
@@ -1464,17 +1469,17 @@ const en = {
   },
 
   emi: {
-    etiqueta: 'THE THIRD SYLLABLE',
+    etiqueta: 'EMI',
     titulo: 'Emi',
     quienEs:
-      'Emi takes her name from Emilio, the third of the three. She is the part of the brand that talks to you when you need help: she accompanies, warns, celebrates and explains. She never sells and never signs.',
+      'Emi is an assistant: the part of Ayemi that talks to you when you need help. He accompanies, warns, celebrates and explains; he never quotes and never signs.',
     nucleo:
-      'Her antenna is topped by El Núcleo, the same cyan circle that crowns the “i” in the logotype. That detail is what makes her belong to the system rather than being a loose drawing.',
+      'His antenna is topped by El Núcleo, the same cyan circle that crowns the “i” in the logotype. That detail is what makes him belong to the system rather than being a loose drawing.',
 
     lasExpresiones: 'THE EIGHT EXPRESSIONS',
     lasPoses: 'THE FOUR POSES',
     cuando: 'WHEN IT IS USED',
-    diria: 'WHAT SHE WOULD SAY',
+    diria: 'WHAT HE WOULD SAY',
     retratoAlt: 'Emi with a {{expresion}} expression',
 
     expresiones: {
@@ -1527,8 +1532,8 @@ const en = {
       celebrando: 'Celebrating',
     },
 
-    dondeSi: 'Where she belongs',
-    dondeNo: 'Where she does not',
+    dondeSi: 'Where he belongs',
+    dondeNo: 'Where he does not',
     donde: {
       si: [
         'Empty states, loading, success and error',
@@ -1537,6 +1542,7 @@ const en = {
         'Product documentation',
         'Social and community',
         'Status and error pages',
+        'Ads and pieces without a price',
       ],
       no: [
         'Contracts and legal annexes',
@@ -1545,10 +1551,11 @@ const en = {
         'Corporate stationery',
         'Email signature',
         'Serious incident communication',
+        'Ads and pieces with a price',
       ],
     },
 
-    nota: 'On this site Emi does the two things that are hers: she welcomes you and walks you through each section, and she holds the states where something is missing, loading or going right. What she never does is sign: the signature is the logotype, not her.',
+    nota: 'On this site Emi does the two things that are his: he welcomes you and walks you through each section, and he stays with you in the states where something is missing, loading or going right. What he never does is sign: the signature is the logotype, not him.',
   },
 
   stack: {
