@@ -507,7 +507,7 @@ const es = {
      «lo acompaña». En inglés, «he». El origen de su nombre no se explica en
      público (§1.1). */
   emi: {
-    etiqueta: 'EMI',
+    etiqueta: 'QUIÉN TE ACOMPAÑA',
     titulo: 'Emi',
     quienEs:
       'Emi es un asistente: la parte de Ayemi que habla contigo cuando necesitas ayuda. Acompaña, avisa, celebra y explica; no cotiza ni firma.',
@@ -1453,7 +1453,7 @@ const en = {
   },
 
   emi: {
-    etiqueta: 'EMI',
+    etiqueta: 'WHO WALKS WITH YOU',
     titulo: 'Emi',
     quienEs:
       'Emi is an assistant: the part of Ayemi that talks to you when you need help. He accompanies, warns, celebrates and explains; he never quotes and never signs.',

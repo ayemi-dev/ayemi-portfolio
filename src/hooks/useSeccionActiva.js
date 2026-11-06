@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
  * @param {string[]} ids Ids de las secciones, en orden de aparición.
  */
 export function useSeccionActiva(ids) {
-  const [activa, setActiva] = useState(ids[0] ?? null);
+  const [activa, setActiva] = useState(null);
 
   useEffect(() => {
     const elementos = ids
@@ -23,17 +23,23 @@ export function useSeccionActiva(ids) {
 
     if (elementos.length === 0) return;
 
+    /* El observador solo informa de las secciones que cambian, así que se
+       guarda el estado de todas. Si ninguna está en la franja (la portada, o
+       una sección sin entrada), no se marca nada: antes se quedaba marcada la
+       última, y al volver arriba seguía señalado «Contacto». */
+    const estado = new Map();
     const observador = new IntersectionObserver(
       (entradas) => {
+        entradas.forEach((e) => estado.set(e.target, e));
         /* Gana la sección visible más cercana al inicio del viewport. Con
            varias intersecando a la vez, es la que la persona está leyendo. */
-        const visibles = entradas
+        const visibles = [...estado.values()]
           .filter((entrada) => entrada.isIntersecting)
           .sort(
             (a, b) => a.boundingClientRect.top - b.boundingClientRect.top
           );
 
-        if (visibles.length > 0) setActiva(visibles[0].target.id);
+        setActiva(visibles.length > 0 ? visibles[0].target.id : null);
       },
       {
         /* La cabecera mide 64 px; el margen inferior descarta el tramo que ya
