@@ -5,7 +5,6 @@ import { OfertasEntrada } from '../features/ofertas/OfertasEntrada';
 import { Metodo } from '../features/metodo/Metodo';
 import { AnticipoFabrica } from '../features/piezas/AnticipoFabrica';
 import { Posicionamiento } from '../features/posicionamiento/Posicionamiento';
-import { Origen } from '../features/origen/Origen';
 import { Contacto } from '../features/contact/Contacto';
 
 /**
@@ -19,12 +18,11 @@ import { Contacto } from '../features/contact/Contacto';
  *   Fábrica .......... anticipo: cifras, tres piezas y la puerta al tablero
  *   Capacidad ........ el sistema orbital de tecnologías
  *   Posicionamiento .. frente a qué y a quién se sirve (§1.7, §1.8)
- *   Origen ........... los tres nombres (§1.1)
  *   Contacto ......... formulario y canales directos
  *
  * §1.10, regla 1 · Primero el resultado, después el método. La promesa abre y
- * el origen de la marca cierra: la historia interesa cuando ya se demostró que
- * el trabajo se sostiene.
+ * el contacto cierra. La sección del origen del nombre se retiró en la
+ * edición 2.2 del manual (§1.1): el nombre no se explica en público.
  *
  * QUÉ CAMBIÓ
  * La Fábrica venía entera aquí: contador, selector de ocho líneas, tablero,
@@ -64,7 +62,6 @@ export const Inicio = () => (
     </Suspense>
 
     <Posicionamiento />
-    <Origen />
     <Contacto />
   </>
 );

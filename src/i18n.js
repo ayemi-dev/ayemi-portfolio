@@ -56,21 +56,21 @@ const es = {
 
   // ── Portada · §1.6 y §1.8 ───────────────────────────────────────────────
   hero: {
-    etiqueta: 'FÁBRICA DE SOFTWARE',
-    tituloAntes: 'Dejas de depender de ',
-    tituloAcento: 'hojas de cálculo',
-    tituloDespues: ' y empiezas a operar con sistemas.',
+    etiqueta: 'FÁBRICA DE SOFTWARE E INNOVACIÓN',
+    tituloAntes: 'Tienes una idea. La convertimos en ',
+    tituloAcento: 'algo que funciona',
+    tituloDespues: '.',
     descripcion:
-      'Construimos el software interno que tu empresa necesita y te lo entregamos documentado, probado y en tus manos. Sin cajas negras y sin ataduras.',
-    botonPrimario: 'Cotiza tu sistema',
-    botonSecundario: 'Ver cómo trabajamos',
+      'Software, placas electrónicas e integraciones a la medida. Lo construimos con método y te lo entregamos documentado, probado y a tu nombre.',
+    botonPrimario: 'Cuéntanos tu idea',
+    botonSecundario: 'Ver qué construimos',
 
     /* Voz de Emi · §7. Segunda persona, dos frases, sin emojis. El contrato
        propone «Hola. ¿Empezamos por tu primer proceso?» como ejemplo de
        bienvenida; aquí se adapta a un portafolio, donde lo que se recorre es
        el sitio y no un producto. */
     emiSaludo:
-      'Hola, soy Emi. Te acompaño por aquí: abajo está lo que recibes, y más adelante cómo trabajamos y qué hemos entregado.',
+      'Hola, soy Emi. Te acompaño mientras recorres lo que construimos y cómo lo hacemos.',
     emiPie: 'te guío sección por sección',
 
     panelEtiqueta: 'QUÉ RECIBES',
@@ -947,17 +947,17 @@ const en = {
   },
 
   hero: {
-    etiqueta: 'SOFTWARE FACTORY',
-    tituloAntes: 'Stop depending on ',
-    tituloAcento: 'spreadsheets',
-    tituloDespues: ' and start running on systems.',
+    etiqueta: 'SOFTWARE AND INNOVATION FACTORY',
+    tituloAntes: 'You have an idea. We turn it into ',
+    tituloAcento: 'something that works',
+    tituloDespues: '.',
     descripcion:
-      'We build the internal software your company needs and hand it over documented, tested and in your hands. No black boxes, no lock-in.',
-    botonPrimario: 'Get your system quoted',
-    botonSecundario: 'See how we work',
+      'Custom software, electronic boards and integrations. We build it with method and hand it over documented, tested and in your name.',
+    botonPrimario: 'Tell us your idea',
+    botonSecundario: 'See what we build',
 
     emiSaludo:
-      'Hi, I am Emi. I will walk you through: below is what you get, and further down how we work and what we have delivered.',
+      'Hi, I am Emi. I walk with you while you explore what we build and how we do it.',
     emiPie: 'I guide you section by section',
 
     panelEtiqueta: 'WHAT YOU GET',

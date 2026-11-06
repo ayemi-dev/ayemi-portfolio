@@ -52,7 +52,6 @@ export const SECCIONES = [
   'metodo',
   'capacidad',
   'posicionamiento',
-  'origen',
   'contacto',
 ];
 
@@ -72,6 +71,5 @@ export const NAVEGACION = [
   { id: 'fabrica', tipo: 'ruta', destino: RUTA_PORTAFOLIO },
   { id: 'capacidad', tipo: 'ancla' },
   { id: 'posicionamiento', tipo: 'ancla' },
-  { id: 'origen', tipo: 'ancla' },
   { id: 'contacto', tipo: 'ancla' },
 ];

@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next';
 import { Boton } from '../../components/ui/Boton';
 import { Microetiqueta } from '../../components/marca/Logotipo';
 import { BienvenidaEmi } from '../../components/marca/GuiaEmi';
-import { RUTA_PORTAFOLIO } from '../../config/secciones';
 import {
   IconoComprobacion,
   IconoFlujo,
@@ -94,7 +93,7 @@ const Hero = () => {
               <Boton variante="primario" tamano="grande" to="/#contacto">
                 {t('hero.botonPrimario')}
               </Boton>
-              <Boton variante="secundario" tamano="grande" to={RUTA_PORTAFOLIO}>
+              <Boton variante="secundario" tamano="grande" to="/#servicios">
                 {t('hero.botonSecundario')}
               </Boton>
             </div>
