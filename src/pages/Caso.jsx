@@ -93,7 +93,7 @@ export const Caso = () => {
           {caso.cifras.map(({ que, valor }) => (
             <div key={que} className="bg-lienzo p-4">
               <dt className="text-cuerpo-s text-texto-tenue">{que}</dt>
-              <dd className="mt-1 font-mono text-titulo-4 text-texto">{valor}</dd>
+              <dd className="mt-1 font-mono text-titulo-4 font-bold text-texto">{valor}</dd>
             </div>
           ))}
         </dl>
@@ -142,7 +142,7 @@ export const Caso = () => {
           <blockquote className="max-w-lectura border-l-[3px] border-acento pl-6">
             {/* §3.6 · Instrument Serif en redonda: el sitio no carga su cursiva y el
                 navegador la sintetizaría. La cursiva no forma parte del sistema. */}
-            <p className="font-serif text-titulo-3 text-texto">«{caso.testimonio.cita}»</p>
+            <p className="font-serif text-titulo-3 font-normal text-texto">«{caso.testimonio.cita}»</p>
             <footer className="mt-4 text-cuerpo-s text-texto-suave">
               {caso.testimonio.autor}
               {caso.testimonio.cargo && <span>, {caso.testimonio.cargo}</span>}

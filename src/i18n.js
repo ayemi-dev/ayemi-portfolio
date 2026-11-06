@@ -3,7 +3,7 @@ import { initReactI18next } from 'react-i18next';
 
 /**
  * Diccionarios de la interfaz
- * Manual de Identidad Corporativa Ayemi · Edición 2.0 · §1.10 y §1.11
+ * Manual de Identidad Corporativa Ayemi · Edición 2.2 · §1.10 y §1.11
  *
  * TONO DE VOZ (§1.10). Cuatro reglas, iguales en una propuesta, en un mensaje
  * de error y en una publicación:
@@ -16,15 +16,18 @@ import { initReactI18next } from 'react-i18next';
  * segunda persona del singular. NORMA: se trata de tú al usuario. Nunca
  * «usted» en interfaz, nunca «vos» ni regionalismos que estrechen la audiencia.
  *
- * §1.1 · Ayemi no es una marca personal, es una casa. La voz es primera del
- * plural o segunda del singular, nunca primera del singular.
+ * §1.1 · Ayemi es una empresa familiar con valores firmes, no una marca
+ * personal. La voz es primera del plural o segunda del singular, nunca primera
+ * del singular (salvo Emi, que habla en primera: «te ayudo», §4.6).
  *
  * LÉXICO RETIRADO (§1.11): «solución», «innovador», «disruptivo», «cliente
  * potencial», «levantar requerimientos», «recurso» por personas, «sinergia»,
  * «ecosistema», «holístico». Tampoco se adjetiva la propia capacidad.
  *
- * NORMA (§1.11). El lema «Ingeniería que fluye» no se traduce: es un elemento
- * verbal fijo y vive en `marca/Logotipo.jsx`.
+ * NORMA (§1.11, política de idioma). El lema «Ingeniería que fluye» no se
+ * traduce: es un elemento verbal fijo y vive en `marca/verbales.js`. Solo se
+ * traducen el descriptor («Software and innovation factory»), el claim («We
+ * build it. It's yours.») y el respaldo («por Ayemi» → «by Ayemi»).
  */
 
 const es = {
@@ -699,8 +702,8 @@ const es = {
       'Ayemi no es una marca personal. Está hecha para crecer, sumar gente y seguir cuando cambien las personas.',
     guiaEmi:
       'Cada valor dice cómo se comprueba, así no tienes que creernos. Más abajo te cuento quién soy.',
-    manifiesto:
-      'Ayemi habla de confluencia, de corriente y de flujo: partes distintas que desembocan en una sola obra.',
+    manifiesto: 'Partes distintas que desembocan en una sola obra.',
+    manifiestoNota: 'Ayemi habla de confluencia, de corriente y de flujo.',
     propositoEtiqueta: 'PROPÓSITO',
     proposito:
       'Llevar una idea o un problema al siguiente paso con software, hardware o ambos, y dejarlo construido, documentado y en manos de quien lo pidió.',
@@ -880,7 +883,7 @@ const es = {
       medidasRotulo: 'MEDIDAS',
       medidas: [
         { que: 'Servidores', valor: '2 VMs · 1 GB de RAM c/u' },
-        { que: 'RAM del emisor', valor: '≈ 170 MB, sin navegador' },
+        { que: 'RAM del emisor', valor: 'unos 170 MB, sin navegador' },
         { que: 'Cómputo', valor: 'Capa gratuita de Oracle Cloud' },
         { que: 'Cadencia', valor: '1 mensaje cada 1.5–4 s' },
         { que: 'Puertos abiertos a internet', valor: '0 (Cloudflare Tunnel)' },
@@ -1639,8 +1642,8 @@ const en = {
       'Ayemi is not a personal brand. It is made to grow, bring people in and keep going when people change.',
     guiaEmi:
       'Each value says how it is checked, so you do not have to take our word for it. Further down I tell you who I am.',
-    manifiesto:
-      'Ayemi speaks of confluence, current and flow: different parts running into a single work.',
+    manifiesto: 'Different parts running into a single work.',
+    manifiestoNota: 'Ayemi speaks of confluence, current and flow.',
     propositoEtiqueta: 'PURPOSE',
     proposito:
       'Take an idea or a problem to the next step with software, hardware or both, and leave it built, documented and in the hands of whoever asked for it.',
@@ -1815,7 +1818,7 @@ const en = {
       medidasRotulo: 'MEASUREMENTS',
       medidas: [
         { que: 'Servers', valor: '2 VMs · 1 GB RAM each' },
-        { que: 'Sender RAM', valor: '≈ 170 MB, no browser' },
+        { que: 'Sender RAM', valor: 'about 170 MB, no browser' },
         { que: 'Compute', valor: 'Oracle Cloud free tier' },
         { que: 'Pace', valor: '1 message every 1.5–4 s' },
         { que: 'Ports open to the internet', valor: '0 (Cloudflare Tunnel)' },

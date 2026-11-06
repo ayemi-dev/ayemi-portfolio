@@ -17,8 +17,10 @@ import { Seccion } from '../../components/layout/Seccion';
  * NORMA (§5.3). Las tablas no llevan líneas verticales. Solo un filete
  * horizontal de 1 px en --ay-borde entre filas.
  *
- * §3.9 · La declaración entra en registro editorial con Instrument Serif: es
- * una declaración de propósito, uno de los tres casos que el manual autoriza.
+ * §3.6 · La declaración va en la tipografía corporativa, no en Instrument
+ * Serif: pasa de tres líneas en cualquier ancho, y la editorial «nunca» va en
+ * bloques de más de tres líneas. El serif queda para el manifiesto de «Quiénes
+ * somos», que cabe en tres.
  */
 
 const FRENTES = ['freelance', 'agencia', 'estanteria'];
@@ -37,11 +39,8 @@ export const Posicionamiento = () => {
       guia={t('posicionamiento.guiaEmi')}
     >
       {/* ── Declaración en registro editorial (§3.9) ───────────────────────── */}
-      {/* NORMA §3.9 · El serif no se mezcla con la sans en la misma línea ni en
-          el mismo titular: se alternan por bloques. Este es su bloque.
-          RECOMENDACIÓN §3.9 · Un titular en serif pide más aire alrededor. */}
       <blockquote className="max-w-lectura border-l-2 border-acento pl-6">
-        <p className="font-serif text-titulo-2 text-texto md:text-titulo-1">
+        <p className="text-titulo-4 text-texto md:text-titulo-3">
           {t('posicionamiento.declaracion')}
         </p>
       </blockquote>

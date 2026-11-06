@@ -16,8 +16,9 @@ import { PresentacionEmi } from './PresentacionEmi';
  * presenta con su «cómo se comprueba», no solo con su nombre.
  *
  * §3.6 · La frase de §1.1 va en Instrument Serif: es una declaración de
- * manifiesto, uno de los tres usos que el manual autoriza. Una sola, de menos
- * de tres líneas, y en redonda: el sitio no carga la cursiva.
+ * manifiesto, uno de los tres usos que el manual autoriza. Corta, para no pasar
+ * de tres líneas ni en móvil; en redonda y a 400, el único peso y estilo que
+ * el sitio carga (otro peso o la cursiva los sintetizaría el navegador).
  *
  * §4 · Emi se presenta al final. Es la parte de Ayemi que habla con la gente,
  * así que su lugar es junto a quién es la empresa.
@@ -42,8 +43,11 @@ export const QuienesSomos = () => {
       {/* ── Manifiesto y propósito (§1.1 y §1.2) ───────────────────────────── */}
       <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
         <blockquote className="max-w-lectura border-l-2 border-acento pl-6">
-          <p className="font-serif text-titulo-2 text-texto md:text-titulo-1">
+          <p className="font-serif text-titulo-2 font-normal text-texto md:text-titulo-1">
             {t('quienes.manifiesto')}
+          </p>
+          <p className="mt-4 text-cuerpo-s text-texto-suave">
+            {t('quienes.manifiestoNota')}
           </p>
         </blockquote>
 
