@@ -140,7 +140,9 @@ export const Caso = () => {
       {caso.testimonio && (
         <Bloque etiqueta={t('caso.testimonio')}>
           <blockquote className="max-w-lectura border-l-[3px] border-acento pl-6">
-            <p className="font-serif text-titulo-3 text-texto italic">«{caso.testimonio.cita}»</p>
+            {/* §3.6 · Instrument Serif en redonda: el sitio no carga su cursiva y el
+                navegador la sintetizaría. La cursiva no forma parte del sistema. */}
+            <p className="font-serif text-titulo-3 text-texto">«{caso.testimonio.cita}»</p>
             <footer className="mt-4 text-cuerpo-s text-texto-suave">
               {caso.testimonio.autor}
               {caso.testimonio.cargo && <span>, {caso.testimonio.cargo}</span>}

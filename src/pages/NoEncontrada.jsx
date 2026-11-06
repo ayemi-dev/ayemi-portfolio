@@ -44,7 +44,7 @@ export const NoEncontrada = () => {
             {t('noEncontrada.texto')}
           </p>
           {/* La voz de Emi: segunda persona, dos frases como máximo. */}
-          <p className="mt-4 text-cuerpo text-texto-tenue italic">
+          <p className="mt-4 text-cuerpo text-texto-tenue">
             {t('noEncontrada.emi')}
           </p>
         </EstadoConEmi>

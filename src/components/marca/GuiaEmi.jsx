@@ -120,8 +120,10 @@ export const GuiaEmi = ({ situacion = 'guia', children, className = '' }) => {
         titulo={null}
         className="shrink-0"
       />
-      {/* La cita marca que la voz es de Emi y no de la marca institucional. */}
-      <p className="text-cuerpo-s text-texto-suave italic">{children}</p>
+      {/* La voz es de Emi y no de la marca institucional: lo marca el avatar,
+          no una cursiva. El sitio no carga la cursiva de Plus Jakarta Sans y el
+          navegador la sintetizaría (§3.6). */}
+      <p className="text-cuerpo-s text-texto-suave">{children}</p>
     </div>
   );
 };
