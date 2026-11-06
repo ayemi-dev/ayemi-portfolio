@@ -185,11 +185,11 @@ export const PIEZAS = [
     oferta: {
       titulo: 'Avisos por WhatsApp para tu negocio',
       texto:
-        'Para la pyme que hoy manda a mano sus recordatorios de citas, cobros o pedidos listos. Estamos preparando la versión para clientes: únete a la lista de espera y te avisamos primero, con el precio, antes de abrirla.',
+        'Para el negocio que hoy manda a mano sus recordatorios de citas, cobros o pedidos listos. Estamos preparando la versión para clientes: únete a la lista de espera y te avisamos primero, con el precio, antes de abrirla.',
       incluye: [
         'El número de tu negocio vinculado y vigilado',
         'Panel para enviar, programar y ver qué salió',
-        'Conexión con tu agenda, tu sistema de ventas o tu hoja de cálculo',
+        'Conexión con tu agenda o tu sistema de ventas',
         'Documentación de la API y sesión de traspaso',
       ],
       // Esta pieza usa Baileys (una sesión de WhatsApp Web). Para clientes no

@@ -77,7 +77,7 @@ const es = {
     pruebas: {
       llavesTitulo: 'Entrega con llaves',
       llavesTexto:
-        'El repositorio, la infraestructura y la documentación quedan a tu nombre desde el primer día.',
+        'El repositorio, los archivos de fabricación (KiCad, Gerber, BOM, CPL), la infraestructura y la documentación quedan a tu nombre desde el primer día.',
       rangoTitulo: 'Estimaciones con rango',
       rangoTexto:
         'Un mínimo, un máximo y los supuestos que sostienen ambos. Nunca una cifra suelta.',
@@ -92,9 +92,9 @@ const es = {
   // ── Líneas de servicio · §1.9 ───────────────────────────────────────────
   servicios: {
     etiqueta: 'LÍNEAS DE SERVICIO',
-    titulo: 'Cuatro formas de dejar de ',
-    acento: 'operar a mano',
-    tituloDespues: '.',
+    titulo: 'Software, hardware o ',
+    acento: 'ambos',
+    tituloDespues: ', en cuatro líneas.',
     entradilla:
       'Todo se firma Ayemi. Las líneas describen el tipo de trabajo, no son marcas distintas.',
     guiaEmi:
@@ -104,7 +104,7 @@ const es = {
       plataformas: {
         nombre: 'Plataformas',
         descripcion:
-          'El sistema que tu operación necesita y que ningún producto de estantería cubre. Se diseña sobre cómo trabajan hoy, no sobre cómo debería ser.',
+          'El sistema que tu idea o tu operación necesitan y que ningún producto de estantería cubre. Se diseña sobre lo que quieres construir o sobre cómo trabajan hoy, no sobre cómo debería ser.',
         entregables: [
           'Repositorio a tu nombre',
           'Documentación de operación',
@@ -126,7 +126,7 @@ const es = {
       integraciones: {
         nombre: 'Integraciones',
         descripcion:
-          'Los sistemas que ya usas dejan de estar sueltos. Facturación, inventario, banco y hoja de cálculo hablando entre sí sin que nadie teclee dos veces.',
+          'Los sistemas que ya usas dejan de estar sueltos. Facturación, inventario, banco y tienda hablando entre sí sin que nadie teclee dos veces.',
         entregables: [
           'APIs documentadas',
           'Sincronización programada',
@@ -137,7 +137,7 @@ const es = {
       hardware: {
         nombre: 'Hardware',
         descripcion:
-          'La placa que tu sensor, tu máquina o tu prototipo necesita, diseñada en KiCad y lista para fabricar en JLCPCB.',
+          'La placa que tu sensor, tu máquina o tu prototipo necesita, diseñada en KiCad y lista para fabricar en JLCPCB. Con el proyecto completo a tu nombre.',
         entregables: [
           'Esquemático y PCB en KiCad',
           'Gerber, BOM y CPL',
@@ -365,10 +365,10 @@ const es = {
 
     pasos: {
       entender: {
-        titulo: 'Entender cómo trabajan hoy',
+        titulo: 'Entender qué quieres construir',
         texto:
-          'Antes de proponer nada se mira la operación real: quién toca qué, dónde se rompe y qué archivo no puede faltar.',
-        entrega: 'Mapa del proceso actual',
+          'Antes de proponer nada se mira lo que hay: tu idea, el prototipo que ya existe o cómo trabajan hoy. Qué debe hacer, dónde se rompe y qué archivo no puede faltar.',
+        entrega: 'Requisitos por escrito',
       },
       disenar: {
         titulo: 'Diseñar el sistema',
@@ -379,13 +379,13 @@ const es = {
       construir: {
         titulo: 'Construir con método',
         texto:
-          'Código versionado, con pruebas y despliegues cortos. Ves avances funcionando, no capturas de pantalla.',
-        entrega: 'Entregas parciales desplegadas',
+          'Código y diseños versionados, con pruebas y entregas cortas: un despliegue o un archivo de fabricación por paso. Ves avances funcionando, no capturas de pantalla.',
+        entrega: 'Entregas parciales revisables',
       },
       entregar: {
         titulo: 'Entregar con llaves',
         texto:
-          'El repositorio, la infraestructura y la documentación quedan a tu nombre. Se cierra con una sesión técnica, no con un correo.',
+          'El repositorio, los archivos de fabricación, la infraestructura y la documentación quedan a tu nombre. Se cierra con una sesión técnica, no con un correo.',
         entrega: 'Traspaso y documento de operación',
       },
     },
@@ -401,7 +401,7 @@ const es = {
         significa:
           'El orden es anterior al talento. Hay una manera de hacer las cosas y está escrita.',
         comprueba:
-          'Código versionado, documentado y con pruebas. Cualquiera puede retomarlo.',
+          'Código y diseños versionados (repositorio, proyecto de KiCad), documentados y verificados: pruebas en software, ERC y DRC en 0 en placas. Cualquiera puede retomarlos.',
       },
       transparencia: {
         nombre: 'Transparencia',
@@ -415,7 +415,7 @@ const es = {
         significa:
           'El valor está en que las cosas avancen sin fricción, no en que se vean complejas.',
         comprueba:
-          'Automatización de lo repetible. Despliegues cortos y frecuentes.',
+          'Automatización de lo repetible. Entregas cortas y revisables: un despliegue o un archivo de fabricación por paso.',
       },
       permanencia: {
         nombre: 'Permanencia',
@@ -699,10 +699,10 @@ const es = {
     tituloDespues: '.',
 
     guiaEmi:
-      'Aquí está la comparación sin adornos. Si te reconoces en alguno de los tres perfiles de abajo, encajas.',
+      'Aquí está la comparación sin adornos. Si te reconoces en alguno de los cuatro perfiles de abajo, encajas.',
 
     declaracion:
-      'Para la pyme que ya no cabe en sus hojas de cálculo, Ayemi es la fábrica de software que entrega sistemas propios, documentados y operables, porque construye con método de ingeniería y explica cada decisión en el idioma del negocio.',
+      'Para quien tiene una idea o un problema y quiere dar el siguiente paso, Ayemi es la fábrica de software e innovación que lo construye en software, hardware o ambos y te lo entrega como tuyo, porque trabaja con método de ingeniería y explica cada decisión.',
 
     frenteTitulo: 'Por qué Ayemi y no otra opción',
     frente: {
@@ -717,36 +717,46 @@ const es = {
           'Trato directo y sin sobreprecio de estructura. Hablas con quien construye, no con quien reenvía.',
       },
       estanteria: {
-        quien: 'Frente al software de estantería',
+        quien: 'Frente al producto de estantería',
         ventaja:
-          'Ayemi se ajusta al proceso real, no al revés. No pagas módulos que no usas ni cambias tu operación para caber en un producto.',
+          'Sea software o tarjeta de desarrollo, Ayemi se ajusta al caso real y te deja los archivos para seguir sin nosotros.',
       },
     },
 
     publicoTitulo: 'A quién le sirve esto',
     publicoEntradilla:
-      'Ninguno de estos perfiles es programador. El cómo puede ser técnico; el qué y el para qué se dicen en horas ahorradas y errores evitados.',
+      'Van de quien no programa a quien lee un esquemático. El qué y el para qué se dicen en tu idioma; el cómo queda verificable (archivos, cifras, repositorio) para quien quiera revisarlo.',
     queLeDuele: 'QUÉ LE DUELE',
     queEspera: 'QUÉ ESPERA',
 
     publico: {
-      primario: {
-        quien: 'Pyme de 10 a 200 personas',
+      emprendedores: {
+        quien: 'Emprendedores',
+        es: 'Tienen una idea y necesitan el primer prototipo funcional sin perder la propiedad de lo construido.',
+        duele:
+          'Una idea sin prototipo no se puede mostrar ni probar, y quien la construye suele quedarse con los archivos.',
+        espera: 'Una ruta clara de idea a prototipo, con archivos suyos.',
+      },
+      pymes: {
+        quien: 'Pymes',
+        es: 'Empresas con operación propia que quieren dejar de hacer a mano lo repetible o lanzar algo nuevo.',
         duele:
           'Todo depende de una persona y de un archivo que nadie más entiende.',
         espera: 'Que alguien convierta eso en un sistema y se lo explique.',
       },
-      secundario: {
-        quien: 'Dirección de operaciones o finanzas',
+      makers: {
+        quien: 'Makers y estudiantes',
+        es: 'Construyen y aprenden.',
         duele:
-          'Necesita una herramienta puntual que el área de sistemas no prioriza.',
-        espera:
-          'Un proveedor ágil que no la obligue a pelear presupuesto interno.',
+          'Placas cerradas, documentación escasa y cables sueltos para aprender lo básico.',
+        espera: 'Diseños abiertos, documentación y placas para aprender sin cables.',
       },
-      terciario: {
-        quien: 'Otro estudio o agencia',
-        duele: 'Compromisos vendidos sin equipo para ejecutarlos.',
-        espera: 'Un socio discreto que cumpla y no compita por el cliente.',
+      equipos: {
+        quien: 'Equipos dentro de empresas',
+        es: 'Áreas de operación, ingeniería o innovación que necesitan un prototipo, una herramienta o una placa que su área de sistemas no prioriza.',
+        duele: 'Necesitan algo puntual y no tienen quien lo construya dentro.',
+        espera:
+          'Un proveedor ágil que no los obligue a pelear presupuesto interno.',
       },
     },
   },
@@ -780,22 +790,22 @@ const es = {
   // ── Contacto · §5.3, §5.4 y §1.10 ───────────────────────────────────────
   contacto: {
     etiqueta: 'CONTACTO',
-    titulo: 'Cuéntanos qué parte de tu operación ',
-    acento: 'duele',
+    titulo: 'Cuéntanos qué quieres ',
+    acento: 'construir',
     tituloDespues: '.',
     entradilla:
-      'No hace falta que traigas el sistema ya diseñado. Con que describas cómo trabajan hoy y qué se rompe, hay material para empezar.',
+      'No hace falta que traigas nada diseñado. Con que describas tu idea, o cómo trabajan hoy y qué se rompe, hay material para empezar.',
     guiaEmi:
-      'Te leo. Con dos líneas sobre el proceso que te está costando tiempo es suficiente.',
+      'Te leo. Con dos líneas sobre tu idea o tu problema es suficiente.',
 
     campos: {
       nombre: 'Nombre',
       correo: 'Correo',
       empresa: 'Empresa',
-      empresaAyuda: 'Opcional. Ayuda a entender el tamaño de la operación.',
+      empresaAyuda: 'Opcional. Ayuda a entender el contexto del proyecto.',
       mensaje: 'Qué necesitas',
       mensajeAyuda:
-        'Qué proceso te está costando tiempo hoy y quién lo opera.',
+        'Qué quieres construir o qué problema quieres resolver, y para quién.',
     },
 
     /* §1.10, regla 3 · Cada mensaje dice qué falta, nunca quién se equivocó. */
@@ -806,7 +816,7 @@ const es = {
       correoSinDominio:
         'Falta el dominio después de la arroba, por ejemplo .com o .mx.',
       mensajeFalta:
-        'Falta el mensaje. Con dos líneas sobre el proceso es suficiente.',
+        'Falta el mensaje. Con dos líneas sobre tu idea es suficiente.',
       mensajeCorto:
         'Con {{faltan}} caracteres más hay contexto suficiente para responder algo útil.',
     },
@@ -878,10 +888,10 @@ const es = {
     },
     diagnostico: {
       titulo: 'Diagnóstico de 30 min',
-      texto: 'Una videollamada para que nos cuentes qué se rompe hoy en tu operación. Te decimos qué haríamos primero y cuánto costaría, sin compromiso.',
+      texto: 'Una videollamada para que nos cuentes tu idea o qué se rompe hoy en tu operación. Te decimos qué haríamos primero y cuánto costaría, sin compromiso.',
       botonAgenda: 'Agenda 30 min',
       botonWhatsapp: 'Pide tu diagnóstico',
-      mensaje: 'Hola, quiero agendar el diagnóstico de 30 min. Lo que se rompe hoy es:',
+      mensaje: 'Hola, quiero agendar el diagnóstico de 30 min. Lo que quiero construir o resolver es:',
     },
   },
 
@@ -964,7 +974,7 @@ const en = {
     pruebas: {
       llavesTitulo: 'Handed over with the keys',
       llavesTexto:
-        'The repository, the infrastructure and the documentation are in your name from day one.',
+        'The repository, the manufacturing files (KiCad, Gerber, BOM, CPL), the infrastructure and the documentation are in your name from day one.',
       rangoTitulo: 'Estimates with a range',
       rangoTexto:
         'A minimum, a maximum and the assumptions behind both. Never a single loose figure.',
@@ -978,9 +988,9 @@ const en = {
 
   servicios: {
     etiqueta: 'SERVICE LINES',
-    titulo: 'Four ways to stop ',
-    acento: 'working by hand',
-    tituloDespues: '.',
+    titulo: 'Software, hardware or ',
+    acento: 'both',
+    tituloDespues: ', in four lines.',
     entradilla:
       'Everything is signed Ayemi. The lines describe the kind of work; they are not separate brands.',
     guiaEmi:
@@ -990,7 +1000,7 @@ const en = {
       plataformas: {
         nombre: 'Platforms',
         descripcion:
-          'The system your operation needs and no off-the-shelf product covers. Designed around how your team works today, not around how it should work.',
+          'The system your idea or your operation needs and no off-the-shelf product covers. Designed around what you want to build or how your team works today, not around how it should work.',
         entregables: [
           'Repository in your name',
           'Operations documentation',
@@ -1012,7 +1022,7 @@ const en = {
       integraciones: {
         nombre: 'Integrations',
         descripcion:
-          'The systems you already use stop standing alone. Invoicing, inventory, bank and spreadsheet talking to each other without anyone typing twice.',
+          'The systems you already use stop standing alone. Invoicing, inventory, bank and store talking to each other without anyone typing twice.',
         entregables: [
           'Documented APIs',
           'Scheduled synchronisation',
@@ -1023,7 +1033,7 @@ const en = {
       hardware: {
         nombre: 'Hardware',
         descripcion:
-          'The board your sensor, machine or prototype needs, designed in KiCad and ready to manufacture at JLCPCB.',
+          'The board your sensor, machine or prototype needs, designed in KiCad and ready to manufacture at JLCPCB. With the full project in your name.',
         entregables: [
           'Schematic and PCB in KiCad',
           'Gerber, BOM and CPL',
@@ -1250,10 +1260,10 @@ const en = {
 
     pasos: {
       entender: {
-        titulo: 'Understand how you work today',
+        titulo: 'Understand what you want to build',
         texto:
-          'Before proposing anything we look at the real operation: who touches what, where it breaks and which file cannot go missing.',
-        entrega: 'Map of the current process',
+          'Before proposing anything we look at what is there: your idea, the prototype that already exists or how you work today. What it must do, where it breaks and which file cannot go missing.',
+        entrega: 'Requirements in writing',
       },
       disenar: {
         titulo: 'Design the system',
@@ -1264,13 +1274,13 @@ const en = {
       construir: {
         titulo: 'Build with method',
         texto:
-          'Versioned code, with tests and short deployments. You see working progress, not screenshots.',
-        entrega: 'Partial releases, deployed',
+          'Versioned code and designs, with tests and short deliveries: one deployment or one manufacturing file per step. You see working progress, not screenshots.',
+        entrega: 'Reviewable partial deliveries',
       },
       entregar: {
         titulo: 'Hand over with the keys',
         texto:
-          'The repository, the infrastructure and the documentation end up in your name. It closes with a technical session, not an email.',
+          'The repository, the manufacturing files, the infrastructure and the documentation end up in your name. It closes with a technical session, not an email.',
         entrega: 'Handover and operations document',
       },
     },
@@ -1286,7 +1296,7 @@ const en = {
         significa:
           'Order comes before talent. There is a way of doing things and it is written down.',
         comprueba:
-          'Versioned, documented code with tests. Anyone can pick it up.',
+          'Versioned code and designs (repository, KiCad project), documented and verified: tests in software, ERC and DRC at 0 on boards. Anyone can pick them up.',
       },
       transparencia: {
         nombre: 'Transparency',
@@ -1300,7 +1310,7 @@ const en = {
         significa:
           'The value is in things moving without friction, not in looking complex.',
         comprueba:
-          'Automation of the repeatable. Short, frequent deployments.',
+          'Automation of the repeatable. Short, reviewable deliveries: one deployment or one manufacturing file per step.',
       },
       permanencia: {
         nombre: 'Permanence',
@@ -1570,10 +1580,10 @@ const en = {
     tituloDespues: '.',
 
     guiaEmi:
-      'Here is the comparison without decoration. If you recognise yourself in one of the three profiles below, you fit.',
+      'Here is the comparison without decoration. If you recognise yourself in one of the four profiles below, you fit.',
 
     declaracion:
-      'For the mid-sized company that no longer fits in its spreadsheets, Ayemi is the software factory that delivers systems you own, documented and operable, because it builds with engineering method and explains every decision in the language of the business.',
+      'For anyone with an idea or a problem who wants to take the next step, Ayemi is the software and innovation factory that builds it in software, hardware or both and hands it over as yours, because it works with engineering method and explains every decision.',
 
     frenteTitulo: 'Why Ayemi and not another option',
     frente: {
@@ -1588,36 +1598,46 @@ const en = {
           'Direct contact with no overhead markup. You talk to whoever builds it, not to whoever forwards it.',
       },
       estanteria: {
-        quien: 'Against off-the-shelf software',
+        quien: 'Against an off-the-shelf product',
         ventaja:
-          'Ayemi fits your real process, not the other way round. You do not pay for modules you never use or reshape your operation to fit a product.',
+          'Whether it is software or a development board, Ayemi fits the real case and leaves you the files to carry on without us.',
       },
     },
 
     publicoTitulo: 'Who this is for',
     publicoEntradilla:
-      'None of these people is a programmer. The how can be technical; the what and the why are said in hours saved and errors avoided.',
+      'They range from people who do not code to people who read schematics. The what and the why are said in your language; the how stays verifiable (files, figures, repository) for anyone who wants to check it.',
     queLeDuele: 'WHAT HURTS',
     queEspera: 'WHAT THEY EXPECT',
 
     publico: {
-      primario: {
-        quien: 'Companies of 10 to 200 people',
+      emprendedores: {
+        quien: 'Entrepreneurs',
+        es: 'They have an idea and need the first working prototype without giving up ownership of what gets built.',
+        duele:
+          'An idea without a prototype cannot be shown or tested, and whoever builds it often keeps the files.',
+        espera: 'A clear path from idea to prototype, with files of their own.',
+      },
+      pymes: {
+        quien: 'Small and mid-sized businesses',
+        es: 'Companies with their own operation that want to stop doing the repeatable by hand or launch something new.',
         duele:
           'Everything depends on one person and one file nobody else understands.',
         espera: 'Someone to turn that into a system and explain it to them.',
       },
-      secundario: {
-        quien: 'Operations or finance leadership',
-        duele: 'They need a specific tool that IT will not prioritise.',
+      makers: {
+        quien: 'Makers and students',
+        es: 'They build and learn.',
+        duele:
+          'Closed boards, thin documentation and loose wires just to learn the basics.',
+        espera: 'Open designs, documentation and boards to learn without wires.',
+      },
+      equipos: {
+        quien: 'Teams inside companies',
+        es: 'Operations, engineering or innovation areas that need a prototype, a tool or a board their IT area will not prioritise.',
+        duele: 'They need something specific and have nobody inside to build it.',
         espera:
           'A responsive supplier that does not force them to fight for internal budget.',
-      },
-      terciario: {
-        quien: 'Another studio or agency',
-        duele: 'Commitments sold without a team to deliver them.',
-        espera:
-          'A discreet partner who delivers and does not compete for the client.',
       },
     },
   },
@@ -1649,22 +1669,22 @@ const en = {
 
   contacto: {
     etiqueta: 'CONTACT',
-    titulo: 'Tell us which part of your operation ',
-    acento: 'hurts',
+    titulo: 'Tell us what you want to ',
+    acento: 'build',
     tituloDespues: '.',
     entradilla:
-      'You do not need to arrive with the system already designed. Describing how you work today and what breaks is enough to start.',
+      'You do not need to arrive with anything designed. Describing your idea, or how you work today and what breaks, is enough to start.',
     guiaEmi:
-      'I am reading. Two lines about the process that is costing you time is enough.',
+      'I am reading. Two lines about your idea or your problem is enough.',
 
     campos: {
       nombre: 'Name',
       correo: 'Email',
       empresa: 'Company',
-      empresaAyuda: 'Optional. Helps us understand the size of the operation.',
+      empresaAyuda: 'Optional. Helps us understand the context of the project.',
       mensaje: 'What you need',
       mensajeAyuda:
-        'Which process is costing you time today and who runs it.',
+        'What you want to build or which problem you want to solve, and for whom.',
     },
 
     errores: {
@@ -1674,7 +1694,7 @@ const en = {
         'That email has no at sign. Check that it is complete.',
       correoSinDominio:
         'The domain after the at sign is missing, for example .com or .mx.',
-      mensajeFalta: 'The message is missing. Two lines about the process is enough.',
+      mensajeFalta: 'The message is missing. Two lines about your idea is enough.',
       mensajeCorto:
         '{{faltan}} more characters gives us enough context to reply with something useful.',
     },
@@ -1744,10 +1764,10 @@ const en = {
     },
     diagnostico: {
       titulo: '30-min diagnosis',
-      texto: 'A video call where you tell us what breaks today in your operation. We tell you what we would do first and what it would cost, no strings attached.',
+      texto: 'A video call where you tell us your idea or what breaks today in your operation. We tell you what we would do first and what it would cost, no strings attached.',
       botonAgenda: 'Book 30 min',
       botonWhatsapp: 'Request your diagnosis',
-      mensaje: 'Hi, I want to book the 30-min diagnosis. What breaks today is:',
+      mensaje: 'Hi, I want to book the 30-min diagnosis. What I want to build or solve is:',
     },
   },
 

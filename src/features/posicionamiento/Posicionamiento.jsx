@@ -3,14 +3,16 @@ import { Seccion } from '../../components/layout/Seccion';
 
 /**
  * Posicionamiento
- * Manual de Identidad Corporativa Ayemi · Edición 2.0 · §1.7 y §1.8
+ * Manual de Identidad Corporativa Ayemi · Edición 2.2 · §1.7 y §1.8
  *
  * §1.8 · La declaración de posicionamiento y las tres comparaciones: frente al
- * freelance, frente a la agencia grande y frente al software de estantería.
+ * freelance, frente a la agencia grande y frente al producto de estantería,
+ * sea software o tarjeta de desarrollo.
  *
- * §1.7 · A quién servimos, con lo que le duele a cada público. Consecuencia
- * para la comunicación: ninguno de los tres públicos es programador, así que el
- * qué y el para qué se dicen en el idioma del negocio.
+ * §1.7 · A quién servimos: cuatro públicos (emprendedores, pymes, makers y
+ * equipos dentro de empresas), ninguno primario sobre los demás. Consecuencia
+ * para la comunicación: el qué y el para qué se dicen en el idioma de quien lo
+ * pide; el cómo queda verificable para quien quiera revisarlo.
  *
  * NORMA (§5.3). Las tablas no llevan líneas verticales. Solo un filete
  * horizontal de 1 px en --ay-borde entre filas.
@@ -20,7 +22,7 @@ import { Seccion } from '../../components/layout/Seccion';
  */
 
 const FRENTES = ['freelance', 'agencia', 'estanteria'];
-const PUBLICOS = ['primario', 'secundario', 'terciario'];
+const PUBLICOS = ['emprendedores', 'pymes', 'makers', 'equipos'];
 
 export const Posicionamiento = () => {
   const { t } = useTranslation();
@@ -73,7 +75,7 @@ export const Posicionamiento = () => {
           {t('posicionamiento.publicoEntradilla')}
         </p>
 
-        <div className="mt-12 grid gap-8 md:grid-cols-3">
+        <div className="mt-12 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
           {PUBLICOS.map((publico) => (
             <div key={publico}>
               <div className="h-px w-12 bg-acento" />
@@ -81,6 +83,9 @@ export const Posicionamiento = () => {
               <h4 className="mt-6 text-titulo-4">
                 {t(`posicionamiento.publico.${publico}.quien`)}
               </h4>
+              <p className="mt-2 text-cuerpo-s text-texto">
+                {t(`posicionamiento.publico.${publico}.es`)}
+              </p>
 
               <div className="mt-4">
                 <span className="ay-etiqueta">
