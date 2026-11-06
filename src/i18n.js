@@ -390,8 +390,8 @@ const es = {
     },
   },
 
-  // ── La Fábrica de Innovación · §1.3 ─────────────────────────────────────
-  fabrica: {
+  // ── Trabajos entregados: líneas, fichas y enlaces ───────────────────────
+  trabajos: {
     etiqueta: 'LA FÁBRICA',
     titulo: 'Ocho líneas, de la placa a la ',
     acento: 'nube',
@@ -493,7 +493,7 @@ const es = {
     },
 
     ficha: {
-      volver: 'Volver a La Fábrica',
+      volver: 'Volver a Casos',
       medidas: 'MEDIDAS',
       pila: 'PILA TÉCNICA',
       arquitectura: 'CÓMO ESTÁ HECHA',
@@ -521,7 +521,7 @@ const es = {
         '{{cliente}} no forma parte de Ayemi ni Ayemi de {{cliente}}. Esta pieza es trabajo que Ayemi hizo para ellos como proveedor de desarrollo; el producto, la marca y los datos son suyos. Aparece aquí como referencia de trabajo, no como respaldo, alianza ni recomendación por su parte. Las marcas y nombres comerciales pertenecen a sus titulares.',
 
       cierre:
-        '¿Tienes algo parecido en tu operación? Cuéntanos cómo trabajan hoy y qué se rompe.',
+        '¿Tienes algo parecido? Cuéntanos tu idea o qué se rompe hoy.',
       cierreBoton: 'Hablemos de tu caso',
     },
 
@@ -892,6 +892,25 @@ const es = {
     },
   },
 
+  // ── Casos · /casos ──────────────────────────────────────────────────────
+  casos: {
+    etiqueta: 'CASOS',
+    titulo: 'Lo que ya ',
+    acento: 'entregamos',
+    tituloDespues: '.',
+    entradilla:
+      'Solo trabajo real. Cuando se hizo para otra marca, esa marca se nombra y se dice que es independiente de Ayemi; lo que no se publica sin permiso son sus datos, su código y sus cifras.',
+    estudioEtiqueta: 'CASO DE ESTUDIO · {{cliente}}',
+    credito:
+      'Sitio de {{cliente}}, marca independiente de Ayemi. Ayemi lo construyó como proveedor de desarrollo.',
+    leerCaso: 'Leer el caso',
+    otrosTitulo: 'Otros trabajos entregados',
+    otrosEntradilla:
+      'Piezas más pequeñas, cada una con su ficha: qué resuelve, con qué está hecha y dónde verla.',
+    verFicha: 'Ver la ficha',
+    cierre: '¿Tienes algo parecido? Cuéntanos tu idea o qué se rompe hoy.',
+  },
+
   caso: {
     etiqueta: 'CASO · {{cliente}}',
     problema: 'El problema',
@@ -899,7 +918,7 @@ const es = {
     resultado: 'Resultado',
     capturas: 'Capturas',
     testimonio: 'Testimonio',
-    ficha: 'Ver la ficha técnica',
+    pila: 'PILA TÉCNICA',
     mensajeWhatsapp: 'Hola, vi el caso de {{cliente}} y tengo algo parecido en mi operación.',
   },
 
@@ -1282,7 +1301,7 @@ const en = {
     },
   },
 
-  fabrica: {
+  trabajos: {
     etiqueta: 'THE FACTORY',
     titulo: 'Eight lines, from the board to the ',
     acento: 'cloud',
@@ -1380,7 +1399,7 @@ const en = {
     },
 
     ficha: {
-      volver: 'Back to the Factory',
+      volver: 'Back to Cases',
       medidas: 'MEASUREMENTS',
       pila: 'TECHNICAL STACK',
       arquitectura: 'HOW IT IS BUILT',
@@ -1406,7 +1425,7 @@ const en = {
         '{{cliente}} is not part of Ayemi, nor Ayemi part of {{cliente}}. This part is work Ayemi did for them as a development supplier; the product, the brand and the data are theirs. It appears here as a work reference, not as an endorsement, partnership or recommendation on their side. Trademarks and trade names belong to their respective owners.',
 
       cierre:
-        'Have something similar in your operation? Tell us how you work today and what breaks.',
+        'Have something similar? Tell us your idea or what breaks today.',
       cierreBoton: 'Let’s talk about your case',
     },
 
@@ -1759,6 +1778,24 @@ const en = {
     },
   },
 
+  casos: {
+    etiqueta: 'CASES',
+    titulo: 'What we have already ',
+    acento: 'delivered',
+    tituloDespues: '.',
+    entradilla:
+      'Real work only. When it was built for another brand, that brand is named and marked as independent from Ayemi; what we do not publish without permission is its data, its code and its figures.',
+    estudioEtiqueta: 'CASE STUDY · {{cliente}}',
+    credito:
+      'Website of {{cliente}}, a brand independent from Ayemi. Ayemi built it as a development supplier.',
+    leerCaso: 'Read the case',
+    otrosTitulo: 'Other delivered work',
+    otrosEntradilla:
+      'Smaller parts, each with its own sheet: what it solves, what it is built with and where to see it.',
+    verFicha: 'See the sheet',
+    cierre: 'Have something similar? Tell us your idea or what breaks today.',
+  },
+
   caso: {
     etiqueta: 'CASE · {{cliente}}',
     problema: 'The problem',
@@ -1766,7 +1803,7 @@ const en = {
     resultado: 'Result',
     capturas: 'Screenshots',
     testimonio: 'Testimonial',
-    ficha: 'See the technical sheet',
+    pila: 'TECHNICAL STACK',
     mensajeWhatsapp: 'Hi, I saw the {{cliente}} case and have something similar in my operation.',
   },
 

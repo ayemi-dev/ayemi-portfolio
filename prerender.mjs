@@ -97,7 +97,7 @@ async function main() {
 
     await servidor.ssrLoadModule('/src/i18n.js');
     const { default: App } = await servidor.ssrLoadModule('/src/App.jsx');
-    const { PIEZAS, buscarLinea, rutaDePieza } = await servidor.ssrLoadModule(
+    const { PIEZAS, buscarLinea, piezasSinCaso, rutaDePieza } = await servidor.ssrLoadModule(
       '/src/config/piezas.js'
     );
     const { RUTA_CASOS, RUTA_ENLACES, RUTA_PCB, RUTA_PORTAFOLIO, RUTA_PRIVACIDAD } = await servidor.ssrLoadModule(
@@ -147,13 +147,21 @@ async function main() {
         descripcion:
           'Qué datos usa Ayemi, para qué, con quién los comparte y cómo ejercer tus derechos ARCO. Incluye cookies de GA4, Meta Pixel y Microsoft Clarity.',
       },
+      {
+        url: RUTA_CASOS,
+        archivo: path.join('casos', 'index.html'),
+        titulo: 'Casos · Ayemi',
+        descripcion:
+          'Trabajo entregado por Ayemi: el caso del sitio de ITA, con su crédito, y las piezas con ficha propia. Solo trabajo real.',
+      },
       ...CASOS.map((caso) => ({
         url: `${RUTA_CASOS}/${caso.slug}`,
         archivo: path.join(RUTA_CASOS.replace(/^\//, ''), caso.slug, 'index.html'),
         titulo: `Caso ${caso.cliente} · Ayemi`,
         descripcion: caso.problema[0],
       })),
-      ...PIEZAS.map((pieza) => {
+      /* Las piezas con caso comparten ruta con él: ya salen arriba. */
+      ...piezasSinCaso().map((pieza) => {
         const linea = buscarLinea(pieza.linea);
         return {
           url: rutaDePieza(pieza.slug),
@@ -166,7 +174,7 @@ async function main() {
           titulo: `${pieza.titulo} · Ayemi`,
           descripcion:
             pieza.resuelve ??
-            `Pieza de la línea ${linea?.id ?? ''} de La Fábrica de Ayemi.`,
+            `Trabajo entregado por Ayemi, línea ${linea?.id ?? ''}.`,
         };
       }),
     ];

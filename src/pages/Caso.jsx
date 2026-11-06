@@ -5,7 +5,7 @@ import { IconoEnlaceExterno } from '../components/marca/Iconos';
 import { Aviso } from '../components/ui/Aviso';
 import { Boton } from '../components/ui/Boton';
 import { buscarCaso, capturasDe } from '../config/casos';
-import { rutaDePieza } from '../config/piezas';
+import { buscarPieza } from '../config/piezas';
 import { enlaceWhatsapp } from '../config/sitio';
 import { NoEncontrada } from './NoEncontrada';
 
@@ -38,6 +38,10 @@ export const Caso = () => {
 
   if (!caso) return <NoEncontrada />;
 
+  /* La pila técnica sale de la pieza: la ficha y el caso comparten ruta, así
+     que lo técnico se cuenta aquí. */
+  const pila = buscarPieza(caso.pieza)?.pila ?? [];
+
   return (
     <article
       className="mx-auto max-w-2xl"
@@ -58,8 +62,8 @@ export const Caso = () => {
           <span className="sr-only">{t('pie.nuevaPestana')}</span>
         </a>
 
-        <Aviso className="mt-8" titulo={t('fabrica.ficha.atribucionTitulo', { cliente: caso.cliente })}>
-          {t('fabrica.ficha.atribucionTexto', { cliente: caso.cliente })}
+        <Aviso className="mt-8" titulo={t('trabajos.ficha.atribucionTitulo', { cliente: caso.cliente })}>
+          {t('trabajos.ficha.atribucionTexto', { cliente: caso.cliente })}
         </Aviso>
       </div>
 
@@ -118,6 +122,21 @@ export const Caso = () => {
         </div>
       </Bloque>
 
+      {pila.length > 0 && (
+        <Bloque etiqueta={t('caso.pila')}>
+          <ul className="flex flex-wrap gap-2">
+            {pila.map((pieza) => (
+              <li
+                key={pieza}
+                className="rounded-xs border border-borde px-2 py-1 font-mono text-micro text-texto-tenue"
+              >
+                {pieza}
+              </li>
+            ))}
+          </ul>
+        </Bloque>
+      )}
+
       {caso.testimonio && (
         <Bloque etiqueta={t('caso.testimonio')}>
           <blockquote className="max-w-lectura border-l-[3px] border-acento pl-6">
@@ -131,7 +150,7 @@ export const Caso = () => {
       )}
 
       <section className="mt-24 rounded-lg border border-borde bg-superficie p-6 md:p-8">
-        <h2 className="max-w-lectura text-titulo-2 text-texto">{t('fabrica.ficha.cierre')}</h2>
+        <h2 className="max-w-lectura text-titulo-2 text-texto">{t('trabajos.ficha.cierre')}</h2>
         <div className="mt-8 flex flex-col gap-4 sm:flex-row">
           <Boton
             variante="primario"
@@ -140,10 +159,7 @@ export const Caso = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            {t('fabrica.ficha.cierreBoton')}
-          </Boton>
-          <Boton variante="secundario" tamano="grande" to={rutaDePieza(caso.pieza)}>
-            {t('caso.ficha')}
+            {t('trabajos.ficha.cierreBoton')}
           </Boton>
         </div>
       </section>

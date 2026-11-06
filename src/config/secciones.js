@@ -34,7 +34,10 @@ export const RUTA_PRIVACIDAD = '/privacidad';
 /** Página de la bio de las redes: un logotipo y botones, sin cabecera ni pie. */
 export const RUTA_ENLACES = '/enlaces';
 
-/** Casos de estudio: `/casos/<slug>`. Los datos viven en config/casos.js. */
+/**
+ * Casos: `/casos` enseña el trabajo entregado; `/casos/<slug>` es un caso de
+ * estudio (config/casos.js) o la ficha de una pieza (config/piezas.js).
+ */
 export const RUTA_CASOS = '/casos';
 
 /** Caso de ITA. De aquí sale todo enlace hacia él (/enlaces, la ficha). */

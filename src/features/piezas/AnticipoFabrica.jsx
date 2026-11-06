@@ -46,7 +46,7 @@ const Cifras = ({ contador }) => {
             {String(valor).padStart(2, '0')}
           </dd>
           <dt className="ay-etiqueta mt-1 block">
-            {t(`fabrica.contador.${clave}`)}
+            {t(`trabajos.contador.${clave}`)}
           </dt>
         </div>
       ))}
@@ -68,7 +68,7 @@ const Tarjeta = ({ pieza }) => {
         <span className="flex items-center gap-2">
           <Pictograma nombre={linea?.icono} tamano={16} className="text-acento" />
           <span className="font-mono text-micro text-texto-tenue">
-            {t(`fabrica.lineas.${pieza.linea}.nombre`)}
+            {t(`trabajos.lineas.${pieza.linea}.nombre`)}
           </span>
         </span>
 
@@ -80,7 +80,7 @@ const Tarjeta = ({ pieza }) => {
             suponer que la pieza es de Ayemi. */}
         {pieza.cliente && (
           <span className="mt-1 font-mono text-micro text-texto-tenue">
-            {t('fabrica.paraCliente', { cliente: pieza.cliente.nombre })}
+            {t('trabajos.paraCliente', { cliente: pieza.cliente.nombre })}
           </span>
         )}
 
@@ -102,12 +102,12 @@ export const AnticipoFabrica = () => {
   return (
     <Seccion
       id="fabrica"
-      etiqueta={t('fabrica.etiqueta')}
-      titulo={t('fabrica.titulo')}
-      acento={t('fabrica.acento')}
-      tituloDespues={t('fabrica.tituloDespues')}
-      entradilla={t('fabrica.entradilla')}
-      guia={t('fabrica.guiaEmi')}
+      etiqueta={t('trabajos.etiqueta')}
+      titulo={t('trabajos.titulo')}
+      acento={t('trabajos.acento')}
+      tituloDespues={t('trabajos.tituloDespues')}
+      entradilla={t('trabajos.entradilla')}
+      guia={t('trabajos.guiaEmi')}
       fondo="alterno"
     >
       <Cifras contador={contador} />
@@ -122,11 +122,11 @@ export const AnticipoFabrica = () => {
 
       <div className="mt-16 border-t border-borde pt-8">
         <p className="max-w-lectura text-cuerpo-l text-texto">
-          {t('fabrica.anticipoCierre')}
+          {t('trabajos.anticipoCierre')}
         </p>
         <div className="mt-6">
           <Boton variante="primario" tamano="grande" to={RUTA_PORTAFOLIO}>
-            {t('fabrica.anticipoBoton')}
+            {t('trabajos.anticipoBoton')}
           </Boton>
         </div>
       </div>

@@ -1,15 +1,14 @@
 import { Navigate, useParams } from 'react-router-dom';
 import { rutaDePieza } from '../config/piezas';
-import { RUTA_PORTAFOLIO } from '../config/secciones';
+import { RUTA_CASOS } from '../config/secciones';
 
 /**
  * Redirección de las fichas antiguas
  *
- * Las fichas colgaban de `/piezas/<slug>` cuando La Fábrica vivía dentro de la
- * portada. Al bajar el portafolio a su propia ruta pasaron a
- * `/portafolio/<slug>`.
+ * Las fichas colgaron de `/piezas/<slug>` y después de `/portafolio/<slug>`.
+ * Desde la edición 2.2 del sitio viven en `/casos/<slug>`.
  *
- * Las redirecciones de verdad son las 308 de `vercel.json`, que es lo que ve un
+ * Las redirecciones de verdad son las 301 de `vercel.json`, que es lo que ve un
  * buscador y lo que resuelve una dirección compartida por fuera. Este
  * componente cubre el caso que el servidor no puede: una navegación interna ya
  * dentro de la aplicación, donde no hay petición HTTP que redirigir.
@@ -19,5 +18,5 @@ import { RUTA_PORTAFOLIO } from '../config/secciones';
  */
 export const RedireccionPieza = () => {
   const { slug } = useParams();
-  return <Navigate to={slug ? rutaDePieza(slug) : RUTA_PORTAFOLIO} replace />;
+  return <Navigate to={slug ? rutaDePieza(slug) : RUTA_CASOS} replace />;
 };

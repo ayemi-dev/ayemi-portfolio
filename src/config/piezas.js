@@ -93,7 +93,8 @@
  */
 
 import { GITHUB } from './sitio';
-import { RUTA_CASO_ITA, RUTA_PORTAFOLIO } from './secciones';
+import { CASOS } from './casos';
+import { RUTA_CASO_ITA, RUTA_CASOS } from './secciones';
 
 /** Plazas por línea. Cambiarlo aquí lo cambia en todo el tablero. */
 export const PLAZAS_POR_LINEA = 5;
@@ -429,15 +430,26 @@ export const piezasDestacadas = (cuantas = 3) =>
  * Ruta de la ficha de una pieza.
  *
  * Existe para que ningún componente lleve la ruta escrita: se cambia aquí y se
- * cambia en el tablero, en el índice, en la navegación entre fichas, en el
- * prerenderizado y en el sitemap de una vez.
+ * cambia en /casos, en la navegación entre fichas, en el prerenderizado y en el
+ * sitemap de una vez.
  *
- * Las fichas colgaban de `/piezas/<slug>` cuando La Fábrica vivía dentro de la
- * portada. Al bajar el portafolio a su propia ruta, quedan debajo de ella: así
- * quien navega no salta de vocabulario a mitad de camino. Las direcciones
- * viejas redirigen, ver vercel.json.
+ * Las fichas viven en `/casos/<slug>` desde la edición 2.2 del sitio. Antes
+ * colgaron de `/piezas/<slug>` y de `/portafolio/<slug>`; las dos direcciones
+ * viejas redirigen con 301 (vercel.json) y, dentro de la aplicación, con
+ * pages/RedireccionPieza.jsx. Si una pieza tiene caso de estudio con el mismo
+ * slug, la ruta muestra el caso (pages/CasoOFicha.jsx).
  */
-export const rutaDePieza = (slug) => `${RUTA_PORTAFOLIO}/${slug}`;
+export const rutaDePieza = (slug) => `${RUTA_CASOS}/${slug}`;
+
+/** Slugs con caso de estudio propio: su ruta enseña el caso, no la ficha. */
+const SLUGS_CON_CASO = new Set(CASOS.map((c) => c.pieza));
+
+/**
+ * Piezas entregadas sin caso de estudio, para /casos. Las que tienen caso ya
+ * salen arriba, como caso.
+ */
+export const piezasSinCaso = () =>
+  PIEZAS.filter((p) => p.estado === 'entregada' && !SLUGS_CON_CASO.has(p.slug));
 
 /** Todas las rutas de pieza, para el prerenderizado y el sitemap. */
 export const rutasDePiezas = () => PIEZAS.map((p) => rutaDePieza(p.slug));

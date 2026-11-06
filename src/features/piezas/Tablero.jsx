@@ -124,7 +124,7 @@ const Plaza = ({ plaza, className = '', style, orientacion = 'vertical' }) => {
   const libre = plaza.estado === 'libre';
 
   const rotulo = libre
-    ? t('fabrica.plazaLibre')
+    ? t('trabajos.plazaLibre')
     : plaza.titulo;
 
   const contenido = (
@@ -153,7 +153,7 @@ const Plaza = ({ plaza, className = '', style, orientacion = 'vertical' }) => {
         {/* §5.5 · El estado no depende solo del color: va rotulado. */}
         {plaza.estado === 'en-curso' && (
           <span className="font-mono text-micro text-acento">
-            {t('fabrica.estados.en-curso')}
+            {t('trabajos.estados.en-curso')}
           </span>
         )}
 
@@ -162,7 +162,7 @@ const Plaza = ({ plaza, className = '', style, orientacion = 'vertical' }) => {
             Ayemi. La atribución completa está en la ficha. */}
         {!libre && plaza.cliente && (
           <span className="font-mono text-micro text-texto-tenue">
-            {t('fabrica.paraCliente', { cliente: plaza.cliente.nombre })}
+            {t('trabajos.paraCliente', { cliente: plaza.cliente.nombre })}
           </span>
         )}
 

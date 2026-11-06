@@ -10,9 +10,9 @@ import { RedireccionPlaca } from './pages/RedireccionPlaca';
 import { NoEncontrada } from './pages/NoEncontrada';
 import { Privacidad } from './pages/Privacidad';
 import { Enlaces } from './pages/Enlaces';
-import { Caso } from './pages/Caso';
+import { Casos } from './pages/Casos';
+import { CasoOFicha } from './pages/CasoOFicha';
 import { AvisoCookies } from './components/AvisoCookies';
-import { FichaPieza } from './features/piezas/FichaPieza';
 import { useAncla } from './hooks/useAncla';
 import { useVistaDePagina } from './medicion/useVistaDePagina';
 import {
@@ -31,13 +31,14 @@ import { RUTA_CORTA_PLACA } from './config/placas';
  * RUTAS
  *   /                      la landing, con el anticipo del portafolio
  *   /portafolio            el tablero completo de La Fábrica
- *   /portafolio/:slug      ficha de una pieza
+ *   /portafolio/:slug      dirección vieja, redirige a /casos/:slug
  *   /pcb                   servicio de diseño de PCBs, destino del anuncio
  *   /privacidad            aviso de privacidad (LFPDPPP)
  *   /enlaces               bio de las redes, sin cabecera ni pie
- *   /casos/:slug           caso de estudio de una pieza
+ *   /casos                 trabajo entregado: casos de estudio y fichas
+ *   /casos/:slug           caso de estudio, o ficha de una pieza sin caso
  *   /p/:corto              dirección corta del QR de una placa, redirige a /pcb#<slug>
- *   /piezas/:slug          dirección antigua, redirige a /portafolio/:slug
+ *   /piezas/:slug          dirección antigua, redirige a /casos/:slug
  *   cualquier otra         no encontrada
  *
  * DOS CARAS, UN DESPLIEGUE
@@ -74,11 +75,13 @@ function App() {
         <Routes>
           <Route path="/" element={<Inicio />} />
           <Route path={RUTA_PORTAFOLIO} element={<Portafolio />} />
-          <Route path={`${RUTA_PORTAFOLIO}/:slug`} element={<FichaPieza />} />
+          {/* Fichas viejas: redirigen a /casos/<slug>. Ver RedireccionPieza. */}
+          <Route path={`${RUTA_PORTAFOLIO}/:slug`} element={<RedireccionPieza />} />
           <Route path={RUTA_PCB} element={<Pcb />} />
           <Route path={RUTA_PRIVACIDAD} element={<Privacidad />} />
           <Route path={RUTA_ENLACES} element={<Enlaces />} />
-          <Route path={`${RUTA_CASOS}/:slug`} element={<Caso />} />
+          <Route path={RUTA_CASOS} element={<Casos />} />
+          <Route path={`${RUTA_CASOS}/:slug`} element={<CasoOFicha />} />
           {/* Dirección antigua de las fichas. Ver pages/RedireccionPieza.jsx */}
           <Route path="/piezas/:slug" element={<RedireccionPieza />} />
           {/* QR de las placas. Ver pages/RedireccionPlaca.jsx */}

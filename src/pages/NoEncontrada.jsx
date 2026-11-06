@@ -75,7 +75,7 @@ export const NoEncontrada = () => {
                 to={RUTA_PORTAFOLIO}
                 className="inline-block rounded-completo border border-borde px-3 py-2 text-cuerpo-s text-texto-suave transition-colors duration-rapida ease-estandar hover:border-borde-fuerte hover:text-texto"
               >
-                {t(`fabrica.lineas.${linea.id}.nombre`)}
+                {t(`trabajos.lineas.${linea.id}.nombre`)}
               </Link>
             </li>
           ))}

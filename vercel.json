@@ -28,9 +28,9 @@
       "permanent": true
     },
     {
-      "source": "/piezas/:slug",
-      "destination": "/portafolio/:slug",
-      "permanent": true
+      "source": "/:base(portafolio|piezas)/:slug",
+      "destination": "/casos/:slug",
+      "statusCode": 301
     },
     {
       "source": "/piezas",

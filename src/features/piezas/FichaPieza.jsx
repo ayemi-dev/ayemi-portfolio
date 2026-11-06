@@ -15,7 +15,7 @@ import {
   urlRepositorio,
   vecinasDePieza,
 } from '../../config/piezas';
-import { RUTA_PORTAFOLIO } from '../../config/secciones';
+import { RUTA_CASOS } from '../../config/secciones';
 import { enlaceWhatsapp } from '../../config/sitio';
 import { NoEncontrada } from '../../pages/NoEncontrada';
 
@@ -60,7 +60,7 @@ const Enlace = ({ tipo, url }) => {
         className="ay-toque inline-flex h-10 items-center gap-2 rounded-md border border-borde-fuerte px-4 text-cuerpo-s font-bold text-texto transition-colors duration-rapida ease-estandar hover:border-acento hover:text-acento"
       >
         <Pictograma nombre={tipo} tamano={16} />
-        {t(`fabrica.enlaces.${tipo}`)}
+        {t(`trabajos.enlaces.${tipo}`)}
         {externo && (
           <span className="sr-only">{t('contacto.nuevaPestana')}</span>
         )}
@@ -95,14 +95,14 @@ export const FichaPieza = () => {
      El cliente va aquí arriba, junto a la línea y el año: es un dato de la
      pieza, no una nota al pie. */
   const medidas = [
-    { que: t('fabrica.ficha.linea'), valor: t(`fabrica.lineas.${pieza.linea}.nombre`) },
-    ...(pieza.anio ? [{ que: t('fabrica.ficha.anio'), valor: String(pieza.anio) }] : []),
-    { que: t('fabrica.ficha.estado'), valor: t(`fabrica.estados.${pieza.estado}`) },
-    ...(pieza.cliente ? [{ que: t('fabrica.ficha.cliente'), valor: pieza.cliente.nombre }] : []),
+    { que: t('trabajos.ficha.linea'), valor: t(`trabajos.lineas.${pieza.linea}.nombre`) },
+    ...(pieza.anio ? [{ que: t('trabajos.ficha.anio'), valor: String(pieza.anio) }] : []),
+    { que: t('trabajos.ficha.estado'), valor: t(`trabajos.estados.${pieza.estado}`) },
+    ...(pieza.cliente ? [{ que: t('trabajos.ficha.cliente'), valor: pieza.cliente.nombre }] : []),
     ...(pieza.cliente?.aporte
-      ? [{ que: t('fabrica.ficha.aporte'), valor: pieza.cliente.aporte }]
+      ? [{ que: t('trabajos.ficha.aporte'), valor: pieza.cliente.aporte }]
       : []),
-    ...(pieza.sector ? [{ que: t('fabrica.ficha.sector'), valor: pieza.sector }] : []),
+    ...(pieza.sector ? [{ que: t('trabajos.ficha.sector'), valor: pieza.sector }] : []),
     ...(pieza.medidas ?? []),
   ];
 
@@ -116,11 +116,11 @@ export const FichaPieza = () => {
     >
       {/* ── Volver ──────────────────────────────────────────────────────────── */}
       <Link
-        to={RUTA_PORTAFOLIO}
+        to={RUTA_CASOS}
         className="inline-flex items-center gap-2 rounded-sm text-cuerpo-s text-texto-suave transition-colors duration-rapida ease-estandar hover:text-acento"
       >
         <IconoFlechaIzquierda tamano={16} />
-        {t('fabrica.ficha.volver')}
+        {t('trabajos.ficha.volver')}
       </Link>
 
       {/* ── Encabezado ──────────────────────────────────────────────────────── */}
@@ -132,7 +132,7 @@ export const FichaPieza = () => {
             className="text-acento"
           />
           <Microetiqueta>
-            {t(`fabrica.lineas.${pieza.linea}.nombre`)}
+            {t(`trabajos.lineas.${pieza.linea}.nombre`)}
           </Microetiqueta>
         </div>
 
@@ -153,11 +153,11 @@ export const FichaPieza = () => {
         <div className="mt-8 max-w-lectura">
           <Aviso
             tipo="info"
-            titulo={t('fabrica.ficha.atribucionTitulo', {
+            titulo={t('trabajos.ficha.atribucionTitulo', {
               cliente: pieza.cliente.nombre,
             })}
           >
-            {t('fabrica.ficha.atribucionTexto', {
+            {t('trabajos.ficha.atribucionTexto', {
               cliente: pieza.cliente.nombre,
             })}
           </Aviso>
@@ -174,8 +174,8 @@ export const FichaPieza = () => {
       ) : (
         /* §1.10, regla 4 · Se dice que todavía no hay enlaces públicos. */
         <div className="mt-8 max-w-lectura">
-          <Aviso tipo="info" titulo={t('fabrica.ficha.sinEnlacesTitulo')}>
-            {t('fabrica.ficha.sinEnlacesTexto')}
+          <Aviso tipo="info" titulo={t('trabajos.ficha.sinEnlacesTitulo')}>
+            {t('trabajos.ficha.sinEnlacesTexto')}
           </Aviso>
         </div>
       )}
@@ -197,7 +197,7 @@ export const FichaPieza = () => {
       {/* ── Hoja de medidas ─────────────────────────────────────────────────── */}
       <section className="mt-16" aria-labelledby="medidas">
         <h2 id="medidas" className="ay-etiqueta">
-          {t('fabrica.ficha.medidas')}
+          {t('trabajos.ficha.medidas')}
         </h2>
 
         {/* §5.3 · Sin líneas verticales. Solo un filete horizontal entre filas. */}
@@ -218,7 +218,7 @@ export const FichaPieza = () => {
       {pieza.pila?.length > 0 && (
         <section className="mt-12" aria-labelledby="pila">
           <h2 id="pila" className="ay-etiqueta">
-            {t('fabrica.ficha.pila')}
+            {t('trabajos.ficha.pila')}
           </h2>
           <ul className="mt-4 flex flex-wrap gap-2">
             {pieza.pila.map((pieceza) => (
@@ -238,7 +238,7 @@ export const FichaPieza = () => {
       {pieza.arquitectura?.length > 0 && (
         <section className="mt-12" aria-labelledby="arquitectura">
           <h2 id="arquitectura" className="ay-etiqueta">
-            {t('fabrica.ficha.arquitectura')}
+            {t('trabajos.ficha.arquitectura')}
           </h2>
           <ol className="mt-4 max-w-lectura">
             {pieza.arquitectura.map(({ capa, que }, i) => (
@@ -263,7 +263,7 @@ export const FichaPieza = () => {
       {(anterior || siguiente) && (
         <nav
           className="mt-24 grid gap-4 border-t border-borde pt-8 sm:grid-cols-2"
-          aria-label={t('fabrica.ficha.masDeLaLinea')}
+          aria-label={t('trabajos.ficha.masDeLaLinea')}
         >
           {anterior ? (
             <Link
@@ -272,7 +272,7 @@ export const FichaPieza = () => {
             >
               <span className="flex items-center gap-2 font-mono text-micro text-texto-tenue">
                 <IconoFlechaIzquierda tamano={16} />
-                {t('fabrica.ficha.anterior')}
+                {t('trabajos.ficha.anterior')}
               </span>
               <span className="mt-1 block text-cuerpo-s text-texto group-hover:text-acento">
                 {anterior.titulo}
@@ -288,7 +288,7 @@ export const FichaPieza = () => {
               className="group rounded-md border border-borde bg-superficie p-4 text-right transition-colors duration-media ease-estandar hover:border-borde-fuerte sm:col-start-2"
             >
               <span className="flex items-center justify-end gap-2 font-mono text-micro text-texto-tenue">
-                {t('fabrica.ficha.siguiente')}
+                {t('trabajos.ficha.siguiente')}
                 <IconoFlechaDerecha tamano={16} />
               </span>
               <span className="mt-1 block text-cuerpo-s text-texto group-hover:text-acento">
@@ -307,14 +307,14 @@ export const FichaPieza = () => {
           className="mt-24 rounded-lg border border-borde bg-superficie p-6 md:p-8"
           aria-labelledby="oferta"
         >
-          <Microetiqueta>{t('fabrica.ficha.servicio')}</Microetiqueta>
+          <Microetiqueta>{t('trabajos.ficha.servicio')}</Microetiqueta>
           <h2 id="oferta" className="mt-3 max-w-lectura text-titulo-2">
             {pieza.oferta.titulo}
           </h2>
           <p className="mt-4 max-w-lectura text-cuerpo-l text-texto-suave">
             {pieza.oferta.texto}
           </p>
-          <h3 className="mt-8 ay-etiqueta">{t('fabrica.ficha.incluye')}</h3>
+          <h3 className="mt-8 ay-etiqueta">{t('trabajos.ficha.incluye')}</h3>
           <ul className="mt-3 flex max-w-lectura flex-col gap-2">
             {pieza.oferta.incluye.map((punto) => (
               <li key={punto} className="flex gap-3 text-cuerpo text-texto">
@@ -343,11 +343,11 @@ export const FichaPieza = () => {
       ) : (
       <div className="mt-24 border-t border-borde pt-8">
         <p className="max-w-lectura text-cuerpo-l text-texto">
-          {t('fabrica.ficha.cierre')}
+          {t('trabajos.ficha.cierre')}
         </p>
         <div className="mt-6">
           <Boton variante="primario" tamano="grande" to="/#contacto">
-            {t('fabrica.ficha.cierreBoton')}
+            {t('trabajos.ficha.cierreBoton')}
           </Boton>
         </div>
       </div>

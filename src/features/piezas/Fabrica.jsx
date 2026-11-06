@@ -59,7 +59,7 @@ const Contador = ({ contador }) => {
             {String(valor).padStart(2, '0')}
           </dd>
           <dt className="ay-etiqueta mt-1 block">
-            {t(`fabrica.contador.${clave}`)}
+            {t(`trabajos.contador.${clave}`)}
           </dt>
         </div>
       ))}
@@ -88,12 +88,12 @@ export const Fabrica = ({ nivel = 2 }) => {
   return (
     <Seccion
       id="fabrica"
-      etiqueta={t('fabrica.etiqueta')}
-      titulo={t('fabrica.titulo')}
-      acento={t('fabrica.acento')}
-      tituloDespues={t('fabrica.tituloDespues')}
-      entradilla={t('fabrica.entradilla')}
-      guia={t('fabrica.guiaEmi')}
+      etiqueta={t('trabajos.etiqueta')}
+      titulo={t('trabajos.titulo')}
+      acento={t('trabajos.acento')}
+      tituloDespues={t('trabajos.tituloDespues')}
+      entradilla={t('trabajos.entradilla')}
+      guia={t('trabajos.guiaEmi')}
       nivel={nivel}
       fondo="alterno"
     >
@@ -105,7 +105,7 @@ export const Fabrica = ({ nivel = 2 }) => {
         {NATURALEZAS.map((naturaleza) => (
           <div key={naturaleza} className="flex-1">
             <h3 className="ay-etiqueta">
-              {t(`fabrica.naturalezas.${naturaleza}`)}
+              {t(`trabajos.naturalezas.${naturaleza}`)}
             </h3>
 
             <ul className="mt-3 flex flex-wrap gap-2">
@@ -129,7 +129,7 @@ export const Fabrica = ({ nivel = 2 }) => {
                     >
                       <Pictograma nombre={linea.icono} tamano={16} />
                       <span className="text-cuerpo-s">
-                        {t(`fabrica.lineas.${linea.id}.nombre`)}
+                        {t(`trabajos.lineas.${linea.id}.nombre`)}
                       </span>
                       {/* El llenado, en cifras. §1.10, regla 2. */}
                       <span className="font-mono text-micro opacity-70">
@@ -155,10 +155,10 @@ export const Fabrica = ({ nivel = 2 }) => {
             />
             <div>
               <h3 className="text-titulo-3">
-                {t(`fabrica.lineas.${lineaActiva}.nombre`)}
+                {t(`trabajos.lineas.${lineaActiva}.nombre`)}
               </h3>
               <p className="mt-2 max-w-lectura text-cuerpo-s text-texto-suave">
-                {t(`fabrica.lineas.${lineaActiva}.descripcion`)}
+                {t(`trabajos.lineas.${lineaActiva}.descripcion`)}
               </p>
             </div>
           </div>
@@ -168,7 +168,7 @@ export const Fabrica = ({ nivel = 2 }) => {
             className="shrink-0 font-mono text-micro text-texto-tenue"
             aria-live="polite"
           >
-            {t('fabrica.llenado', {
+            {t('trabajos.llenado', {
               ocupadas: llenado.ocupadas,
               total: llenado.total,
             })}
@@ -183,15 +183,15 @@ export const Fabrica = ({ nivel = 2 }) => {
         {llenado.ocupadas === 0 ? (
           <EstadoConEmi
             estado="vacio"
-            titulo={t('fabrica.lineaVaciaTitulo')}
+            titulo={t('trabajos.lineaVaciaTitulo')}
             className="mt-16"
             accion={
               <Boton variante="secundario" to="/#contacto">
-                {t('fabrica.lineaVaciaBoton')}
+                {t('trabajos.lineaVaciaBoton')}
               </Boton>
             }
           >
-            {t('fabrica.lineaVaciaEmi')}
+            {t('trabajos.lineaVaciaEmi')}
           </EstadoConEmi>
         ) : (
           <div className="mt-16">
@@ -210,7 +210,7 @@ export const Fabrica = ({ nivel = 2 }) => {
           aria-labelledby="indice-piezas"
         >
           <h3 id="indice-piezas" className="ay-etiqueta">
-            {t('fabrica.indice')}
+            {t('trabajos.indice')}
           </h3>
 
           <ul className="mt-4 flex flex-col">
@@ -229,17 +229,17 @@ export const Fabrica = ({ nivel = 2 }) => {
                       importa que no se lean como producto propio. */}
                   {pieza.cliente && (
                     <span className="font-mono text-micro text-texto-tenue">
-                      {t('fabrica.paraCliente', {
+                      {t('trabajos.paraCliente', {
                         cliente: pieza.cliente.nombre,
                       })}
                     </span>
                   )}
 
                   <span className="font-mono text-micro text-texto-tenue">
-                    {t(`fabrica.lineas.${pieza.linea}.nombre`)}
+                    {t(`trabajos.lineas.${pieza.linea}.nombre`)}
                   </span>
                   <span className="ml-auto font-mono text-micro text-texto-tenue">
-                    {t(`fabrica.estados.${pieza.estado}`)}
+                    {t(`trabajos.estados.${pieza.estado}`)}
                   </span>
                 </Link>
               </li>
@@ -250,7 +250,7 @@ export const Fabrica = ({ nivel = 2 }) => {
 
       {/* ── Nota honesta sobre las plazas libres ───────────────────────────── */}
       <p className="mt-16 max-w-lectura border-t border-borde pt-6 text-cuerpo-s text-texto-tenue">
-        {t('fabrica.nota')}
+        {t('trabajos.nota')}
       </p>
     </Seccion>
   );
