@@ -55,7 +55,7 @@ export const CASOS = [
      * true cuando ITA autorice por escrito mostrar a su personal. Mientras sea
      * false se publican las capturas sin personas.
      */
-    permisoPersonal: false, // TODO(Agustín): true al llegar el permiso de ITA
+    permisoPersonal: false, // TODO(Dirección): true al llegar el permiso de ITA
 
     capturas: [
       {

@@ -1,14 +1,12 @@
 import { useTranslation } from 'react-i18next';
 import { Seccion } from '../../components/layout/Seccion';
-import { Tarjeta } from '../../components/ui/Tarjeta';
 
 /**
  * Método
- * Manual de Identidad Corporativa Ayemi · Edición 2.0 · §1.4 y §1.6
+ * Manual de Identidad Corporativa Ayemi · Edición 2.2 · §1.6 y §1.10
  *
- * §1.4 · Cuatro valores, cada uno con su consecuencia observable. «Un valor que
- * no se puede verificar no es un valor: es un adorno.» Por eso cada valor se
- * presenta con la columna «cómo se comprueba», no solo con su nombre.
+ * Los cuatro valores (§1.4) con su «cómo se comprueba» viven en «Quiénes
+ * somos»: son lo que la empresa familiar sostiene, no un paso del proceso.
  *
  * §1.6 · Las tres pruebas concretas que respaldan la promesa se muestran ya en
  * la portada; aquí se desarrolla el proceso que las hace posibles.
@@ -18,7 +16,6 @@ import { Tarjeta } from '../../components/ui/Tarjeta';
  */
 
 const PASOS = ['entender', 'disenar', 'construir', 'entregar'];
-const VALORES = ['metodo', 'transparencia', 'flujo', 'permanencia'];
 
 export const Metodo = () => {
   const { t } = useTranslation();
@@ -59,37 +56,6 @@ export const Metodo = () => {
         ))}
       </ol>
 
-      {/* ── Valores ───────────────────────────────────────────────────────── */}
-      <div className="mt-24">
-        <h3 className="text-titulo-2">{t('metodo.valoresTitulo')}</h3>
-        <p className="mt-3 max-w-lectura text-cuerpo text-texto-suave">
-          {t('metodo.valoresEntradilla')}
-        </p>
-
-        <ul className="mt-12 grid gap-6 md:grid-cols-2">
-          {VALORES.map((valor) => (
-            <Tarjeta como="li" key={valor}>
-              <h4 className="text-titulo-4">
-                {t(`metodo.valores.${valor}.nombre`)}
-              </h4>
-
-              <p className="mt-2 text-cuerpo-s text-texto-suave">
-                {t(`metodo.valores.${valor}.significa`)}
-              </p>
-
-              {/* §1.4 · La consecuencia observable. Sin esto sería un adorno. */}
-              <div className="mt-4 border-t border-borde pt-4">
-                <span className="ay-etiqueta">
-                  {t('metodo.comoSeComprueba')}
-                </span>
-                <p className="mt-2 font-mono text-micro text-texto-suave">
-                  {t(`metodo.valores.${valor}.comprueba`)}
-                </p>
-              </div>
-            </Tarjeta>
-          ))}
-        </ul>
-      </div>
     </Seccion>
   );
 };

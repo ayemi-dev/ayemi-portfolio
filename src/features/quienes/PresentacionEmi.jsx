@@ -6,11 +6,11 @@ import { IconoComprobacion, IconoCerrar } from '../../components/marca/Iconos';
 
 /**
  * Presentación de Emi
- * Kit de marca Ayemi · AGENTE.md §7 y steering `ayemi-emi`
+ * Manual de Identidad Ayemi · Edición 2.2 · §4 · steering `ayemi-emi`
  *
- * Emi toma su nombre de Emilio, el tercero de los tres que forman Ayemi. Por
- * eso vive dentro de la sección del origen del nombre y no en una sección
- * aparte: no es un añadido simpático, es la tercera sílaba de la marca.
+ * Vive dentro de «Quiénes somos»: Emi es la parte de Ayemi que habla con la
+ * gente cuando la gente necesita ayuda (§4.1). Se trata en masculino y el
+ * origen de su nombre no se explica en público (§1.1).
  *
  * ── POR QUÉ UN CATÁLOGO VIVO ───────────────────────────────────────────────
  * El contrato fija ocho expresiones y cuatro poses, y dice «no inventes otras».
@@ -18,12 +18,12 @@ import { IconoComprobacion, IconoCerrar } from '../../components/marca/Iconos';
  * puede dejar que se pruebe. Aquí se prueba: se eligen la expresión y la pose y
  * Emi responde, con la situación que le corresponde y la frase que diría.
  *
- * Está autorizado: la tabla del §7 pone «documentación de producto» en la
+ * Está autorizado: la tabla del §4.7 pone «documentación de producto» en la
  * columna «Emi sí», y esto es exactamente eso.
  * ───────────────────────────────────────────────────────────────────────────
  *
- * §7 · Su antena remata en El Núcleo, el mismo círculo cian que corona la «i»
- * del logotipo. Ese detalle es lo que la hace pertenecer al sistema, así que se
+ * §4.1 · Su antena remata en El Núcleo, el mismo círculo cian que corona la «i»
+ * del logotipo. Ese detalle es lo que lo hace pertenecer al sistema, así que se
  * señala en lugar de dejarlo pasar.
  */
 

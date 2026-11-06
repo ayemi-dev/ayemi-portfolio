@@ -50,7 +50,6 @@ const es = {
     fabrica: 'La Fábrica',
     capacidad: 'Capacidad',
     posicionamiento: 'Posicionamiento',
-    origen: 'Origen',
     contacto: 'Contacto',
   },
 
@@ -387,42 +386,6 @@ const es = {
         texto:
           'El repositorio, los archivos de fabricación, la infraestructura y la documentación quedan a tu nombre. Se cierra con una sesión técnica, no con un correo.',
         entrega: 'Traspaso y documento de operación',
-      },
-    },
-
-    valoresTitulo: 'Cuatro valores, cuatro comprobaciones',
-    valoresEntradilla:
-      'Un valor que no se puede verificar no es un valor: es un adorno. Estos son los cuatro y cómo se comprueba cada uno.',
-    comoSeComprueba: 'CÓMO SE COMPRUEBA',
-
-    valores: {
-      metodo: {
-        nombre: 'Método',
-        significa:
-          'El orden es anterior al talento. Hay una manera de hacer las cosas y está escrita.',
-        comprueba:
-          'Código y diseños versionados (repositorio, proyecto de KiCad), documentados y verificados: pruebas en software, ERC y DRC en 0 en placas. Cualquiera puede retomarlos.',
-      },
-      transparencia: {
-        nombre: 'Transparencia',
-        significa:
-          'Se dicen los tiempos, los costos y los riesgos reales, también cuando incomodan.',
-        comprueba:
-          'Estimaciones con rango y supuestos explícitos. Los cambios de alcance se escriben.',
-      },
-      flujo: {
-        nombre: 'Flujo',
-        significa:
-          'El valor está en que las cosas avancen sin fricción, no en que se vean complejas.',
-        comprueba:
-          'Automatización de lo repetible. Entregas cortas y revisables: un despliegue o un archivo de fabricación por paso.',
-      },
-      permanencia: {
-        nombre: 'Permanencia',
-        significa:
-          'Se construye para que siga funcionando cuando ya no estemos mirándolo.',
-        comprueba:
-          'Sin dependencias exóticas. Documentación de entrega. Traspaso posible.',
       },
     },
   },
@@ -766,30 +729,59 @@ const es = {
     },
   },
 
-  // ── Origen del nombre · §1.1 y §1.2 ─────────────────────────────────────
-  origen: {
-    etiqueta: 'ORIGEN DEL NOMBRE',
-    titulo: 'Tres nombres, una sola ',
-    acento: 'corriente',
-
+  // ── Quiénes somos · §1.1, §1.2 y §1.4 del manual 2.2 ────────────────────
+  /* NORMA (§1.1). En público Ayemi se presenta como empresa familiar con
+     valores firmes. No se explica la composición del nombre ni se citan
+     nombres de personas. */
+  quienes: {
+    etiqueta: 'QUIÉNES SOMOS',
+    titulo: 'Una empresa familiar con ',
+    acento: 'valores firmes',
+    tituloDespues: '.',
+    entradilla:
+      'Ayemi no es una marca personal. Está hecha para crecer, sumar gente y seguir cuando cambien las personas.',
+    guiaEmi:
+      'Cada valor dice cómo se comprueba, así no tienes que creernos. Más abajo te cuento quién soy.',
     manifiesto:
-      'Ayemi no dice «Agustín hace software». Dice «aquí converge algo que continúa».',
-
-    parrafoCasa:
-      'El nombre es la contracción de tres: Agustín, Yazmín y Emilio. No es un acrónimo decorativo, es la estructura del nombre, y explica por qué la marca habla de confluencia, de corriente y de flujo. Tres orígenes que desembocan en uno.',
-    parrafoFabrica:
-      'Eso tiene una consecuencia práctica: Ayemi no es una marca personal, es una casa. Puede crecer, incorporar gente y sobrevivir a cualquiera de sus tres nombres. La palabra fábrica es deliberada: una fábrica tiene procesos, tiene medidas, entrega piezas que encajan y repite resultados.',
-
+      'Ayemi habla de confluencia, de corriente y de flujo: partes distintas que desembocan en una sola obra.',
     propositoEtiqueta: 'PROPÓSITO',
     proposito:
-      'Convertir el trabajo repetitivo de una empresa en sistemas que se sostienen solos, para que la gente vuelva a ocuparse de lo que sí requiere criterio.',
-    propositoNota:
-      'El propósito no menciona tecnología a propósito. La tecnología cambia; el problema que resuelve Ayemi no.',
+      'Llevar una idea o un problema al siguiente paso con software, hardware o ambos, y dejarlo construido, documentado y en manos de quien lo pidió.',
+    valoresTitulo: 'Cuatro valores, cuatro comprobaciones',
+    valoresEntradilla:
+      'Un valor que no se puede verificar no es un valor: es un adorno. Estos son los cuatro y cómo se comprueba cada uno.',
+    comoSeComprueba: 'CÓMO SE COMPRUEBA',
 
-    normaEtiqueta: 'NORMA DE ESCRITURA',
-    norma:
-      'Se escribe Ayemi: una sola palabra, A mayúscula inicial y el resto en minúsculas.',
-    pronunciacion: '/a·ˈye·mi/ · acentuado en la segunda sílaba',
+    valores: {
+      metodo: {
+        nombre: 'Método',
+        significa:
+          'El orden es anterior al talento. Hay una manera de hacer las cosas y está escrita.',
+        comprueba:
+          'Código y diseños versionados (repositorio, proyecto de KiCad), documentados y verificados: pruebas en software, ERC y DRC en 0 en placas. Cualquiera puede retomarlos.',
+      },
+      transparencia: {
+        nombre: 'Transparencia',
+        significa:
+          'Se dicen los tiempos, los costos y los riesgos reales, también cuando incomodan.',
+        comprueba:
+          'Estimaciones con rango y supuestos explícitos. Los cambios de alcance se escriben.',
+      },
+      flujo: {
+        nombre: 'Flujo',
+        significa:
+          'El valor está en que las cosas avancen sin fricción, no en que se vean complejas.',
+        comprueba:
+          'Automatización de lo repetible. Entregas cortas y revisables: un despliegue o un archivo de fabricación por paso.',
+      },
+      permanencia: {
+        nombre: 'Permanencia',
+        significa:
+          'Se construye para que siga funcionando cuando ya no estemos mirándolo.',
+        comprueba:
+          'Sin dependencias exóticas. Documentación de entrega. Traspaso posible.',
+      },
+    },
   },
 
   // ── Contacto · §5.3, §5.4 y §1.10 ───────────────────────────────────────
@@ -957,7 +949,6 @@ const en = {
     fabrica: 'The Factory',
     capacidad: 'Capability',
     posicionamiento: 'Positioning',
-    origen: 'Origin',
     contacto: 'Contact',
   },
 
@@ -1289,42 +1280,6 @@ const en = {
         entrega: 'Handover and operations document',
       },
     },
-
-    valoresTitulo: 'Four values, four checks',
-    valoresEntradilla:
-      'A value you cannot verify is not a value: it is decoration. Here are the four and how each one is checked.',
-    comoSeComprueba: 'HOW IT IS CHECKED',
-
-    valores: {
-      metodo: {
-        nombre: 'Method',
-        significa:
-          'Order comes before talent. There is a way of doing things and it is written down.',
-        comprueba:
-          'Versioned code and designs (repository, KiCad project), documented and verified: tests in software, ERC and DRC at 0 on boards. Anyone can pick them up.',
-      },
-      transparencia: {
-        nombre: 'Transparency',
-        significa:
-          'Real timelines, costs and risks are stated, including when they are uncomfortable.',
-        comprueba:
-          'Estimates with a range and explicit assumptions. Scope changes are written down.',
-      },
-      flujo: {
-        nombre: 'Flow',
-        significa:
-          'The value is in things moving without friction, not in looking complex.',
-        comprueba:
-          'Automation of the repeatable. Short, reviewable deliveries: one deployment or one manufacturing file per step.',
-      },
-      permanencia: {
-        nombre: 'Permanence',
-        significa:
-          'Built to keep working when nobody is watching it any more.',
-        comprueba:
-          'No exotic dependencies. Handover documentation. Transfer is possible.',
-      },
-    },
   },
 
   fabrica: {
@@ -1649,29 +1604,55 @@ const en = {
     },
   },
 
-  origen: {
-    etiqueta: 'WHERE THE NAME COMES FROM',
-    titulo: 'Three names, one single ',
-    acento: 'current',
-
+  quienes: {
+    etiqueta: 'WHO WE ARE',
+    titulo: 'A family business with ',
+    acento: 'firm values',
+    tituloDespues: '.',
+    entradilla:
+      'Ayemi is not a personal brand. It is made to grow, bring people in and keep going when people change.',
+    guiaEmi:
+      'Each value says how it is checked, so you do not have to take our word for it. Further down I tell you who I am.',
     manifiesto:
-      'Ayemi does not say “Agustín makes software”. It says “something converges here and keeps going”.',
-
-    parrafoCasa:
-      'The name is a contraction of three: Agustín, Yazmín and Emilio. It is not a decorative acronym, it is the structure of the name, and it explains why the brand talks about confluence, current and flow. Three origins running into one.',
-    parrafoFabrica:
-      'That has a practical consequence: Ayemi is not a personal brand, it is a house. It can grow, bring people in and outlive any of its three names. The word factory is deliberate: a factory has processes, has measurements, delivers parts that fit and repeats results.',
-
+      'Ayemi speaks of confluence, current and flow: different parts running into a single work.',
     propositoEtiqueta: 'PURPOSE',
     proposito:
-      'Turn a company’s repetitive work into systems that hold themselves up, so people can get back to what actually needs judgement.',
-    propositoNota:
-      'The purpose deliberately does not mention technology. Technology changes; the problem Ayemi solves does not.',
+      'Take an idea or a problem to the next step with software, hardware or both, and leave it built, documented and in the hands of whoever asked for it.',
+    valoresTitulo: 'Four values, four checks',
+    valoresEntradilla:
+      'A value you cannot verify is not a value: it is decoration. Here are the four and how each one is checked.',
+    comoSeComprueba: 'HOW IT IS CHECKED',
 
-    normaEtiqueta: 'HOW IT IS WRITTEN',
-    norma:
-      'It is written Ayemi: one word, capital A, the rest lower case.',
-    pronunciacion: '/a·ˈye·mi/ · stress on the second syllable',
+    valores: {
+      metodo: {
+        nombre: 'Method',
+        significa:
+          'Order comes before talent. There is a way of doing things and it is written down.',
+        comprueba:
+          'Versioned code and designs (repository, KiCad project), documented and verified: tests in software, ERC and DRC at 0 on boards. Anyone can pick them up.',
+      },
+      transparencia: {
+        nombre: 'Transparency',
+        significa:
+          'Real timelines, costs and risks are stated, including when they are uncomfortable.',
+        comprueba:
+          'Estimates with a range and explicit assumptions. Scope changes are written down.',
+      },
+      flujo: {
+        nombre: 'Flow',
+        significa:
+          'The value is in things moving without friction, not in looking complex.',
+        comprueba:
+          'Automation of the repeatable. Short, reviewable deliveries: one deployment or one manufacturing file per step.',
+      },
+      permanencia: {
+        nombre: 'Permanence',
+        significa:
+          'Built to keep working when nobody is watching it any more.',
+        comprueba:
+          'No exotic dependencies. Handover documentation. Transfer is possible.',
+      },
+    },
   },
 
   contacto: {

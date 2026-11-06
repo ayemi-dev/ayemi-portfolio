@@ -5,6 +5,7 @@ import { OfertasEntrada } from '../features/ofertas/OfertasEntrada';
 import { Metodo } from '../features/metodo/Metodo';
 import { AnticipoFabrica } from '../features/piezas/AnticipoFabrica';
 import { Posicionamiento } from '../features/posicionamiento/Posicionamiento';
+import { QuienesSomos } from '../features/quienes/QuienesSomos';
 import { Contacto } from '../features/contact/Contacto';
 
 /**
@@ -62,6 +63,7 @@ export const Inicio = () => (
     </Suspense>
 
     <Posicionamiento />
+    <QuienesSomos />
     <Contacto />
   </>
 );
