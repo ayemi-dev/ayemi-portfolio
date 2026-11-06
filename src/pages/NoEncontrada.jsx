@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Boton } from '../components/ui/Boton';
 import { Microetiqueta } from '../components/marca/Logotipo';
 import { EstadoConEmi } from '../components/marca/EstadoConEmi';
-import { NAVEGACION, RUTA_LABORATORIO } from '../config/secciones';
+import { NAVEGACION, RUTA_LABORATORIO, destinoDe } from '../config/secciones';
 
 /**
  * Página no encontrada
@@ -69,13 +69,13 @@ export const NoEncontrada = () => {
           {t('noEncontrada.secciones')}
         </h2>
         <ul className="mt-4 flex flex-wrap gap-2">
-          {NAVEGACION.map(({ id, tipo, destino }) => (
-            <li key={id}>
+          {NAVEGACION.map((entrada) => (
+            <li key={entrada.id}>
               <Link
-                to={tipo === 'ruta' ? destino : `/#${id}`}
+                to={destinoDe(entrada)}
                 className="inline-block rounded-completo border border-borde px-3 py-2 text-cuerpo-s text-texto-suave transition-colors duration-rapida ease-estandar hover:border-borde-fuerte hover:text-texto"
               >
-                {t(`nav.${id}`)}
+                {t(`nav.${entrada.id}`)}
               </Link>
             </li>
           ))}

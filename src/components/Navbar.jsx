@@ -6,11 +6,11 @@ import { IconoCerrar, IconoMenu } from './marca/Iconos';
 import { LanguageToggle } from './LanguageToggle';
 import { ThemeToggle } from './ThemeToggle';
 import { useSeccionActiva } from '../hooks/useSeccionActiva';
-import { NAVEGACION, SECCIONES } from '../config/secciones';
+import { NAVEGACION, SECCIONES, destinoDe } from '../config/secciones';
 
 /**
  * Cabecera
- * Manual de Identidad Corporativa Ayemi · Edición 2.0
+ * Manual de Identidad Corporativa Ayemi · Edición 2.2
  *
  * §2.4 · Versión principal del logotipo. La tinta y el acento los resuelve el
  * rol del logotipo, que cambia con el tema (§2.12).
@@ -59,16 +59,18 @@ export const Navbar = () => {
 
   /* Un ancla y una ruta no se enlazan igual ni se marcan igual como actuales.
      El ancla lleva la barra delante para que funcione también desde otra ruta;
-     la ruta se compara contra la URL, así que el portafolio queda señalado
-     tanto en su tablero como en la ficha de cualquier pieza. */
-  const enlaces = NAVEGACION.map(({ id, tipo, destino }) => ({
-    id,
-    texto: t(`nav.${id}`),
-    destino: tipo === 'ruta' ? destino : `/#${id}`,
+     la ruta se compara contra la URL, así que «Casos» queda señalado tanto en
+     /casos como en cualquier caso o ficha. */
+  const coincide = (ruta) => pathname === ruta || pathname.startsWith(`${ruta}/`);
+  const enlaces = NAVEGACION.map((entrada) => ({
+    id: entrada.id,
+    texto: t(`nav.${entrada.id}`),
+    destino: destinoDe(entrada),
     activo:
-      tipo === 'ruta'
-        ? pathname === destino || pathname.startsWith(`${destino}/`)
-        : enInicio && seccionActiva === id,
+      entrada.tipo === 'ruta'
+        ? coincide(entrada.destino)
+        : (enInicio && entrada.secciones.includes(seccionActiva)) ||
+          Boolean(entrada.rutas?.some(coincide)),
   }));
 
   return (

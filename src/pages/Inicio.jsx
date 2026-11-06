@@ -4,37 +4,35 @@ import { Servicios } from '../features/servicios/Servicios';
 import { OfertasEntrada } from '../features/ofertas/OfertasEntrada';
 import { Metodo } from '../features/metodo/Metodo';
 import { Posicionamiento } from '../features/posicionamiento/Posicionamiento';
+import { AnticipoLaboratorio } from '../features/laboratorio/AnticipoLaboratorio';
 import { QuienesSomos } from '../features/quienes/QuienesSomos';
 import { Contacto } from '../features/contact/Contacto';
 
 /**
  * Inicio · la landing
- * Manual de Identidad Ayemi · Edición 2.0
+ * Manual de Identidad Ayemi · Edición 2.2
  *
- * NARRATIVA
- *   Portada .......... qué obtienes y las tres pruebas (§1.6)
- *   Servicios ........ las tres líneas de servicio (§1.9)
- *   Método ........... cómo se trabaja y los cuatro valores (§1.4)
- *   Fábrica .......... anticipo: cifras, tres piezas y la puerta al tablero
- *   Capacidad ........ el sistema orbital de tecnologías
- *   Posicionamiento .. frente a qué y a quién se sirve (§1.7, §1.8)
- *   Contacto ......... formulario y canales directos
+ * NARRATIVA, en el orden de la navegación (config/secciones.js)
+ *   Portada .............. la idea y lo que recibes (§1.6)
+ *   Qué construimos ...... las cuatro líneas (§1.9), la capacidad técnica y
+ *                          las ofertas de entrada; Hardware enlaza a /pcb
+ *   Cómo trabajamos ...... el método y frente a las alternativas (§1.7, §1.8)
+ *   Laboratorio .......... anticipo: los productos y la puerta a /laboratorio
+ *   Quiénes somos ........ empresa familiar, valores y Emi (§1.1, §1.4, §4)
+ *   Contacto ............. formulario y canales directos
  *
  * §1.10, regla 1 · Primero el resultado, después el método. La promesa abre y
- * el contacto cierra. La sección del origen del nombre se retiró en la
- * edición 2.2 del manual (§1.1): el nombre no se explica en público.
+ * el contacto cierra.
  *
- * QUÉ CAMBIÓ
- * La Fábrica venía entera aquí: contador, selector de ocho líneas, tablero,
- * índice de todas las piezas y nota. Era el bloque más pesado de la página y
- * el único de los ocho que era portafolio, así que esto no se leía como una
- * landing. Ahora el tablero vive en `/portafolio` y aquí queda el anticipo.
+ * QUÉ SALIÓ EN LA EDICIÓN 2.2
+ * La sección del origen del nombre (§1.1: el nombre no se explica en público)
+ * y el anticipo del tablero de La Fábrica, que enseñaba plazas vacías. El
+ * trabajo entregado vive en /casos y lo propio en /laboratorio.
  *
  * RENDIMIENTO
- * El orbital es lo único que sigue en diferido: es pesado y no se ve en el
- * primer pantallazo. El respaldo reserva alto para que la página no salte al
- * llegar (§3.13: el sistema no se mueve a saltos). El anticipo ya no hace
- * falta diferirlo, porque es una reja de tres tarjetas.
+ * El orbital es lo único en diferido: es pesado y no se ve en el primer
+ * pantallazo. El respaldo reserva alto para que la página no salte al llegar
+ * (§3.13: el sistema no se mueve a saltos).
  */
 
 const TechStack = lazy(() =>
@@ -52,15 +50,18 @@ export const Inicio = () => (
       <Hero />
     </div>
 
+    {/* ── Qué construimos ─────────────────────────────────────────────── */}
     <Servicios />
-    <OfertasEntrada fondo="profundo" />
-    <Metodo />
-
     <Suspense fallback={<Reserva id="capacidad" alto="80vh" />}>
       <TechStack />
     </Suspense>
+    <OfertasEntrada fondo="profundo" />
 
+    {/* ── Cómo trabajamos ─────────────────────────────────────────────── */}
+    <Metodo />
     <Posicionamiento />
+
+    <AnticipoLaboratorio />
     <QuienesSomos />
     <Contacto />
   </>

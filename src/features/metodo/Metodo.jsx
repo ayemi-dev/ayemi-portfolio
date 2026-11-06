@@ -22,7 +22,7 @@ export const Metodo = () => {
 
   return (
     <Seccion
-      id="metodo"
+      id="como-trabajamos"
       etiqueta={t('metodo.etiqueta')}
       titulo={t('metodo.titulo')}
       acento={t('metodo.acento')}

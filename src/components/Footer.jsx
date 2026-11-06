@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { FirmaVertical } from './marca/Logotipo';
 import { DESCRIPTOR } from './marca/verbales';
 import { IconoEnlaceExterno } from './marca/Iconos';
-import { NAVEGACION, RUTA_PRIVACIDAD } from '../config/secciones';
+import { NAVEGACION, RUTA_PRIVACIDAD, destinoDe } from '../config/secciones';
 import { CONTACTO, PERFILES, SITIO, esPendiente } from '../config/sitio';
 
 /**
@@ -53,13 +53,13 @@ export const Footer = () => {
             <nav aria-label={t('pie.navegacion')}>
               <h2 className="ay-etiqueta">{t('pie.navegacion')}</h2>
               <ul className="mt-4 flex flex-col gap-2">
-                {NAVEGACION.map(({ id, tipo, destino }) => (
-                  <li key={id}>
+                {NAVEGACION.map((entrada) => (
+                  <li key={entrada.id}>
                     <Link
-                      to={tipo === 'ruta' ? destino : `/#${id}`}
+                      to={destinoDe(entrada)}
                       className="rounded-sm text-cuerpo-s text-texto-suave transition-colors duration-rapida ease-estandar hover:text-acento"
                     >
-                      {t(`nav.${id}`)}
+                      {t(`nav.${entrada.id}`)}
                     </Link>
                   </li>
                 ))}

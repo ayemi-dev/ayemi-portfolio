@@ -29,7 +29,7 @@ export const Posicionamiento = () => {
 
   return (
     <Seccion
-      id="posicionamiento"
+      id="alternativas"
       etiqueta={t('posicionamiento.etiqueta')}
       titulo={t('posicionamiento.titulo')}
       acento={t('posicionamiento.acento')}

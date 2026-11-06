@@ -93,7 +93,7 @@ const Hero = () => {
               <Boton variante="primario" tamano="grande" to="/#contacto">
                 {t('hero.botonPrimario')}
               </Boton>
-              <Boton variante="secundario" tamano="grande" to="/#servicios">
+              <Boton variante="secundario" tamano="grande" to="/#que-construimos">
                 {t('hero.botonSecundario')}
               </Boton>
             </div>

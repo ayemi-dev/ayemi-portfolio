@@ -38,7 +38,7 @@ export const Servicios = () => {
 
   return (
     <Seccion
-      id="servicios"
+      id="que-construimos"
       etiqueta={t('servicios.etiqueta')}
       titulo={t('servicios.titulo')}
       acento={t('servicios.acento')}

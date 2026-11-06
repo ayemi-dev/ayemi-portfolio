@@ -44,12 +44,10 @@ const es = {
   },
 
   nav: {
-    servicios: 'Servicios',
-    pcb: 'PCB',
-    metodo: 'Método',
+    queConstruimos: 'Qué construimos',
+    comoTrabajamos: 'Cómo trabajamos',
     laboratorio: 'Laboratorio',
-    capacidad: 'Capacidad',
-    posicionamiento: 'Posicionamiento',
+    casos: 'Casos',
     contacto: 'Contacto',
   },
 
@@ -90,7 +88,7 @@ const es = {
 
   // ── Líneas de servicio · §1.9 ───────────────────────────────────────────
   servicios: {
-    etiqueta: 'LÍNEAS DE SERVICIO',
+    etiqueta: 'QUÉ CONSTRUIMOS',
     titulo: 'Software, hardware o ',
     acento: 'ambos',
     tituloDespues: ', en cuatro líneas.',
@@ -358,14 +356,14 @@ const es = {
 
   // ── Método · §1.4 y §1.6 ────────────────────────────────────────────────
   metodo: {
-    etiqueta: 'MÉTODO',
+    etiqueta: 'CÓMO TRABAJAMOS',
     titulo: 'El orden es anterior al ',
     acento: 'talento',
     tituloDespues: '.',
     entradilla:
       'Hay una manera de hacer las cosas y está escrita. Eso es lo que permite que otra persona retome el trabajo sin hacer arqueología.',
     guiaEmi:
-      'Cuatro pasos y cuatro valores. Fíjate en la columna de la derecha: ahí dice cómo se comprueba cada uno.',
+      'Cuatro pasos, y cada uno deja algo en tus manos. Abajo está la comparación con las otras opciones.',
 
     pasos: {
       entender: {
@@ -620,7 +618,7 @@ const es = {
 
   // ── Posicionamiento · §1.7 y §1.8 ───────────────────────────────────────
   posicionamiento: {
-    etiqueta: 'POSICIONAMIENTO',
+    etiqueta: 'CÓMO TRABAJAMOS',
     titulo: 'Frente a las ',
     acento: 'alternativas',
     tituloDespues: '.',
@@ -928,6 +926,11 @@ const es = {
       titulo: '¿Necesitas algo más específico? ',
       acento: 'Lo construimos.',
     },
+
+    anticipo: {
+      wabot: 'Avisos por WhatsApp',
+      boton: 'Ver el Laboratorio',
+    },
   },
 
   // ── Casos · /casos ──────────────────────────────────────────────────────
@@ -1000,12 +1003,10 @@ const en = {
   },
 
   nav: {
-    servicios: 'Services',
-    pcb: 'PCB',
-    metodo: 'Method',
+    queConstruimos: 'What we build',
+    comoTrabajamos: 'How we work',
     laboratorio: 'Lab',
-    capacidad: 'Capability',
-    posicionamiento: 'Positioning',
+    casos: 'Cases',
     contacto: 'Contact',
   },
 
@@ -1040,7 +1041,7 @@ const en = {
   },
 
   servicios: {
-    etiqueta: 'SERVICE LINES',
+    etiqueta: 'WHAT WE BUILD',
     titulo: 'Software, hardware or ',
     acento: 'both',
     tituloDespues: ', in four lines.',
@@ -1306,14 +1307,14 @@ const en = {
   },
 
   metodo: {
-    etiqueta: 'METHOD',
+    etiqueta: 'HOW WE WORK',
     titulo: 'Order comes before ',
     acento: 'talent',
     tituloDespues: '.',
     entradilla:
       'There is a way of doing things and it is written down. That is what lets someone else pick the work up without doing archaeology.',
     guiaEmi:
-      'Four steps and four values. Look at the right-hand column: that is where it says how each one is checked.',
+      'Four steps, and each one leaves something in your hands. Below is the comparison with the other options.',
 
     pasos: {
       entender: {
@@ -1558,7 +1559,7 @@ const en = {
   },
 
   posicionamiento: {
-    etiqueta: 'POSITIONING',
+    etiqueta: 'HOW WE WORK',
     titulo: 'Against the ',
     acento: 'alternatives',
     tituloDespues: '.',
@@ -1856,6 +1857,11 @@ const en = {
     cierre: {
       titulo: 'Need something more specific? ',
       acento: 'We build it.',
+    },
+
+    anticipo: {
+      wabot: 'WhatsApp notifications',
+      boton: 'See the Lab',
     },
   },
 
