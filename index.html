@@ -37,10 +37,10 @@
 
     <title>Ayemi · Fábrica de software e innovación</title>
 
-    <!-- §10 · Primero el resultado, después el método -->
+    <!-- §1.6 (manual 2.2) · La propuesta de valor, tal cual -->
     <meta
       name="description"
-      content="Ayemi construye el software interno que tu empresa necesita y te lo entrega documentado, probado y en tus manos. Sin cajas negras y sin ataduras."
+      content="Ayemi construye el software, la placa o ambos que tu idea o tu operación necesitan, y te los entrega documentados, probados y en tus manos. Sin cajas negras y sin ataduras."
     />
     <meta name="author" content="Ayemi" />
 
@@ -68,7 +68,7 @@
     />
     <meta
       property="og:description"
-      content="Sistemas propios, documentados y operables. Construidos con método de ingeniería y explicados en el idioma del negocio."
+      content="Tienes una idea. La convertimos en algo que funciona. Software, placas electrónicas e integraciones a la medida, documentados, probados y a tu nombre."
     />
     <!-- El marcador de dominio lo sustituye prerender.mjs por SITIO.url (src/config/sitio.js):
          un solo dominio en og:image, twitter:image y JSON-LD. -->
@@ -80,12 +80,22 @@
       content="Logotipo de Ayemi sobre lienzo Grafito, con el lema Ingeniería que fluye."
     />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Ayemi · Fábrica de software e innovación" />
+    <meta
+      name="twitter:description"
+      content="Tienes una idea. La convertimos en algo que funciona. Software, placas electrónicas e integraciones a la medida, documentados, probados y a tu nombre."
+    />
     <meta name="twitter:image" content="__SITIO_URL__/redes-open-graph.png" />
+    <meta
+      name="twitter:image:alt"
+      content="Logotipo de Ayemi sobre lienzo Grafito, con el lema Ingeniería que fluye."
+    />
 
     <!--
-      Datos estructurados. Solo se declara lo que el contrato afirma. No hay
-      correo, teléfono ni perfiles porque siguen pendientes en
-      src/config/sitio.js, y §10 (regla 4) obliga a admitir lo que no se sabe.
+      Datos estructurados. Solo se declara lo que el manual 2.2 afirma (§1.6,
+      §1.9, §1.11). `sameAs` lo añade prerender.mjs con los perfiles que tienen
+      URL en src/config/sitio.js (GitHub y las redes de VITE_*_URL): no se
+      escribe aquí ninguna dirección a mano.
     -->
     <script type="application/ld+json">
       {
@@ -94,7 +104,7 @@
         "name": "Ayemi",
         "alternateName": "Ayemi · Fábrica de software e innovación",
         "slogan": "Ingeniería que fluye",
-        "description": "Ayemi construye el software interno que tu empresa necesita y te lo entrega documentado, probado y en tus manos. Sin cajas negras y sin ataduras.",
+        "description": "Ayemi construye el software, la placa o ambos que tu idea o tu operación necesitan, y te los entrega documentados, probados y en tus manos. Sin cajas negras y sin ataduras.",
         "url": "__SITIO_URL__",
         "logo": "__SITIO_URL__/marca/ayemi-logotipo-principal-oscuro.svg",
         "image": "__SITIO_URL__/redes-open-graph.png",
@@ -103,7 +113,8 @@
           "Desarrollo de software a medida",
           "Automatización de procesos",
           "Integración de sistemas y APIs",
-          "Diseño de circuitos impresos",
+          "Diseño de placas electrónicas",
+          "Hardware abierto",
           "Firmware para microcontroladores",
           "Internet de las cosas",
           "Infraestructura en la nube"

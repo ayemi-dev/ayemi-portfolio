@@ -1,26 +1,27 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { FirmaVertical } from './marca/Logotipo';
-import { DESCRIPTOR } from './marca/verbales';
+import { descriptorPara } from './marca/verbales';
 import { IconoEnlaceExterno } from './marca/Iconos';
 import { NAVEGACION, RUTA_PRIVACIDAD, destinoDe } from '../config/secciones';
 import { CONTACTO, PERFILES, SITIO, esPendiente } from '../config/sitio';
 
 /**
  * Pie
- * Manual de Identidad Corporativa Ayemi · Edición 2.0
+ * Manual de Identidad Corporativa Ayemi · Edición 2.2
  *
  * §2.6 · Aquí entra la firma vertical: es la versión institucional, prevista
  * para créditos y firmas de cierre. A 40 px de altura de caja, por encima del
  * mínimo del bloque (§2.11).
  *
  * §1.11 · El descriptor «Fábrica de software e innovación» acompaña al nombre
- * cuando hace falta explicar el giro, como en un pie de página.
+ * cuando hace falta explicar el giro, como en un pie de página. En inglés,
+ * «Software and innovation factory» (traducción aprobada en la 2.2).
  *
  * §3.8 · Los datos (año, edición del sistema, correo) van en monoespaciada.
  */
 export const Footer = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const anio = new Date().getFullYear();
   const perfiles = PERFILES.filter((perfil) => !esPendiente(perfil.url));
   const hayCorreo = !esPendiente(CONTACTO.correo.valor);
@@ -42,7 +43,7 @@ export const Footer = () => {
                 El área de protección la reserva el hueco del contenedor. */}
             <FirmaVertical tamano={64} />
 
-            <p className="mt-6 text-cuerpo-s text-texto-suave">{DESCRIPTOR}</p>
+            <p className="mt-6 text-cuerpo-s text-texto-suave">{descriptorPara(i18n.resolvedLanguage)}</p>
             <p className="mt-1 font-mono text-micro text-texto-tenue">
               {SITIO.ubicacion}
             </p>

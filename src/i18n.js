@@ -818,7 +818,7 @@ const es = {
     derechos: 'Todos los derechos reservados',
     nuevaPestana: '(abre en una pestaña nueva)',
     sinCanales: 'Pendiente de publicar',
-    sistema: 'Sistema de identidad · edición 2.0',
+    sistema: 'Sistema de identidad · edición 2.2',
     privacidad: 'Aviso de privacidad',
   },
 
@@ -967,11 +967,14 @@ const es = {
     // Claim de marca (addendum 01 del manual, §1.11): dos frases, la segunda en cian.
     claim: 'Lo construimos.',
     claimAcento: 'Es tuyo.',
-    mensajeWhatsapp: 'Hola, los vi en redes y quiero platicar de un proyecto.',
+    /* Mensaje de la portada (2.2): qué construimos, en una línea. */
+    entradilla: 'Software, placas electrónicas e integraciones a la medida.',
+    mensajeWhatsapp: 'Hola, los vi en redes y quiero platicar de una idea.',
     botones: {
-      whatsapp: 'Escríbenos por WhatsApp',
-      pcb: 'Cotiza tu PCB',
+      whatsapp: 'Cuéntanos tu idea por WhatsApp',
+      pcb: 'Cotiza tu placa',
       agenda: 'Agenda un diagnóstico de 30 min',
+      laboratorio: 'Conoce el Laboratorio',
       youtube: 'Míranos en YouTube',
       caso: 'Caso: sitio de ITA',
       sitio: 'Conoce Ayemi',
@@ -1751,7 +1754,7 @@ const en = {
     derechos: 'All rights reserved',
     nuevaPestana: '(opens in a new tab)',
     sinCanales: 'Not published yet',
-    sistema: 'Identity system · edition 2.0',
+    sistema: 'Identity system · edition 2.2',
     privacidad: 'Privacy notice',
   },
 
@@ -1898,11 +1901,13 @@ const en = {
     // Aprobado por Dirección el 2 de noviembre de 2026 (manual 2.1, §1.11).
     claim: 'We build it.',
     claimAcento: "It's yours.",
-    mensajeWhatsapp: 'Hi, I saw you on social media and want to talk about a project.',
+    entradilla: 'Custom software, electronic boards and integrations.',
+    mensajeWhatsapp: 'Hi, I saw you on social media and want to talk about an idea.',
     botones: {
-      whatsapp: 'Message us on WhatsApp',
-      pcb: 'Get a PCB quote',
+      whatsapp: 'Tell us your idea on WhatsApp',
+      pcb: 'Get a quote for your board',
       agenda: 'Book a 30-min diagnosis',
+      laboratorio: 'Visit the Lab',
       youtube: 'Watch us on YouTube',
       caso: 'Case: ITA website',
       sitio: 'Meet Ayemi',

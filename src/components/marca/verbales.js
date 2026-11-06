@@ -18,5 +18,14 @@ export const MICROETIQUETA = 'INGENIERÍA QUE FLUYE';
 /** Explica el giro cuando hace falta: pie de página, alta en directorios. */
 export const DESCRIPTOR = 'Fábrica de software e innovación';
 
+/**
+ * Política de idioma (manual 2.2, §1.11). Solo se traducen el descriptor, el
+ * claim y el respaldo «por Ayemi»; el lema y la microetiqueta, nunca.
+ */
+export const DESCRIPTOR_EN = 'Software and innovation factory';
+
+/** Descriptor según el idioma activo de i18next. */
+export const descriptorPara = (idioma) => (idioma === 'en' ? DESCRIPTOR_EN : DESCRIPTOR);
+
 /** Nombre de la marca. Existe como constante para no teclearlo mal. */
 export const NOMBRE = 'Ayemi';

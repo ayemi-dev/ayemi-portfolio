@@ -1,16 +1,21 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Logotipo, Microetiqueta } from '../components/marca/Logotipo';
+import { descriptorPara } from '../components/marca/verbales';
 import { Boton } from '../components/ui/Boton';
 import { enlaceWhatsapp } from '../config/sitio';
 import { AGENDA_URL, urlRed } from '../config/externos';
-import { RUTA_CASO_ITA, RUTA_PCB, RUTA_PRIVACIDAD } from '../config/secciones';
+import { RUTA_CASO_ITA, RUTA_LABORATORIO, RUTA_PCB, RUTA_PRIVACIDAD } from '../config/secciones';
 
 /**
  * Enlaces · `/enlaces`
  *
  * La página de la bio de las redes: logotipo, el claim y los
  * botones, sin cabecera ni pie para que nada compita con ellos.
+ *
+ * §1.11 (2.2) · El claim es el titular de esta página. El lema va como
+ * microetiqueta, nunca al mismo nivel; debajo, el descriptor y la línea de qué
+ * construimos, que no compiten con el claim porque no son titular.
  *
  * Medición: todos llevan `data-ubicacion="enlaces"`, y el escuchador global
  * de medicion.js ya cuenta WhatsApp, la agenda y YouTube. Los UTM de la bio
@@ -24,7 +29,7 @@ import { RUTA_CASO_ITA, RUTA_PCB, RUTA_PRIVACIDAD } from '../config/secciones';
 const UBICACION = 'enlaces';
 
 export const Enlaces = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const youtube = urlRed('youtube');
 
   const externo = { target: '_blank', rel: 'noopener noreferrer' };
@@ -38,6 +43,7 @@ export const Enlaces = () => {
     },
     { clave: 'pcb', to: RUTA_PCB },
     AGENDA_URL && { clave: 'agenda', href: AGENDA_URL, 'data-evento': 'agenda', ...externo },
+    { clave: 'laboratorio', to: RUTA_LABORATORIO },
     youtube && { clave: 'youtube', href: youtube, ...externo },
     { clave: 'caso', to: RUTA_CASO_ITA },
     { clave: 'sitio', to: '/' },
@@ -57,6 +63,12 @@ export const Enlaces = () => {
       <h1 className="mt-8 text-center text-titulo-1 text-texto">
         {t('enlaces.claim')} <span className="block text-acento">{t('enlaces.claimAcento')}</span>
       </h1>
+      <p className="mt-4 text-center text-cuerpo text-texto-suave">
+        {t('enlaces.entradilla')}
+      </p>
+      <p className="mt-2 text-center font-mono text-micro text-texto-tenue">
+        {descriptorPara(i18n.resolvedLanguage)}
+      </p>
 
       <ul className="mt-10 flex w-full flex-col gap-3">
         {botones.map(({ clave, variante = 'secundario', ...destino }) => (

@@ -138,7 +138,7 @@ async function main() {
         archivo: path.join('enlaces', 'index.html'),
         titulo: 'Enlaces · Ayemi',
         descripcion:
-          'WhatsApp, cotización de PCB, diagnóstico de 30 min y el trabajo de Ayemi, en un solo lugar.',
+          'Lo construimos. Es tuyo. WhatsApp, cotización de tu placa, diagnóstico de 30 min, el Laboratorio y el trabajo de Ayemi, en un solo lugar.',
       },
       {
         url: RUTA_PRIVACIDAD,
@@ -219,6 +219,10 @@ async function main() {
           /(<meta\s+property="og:title"\s+content=")[^"]*(")/,
           `$1${escapar(ruta.titulo)}$2`
         );
+        html = html.replace(
+          /(<meta\s+name="twitter:title"\s+content=")[^"]*(")/,
+          `$1${escapar(ruta.titulo)}$2`
+        );
       }
 
       if (ruta.descripcion) {
@@ -228,6 +232,10 @@ async function main() {
         );
         html = html.replace(
           /(<meta\s+property="og:description"\s+content=")[^"]*(")/,
+          `$1${escapar(ruta.descripcion)}$2`
+        );
+        html = html.replace(
+          /(<meta\s+name="twitter:description"\s+content=")[^"]*(")/,
           `$1${escapar(ruta.descripcion)}$2`
         );
       }
