@@ -967,21 +967,38 @@ const es = {
   },
 
   enlaces: {
-    // Claim de marca (addendum 01 del manual, §1.11): dos frases, la segunda en cian.
+    // Claim de marca (§1.11): dos frases, la segunda en cian.
     claim: 'Lo construimos.',
     claimAcento: 'Es tuyo.',
-    /* Mensaje de la portada (2.2): qué construimos, en una línea. */
-    entradilla: 'Software, placas electrónicas e integraciones a la medida.',
-    mensajeWhatsapp: 'Hola, los vi en redes y quiero platicar de una idea.',
-    botones: {
-      whatsapp: 'Cuéntanos tu idea por WhatsApp',
-      pcb: 'Cotiza tu placa',
-      agenda: 'Agenda un diagnóstico de 30 min',
-      laboratorio: 'Conoce el Laboratorio',
-      youtube: 'Míranos en YouTube',
-      caso: 'Caso: sitio de ITA',
-      sitio: 'Conoce Ayemi',
+    entradilla: 'Software, placas electrónicas e integraciones a la medida, documentados y a tu nombre.',
+    // Voz de Emi (§4.6): segunda persona, dos frases, sin emojis.
+    emi: 'Hola, soy Emi. Cuéntanos qué quieres construir y te respondemos por WhatsApp.',
+    redes: 'Redes de Ayemi',
+    mensajeWhatsapp: 'Hola, los vi en redes y quiero platicar de un proyecto.',
+    mensaje: {
+      titulo: 'Escríbenos por WhatsApp',
+      ayuda: 'Elige el tema, cuéntanos tu idea y el mensaje se abre listo en WhatsApp.',
+      temaEtiqueta: 'Tema',
+      temas: ['Software a la medida', 'Placa electrónica (PCB)', 'Integración o automatización', 'Otra idea'],
+      ideaEtiqueta: 'Tu idea',
+      ideaPista: 'Qué quieres construir, qué problema resuelve y para cuándo.',
+      nombreEtiqueta: 'Tu nombre (opcional)',
+      nombrePista: 'Cómo te llamas',
+      saludo: 'Hola, Ayemi.',
+      soy: 'Soy {{nombre}}.',
+      quiero: 'Quiero platicar de: {{tema}}.',
+      enviar: 'Enviar por WhatsApp',
+      nota: 'Te respondemos en horario laboral.',
     },
+    accesos: {
+      laboratorio: { titulo: 'Laboratorio', texto: 'Placas abiertas y lo que construimos por iniciativa propia.' },
+      pcb: { titulo: 'Diseño de placas (PCB)', texto: 'Del esquema a los archivos de fabricación.' },
+      agenda: { titulo: 'Diagnóstico de 30 min', texto: 'Una videollamada para revisar tu idea.' },
+      youtube: { titulo: 'Nuestros videos', texto: 'Guías y lo que construimos, en YouTube.' },
+      caso: { titulo: 'Caso: sitio de ITA', texto: 'Un sitio bilingüe para una empresa de servicios.' },
+      sitio: { titulo: 'Conoce Ayemi', texto: 'Qué construimos y cómo trabajamos.' },
+    },
+    pie: 'Ayemi · Fábrica de software e innovación',
   },
 
   cookies: {
@@ -1901,20 +1918,37 @@ const en = {
   },
 
   enlaces: {
-    // Aprobado por Dirección el 2 de noviembre de 2026 (manual 2.1, §1.11).
+    // Approved by Dirección (manual 2.2, §1.11).
     claim: 'We build it.',
     claimAcento: "It's yours.",
-    entradilla: 'Custom software, electronic boards and integrations.',
-    mensajeWhatsapp: 'Hi, I saw you on social media and want to talk about an idea.',
-    botones: {
-      whatsapp: 'Tell us your idea on WhatsApp',
-      pcb: 'Get a quote for your board',
-      agenda: 'Book a 30-min diagnosis',
-      laboratorio: 'Visit the Lab',
-      youtube: 'Watch us on YouTube',
-      caso: 'Case: ITA website',
-      sitio: 'Meet Ayemi',
+    entradilla: 'Custom software, electronic boards and integrations, documented and in your name.',
+    emi: "Hi, I'm Emi. Tell us what you want to build and we'll answer on WhatsApp.",
+    redes: 'Ayemi on social media',
+    mensajeWhatsapp: 'Hi, I saw you on social media and want to talk about a project.',
+    mensaje: {
+      titulo: 'Message us on WhatsApp',
+      ayuda: 'Pick a topic, tell us your idea and the message opens ready in WhatsApp.',
+      temaEtiqueta: 'Topic',
+      temas: ['Custom software', 'Electronic board (PCB)', 'Integration or automation', 'Another idea'],
+      ideaEtiqueta: 'Your idea',
+      ideaPista: 'What you want to build, what it solves and when you need it.',
+      nombreEtiqueta: 'Your name (optional)',
+      nombrePista: 'Your name',
+      saludo: 'Hi, Ayemi.',
+      soy: "I'm {{nombre}}.",
+      quiero: "I'd like to talk about: {{tema}}.",
+      enviar: 'Send on WhatsApp',
+      nota: 'We reply during business hours.',
     },
+    accesos: {
+      laboratorio: { titulo: 'Lab', texto: 'Open boards and what we build on our own initiative.' },
+      pcb: { titulo: 'PCB design', texto: 'From schematic to manufacturing files.' },
+      agenda: { titulo: '30-min diagnosis', texto: 'A video call to review your idea.' },
+      youtube: { titulo: 'Our videos', texto: 'Guides and what we build, on YouTube.' },
+      caso: { titulo: 'Case: ITA website', texto: 'A bilingual site for a services company.' },
+      sitio: { titulo: 'Meet Ayemi', texto: 'What we build and how we work.' },
+    },
+    pie: 'Ayemi · Software and innovation factory',
   },
 
   cookies: {
