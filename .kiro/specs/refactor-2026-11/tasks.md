@@ -69,7 +69,12 @@ Comprobantes base (siempre): `npm run lint` · `npm run build` ·
   - `pages/PaginaProyecto.jsx` y los componentes de design.md; orden fijo de R5; bloques sin datos no se pintan.
   - `/proyectos/:slug` y `/casos/:slug` usan la misma página. `CasoOFicha.jsx` sigue resolviendo piezas.
   - Etiqueta «Proyecto demostrativo de Ayemi» arriba si `laboratorio`; «Ayemi no tiene relación con X» por cada `marcasAjenas`.
-  - Comprobantes: base + ITA se ve completo sin bloque «Pruébalo».
+  - **Decisión 2026-11-20 (medios, pregunta abierta en la bitácora de T2):** `scripts/copiar-medios.mjs` copia
+    `contenido/proyectos/<slug>/medios/*` a `public/proyectos/<slug>/` y corre antes de `vite` en `dev` y antes de
+    `vite build` en `build` (después del validador). `public/proyectos/` va en `.gitignore`. En la app, una función
+    única `urlMedio(slug, ruta)` convierte la ruta relativa de la ficha en `/proyectos/<slug>/<archivo>`; así el
+    build del cliente y el prerender dan la misma URL. `casos.js` deja de usar `public/casos/ita/` cuando ITA se
+    pinte desde su ficha (no borres esa carpeta en T6; se retira en T13).
 
 - [ ] **T7 · Rutas, navegación y redirecciones**
   - `App.jsx`: rutas de design.md con `lazy()`. Navbar/Footer: «Proyectos» sustituye a «Casos» (es/en).
