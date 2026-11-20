@@ -31,6 +31,11 @@ Comprobantes base (siempre): `npm run lint` · `npm run build` ·
     `CASOS[0]` de `src/config/casos.js` (problema, hicimos→solucion, cifras, resultado, testimonio,
     `permisoPersonal`). Textos `en`: tradúcelos de `src/i18n.js` donde existan; si no existen, escribe el
     bloque `en` y márcalo en `bitacora.md` para revisión.
+  - **Decisión 2026-11-20 (bloqueo de T2):** el esquema no se relaja. ITA lleva `video` hecho **solo con sus
+    capturas reales** (sin nada inventado): ffmpeg (ya instalado, sin dependencias npm nuevas) con desplazamiento
+    lento vertical de 3–4 capturas, 10–14 s, sin audio, 1280×720, `medios/ita.mp4` (H.264, `-movflags +faststart`,
+    ≤ 2 MB) + `medios/ita.webm` (VP9) + `medios/ita-poster.webp` (la primera captura) y `duracionSeg`. Deja el
+    comando ffmpeg exacto en `bitacora.md` para repetirlo con otros casos.
   - Copia las capturas de ITA a `contenido/proyectos/ita-2026/medios/`. Diagrama: crea `diagrama.svg` sencillo
     (sitio estático → formulario → correo) usando solo tokens de la paleta en `fill`/`stroke` vía clases.
   - Crea `src/config/proyectos.js` (API de design.md) con `import.meta.glob('/contenido/proyectos/*/proyecto.json', { eager: true })`.
