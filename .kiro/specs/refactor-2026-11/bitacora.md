@@ -429,6 +429,51 @@ Ninguno bloquea T10, porque la sección sigue oculta. Quedan en «Pendiente de D
   - Después se restauraron `Inicio.jsx` y `sitio.js` desde copia y se volvió a compilar. `git diff` confirma que `Inicio.jsx` no cambió.
 - Fuera del commit, como en T1–T9: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
 
+T11 · 2026-11-20 · hecho · `prerender.mjs` genera `/proyectos` y una página por ficha publicada con su título, su resumen y su primera imagen (og:image absoluta, con medidas y texto alternativo), JSON-LD `CreativeWork` en cada ficha y `FAQPage` en la portada con las 8 preguntas de `confianza.preguntas.lista`; `/casos` sale del prerender y del sitemap; `/proyectos/<slug de caso-cliente>` recibe un HTML que lleva a `/casos/<slug>/`. En nginx ya no hay 403 en `/proyectos/` ni en `/proyectos/ita-2026/`.
+
+## Detalle de T11
+
+### Archivos
+
+Solo `prerender.mjs`:
+
+- **Rutas.** Sale `/casos` (era un `<Navigate>` y generaba `dist/casos/index.html` vacío). Entra `/proyectos` → `dist/proyectos/index.html`, con título «Proyectos · Ayemi» (`nav.proyectos`) y descripción `proyectos.entradilla`: textos que ya existen, sin copia nueva. Las fichas salen de `proyectosPublicados()` en lugar de `CASOS`: `caso-cliente` en `/casos/<slug>` y `laboratorio` en `/proyectos/<slug>`, las mismas URL que `TarjetaProyecto`. Las piezas sin caso no cambian.
+- **Meta por ficha.** `<title>`, `og:title` y `twitter:title` = `textos.es.titulo` + « · Ayemi»; `description`, `og:description` y `twitter:description` = `textos.es.resumen`; `og:image` y `twitter:image` = `SITIO.url` + `urlMedio(slug, imagenes[0].src)`. Además se sustituyen `og:image:width`, `og:image:height`, `og:image:alt` y `twitter:image:alt` por los de esa imagen, porque los de la plantilla describen la imagen del logotipo (1200 × 630). Las demás rutas conservan los de la plantilla.
+- **JSON-LD.** Un segundo bloque `application/ld+json` antes de `</head>`, después del de la organización (que no cambia). Portada: `FAQPage` con una `Question` / `Answer` por cada elemento de `confianza.preguntas.lista` en español, la misma lista que pinta `PreguntasFrecuentes`; si la lista llegara vacía, el build falla. Fichas: `CreativeWork` con `name`, `description`, `url` (canónico), `image` (todas las `imagenes`, absolutas), `inLanguage`, `datePublished` (`fecha`), `keywords` (`stack`) y `creator` (Ayemi). Solo datos que la ficha declara. El `<` del JSON va escapado como `\u003c`.
+- **Caso de cliente pedido por `/proyectos/<slug>`.** Se escribe `dist/proyectos/<slug>/index.html`, un HTML mínimo con canónico a `/casos/<slug>`, `location.replace('/casos/<slug>/' + search + hash)` (conserva los UTM y el ancla) y `meta refresh` como respaldo sin JavaScript. No entra en el sitemap. Hoy solo existe `/proyectos/ita-2026`.
+
+### Pendiente para T11, cómo quedó
+
+- **Directorio y página con la misma ruta (nginx).** Resuelto por el prerender: cada demo publicada tendrá `dist/proyectos/<slug>/index.html` en la carpeta de sus medios, y `/proyectos/` tiene el suyo. Hoy no hay demos publicadas.
+- **`/proyectos/<slug de caso-cliente>`.** La nota dejaba a T11 elegir entre un HTML que redirija o una 301 en servidor. Se eligió el HTML, porque se genera desde las fichas y no hay que añadir una regla en `vercel.json` y otra en `nginx.conf` por cada caso nuevo. Una 301 sería mejor señal para buscadores; si el arquitecto la prefiere, se borra el bloque «Casos de clientes pedidos por /proyectos/<slug>» de `prerender.mjs` y se añaden las reglas. La URL no se enlaza desde ningún sitio: solo se llega a ella escribiéndola.
+- **`/proyectos` sin HTML propio.** Resuelto: ya no hay error #418 ni `aria-current` equivocado en `/proyectos/`.
+- **`/casos` en el prerender y el sitemap.** Resuelto: no se genera y no está en el sitemap. Desapareció el aviso de `<Navigate>` en `StaticRouter`.
+- **Redirecciones absolutas de nginx** (`absolute_redirect off;`). Sigue abierto: T11 no nombra `nginx.conf`. Se ve en las pruebas: `/proyectos` → 301 `http://localhost/proyectos/` sin puerto.
+
+### Puntos que T11 no especificaba
+
+Ninguno bloquea:
+
+- **Título de la ficha.** design.md pide «título» por ficha. El de ITA pasa de «Caso ITA · Ayemi» a «Un sitio que explica la rectificación industrial de ITA en dos idiomas · Ayemi» (78 caracteres; los buscadores suelen cortar hacia los 60). Si se quiere más corto, conviene un campo en la ficha, no un recorte en el prerender.
+- **Idioma.** El HTML estático y los dos JSON-LD van en español, como el resto del prerender (`lng: 'es'`).
+- **Respuestas 3 y 7.** El `FAQPage` lleva las ocho respuestas tal como se ven, así que las dos de «Pendiente de Dirección antes de producción» también están en el JSON-LD.
+- **`npm run prerender` suelto no es idempotente** (anterior a T11): lee `dist/index.html`, que la pasada anterior ya sobrescribió, y duplica el canónico y el JSON-LD. Con `npm run build` no pasa, porque `vite build` vacía `dist/` antes. No se cambió.
+
+### Comprobantes
+
+- `npm run lint`: código 0.
+- `npm run validar`: «Fichas de proyecto válidas: 1.», código 0.
+- `npm run build`: código 0, «Prerenderizado completo.», sitemap con 9 URL: `/`, `/laboratorio`, `/pcb`, `/enlaces`, `/privacidad`, `/proyectos`, `/casos/ita-2026`, `/casos/calculadora-series`, `/casos/invitacion-boda`. Sin `/casos` y sin `/proyectos/ita-2026`. Sin el aviso de `<Navigate>`. Siguen las advertencias `[Ayemi §3.10] … 18 px / 22 px`, anteriores a T1.
+- `python .ayemi/verificar.py . --solo-errores`: «Sin hallazgos», 94 archivos.
+- HTML prerenderizado (leído de `dist/`, después de un `npm run build` limpio):
+  - `dist/proyectos/index.html` existe: `<title>Proyectos · Ayemi</title>`, canónico `https://ayemi.org/proyectos`, un h1 («Proyectos que puedes ver funcionando.») y el grupo `#casos`.
+  - `dist/casos/ita-2026/index.html` existe: `<title>Un sitio que explica la rectificación industrial de ITA en dos idiomas · Ayemi</title>`, descripción = resumen, `og:image` `https://ayemi.org/proyectos/ita-2026/problema-escritorio.jpg` (1440 × 900, existe en `dist/`) con su `alt`, canónico `https://ayemi.org/casos/ita-2026`, un h1, JSON-LD `Organization` + `CreativeWork`.
+  - `dist/index.html`: un solo canónico, JSON-LD `Organization` + `FAQPage` con 8 preguntas; el HTML tiene 8 `<details>` y las 8 preguntas del JSON-LD aparecen en él. Los dos bloques se leen con `JSON.parse` sin error.
+  - `dist/casos/index.html` no existe.
+- nginx: `dist/` y `nginx.conf` montados en `nginx:1.27-alpine`. `/proyectos/` 200 (antes 403), `/proyectos/ita-2026/` 200 (antes 403), `/proyectos/ita-2026/problema-escritorio.jpg` 200, `/casos` y `/casos/` 301 → `/proyectos#casos`, `/casos/ita-2026/` 200, `/portafolio` 301, `/piezas/ita-2026` 301 → `/casos/ita-2026`, `/p/328` 302. El contenedor y la imagen se borraron.
+- Navegador: `vite preview` (puerto 4173) y Chrome sin interfaz por CDP, con GA4, Meta y Clarity bloqueados, a 1440 × 900 y 390 × 844. `/`, `/proyectos/` y `/casos/ita-2026/`: consola limpia, sin el error #418, título propio en cada una, «Proyectos» con `aria-current` en las dos últimas, sin desbordes. `/proyectos/ita-2026/?utm_source=prueba#cierre` termina en `/casos/ita-2026/?utm_source=prueba#cierre` con la consola limpia y `sessionStorage['ayemi:utm']` con `utm_source=prueba` y `utm_content=ita-2026`. El script y el perfil de Chrome quedaron en `%TEMP%` y se borraron; el servidor se cerró.
+- Fuera del commit, como en T1–T10: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
+
 ## Pendiente de Dirección antes de producción
 
 Por la Decisión 2026-11-20 (bloqueos de T9), estas respuestas de las preguntas frecuentes de la portada ya están en la copia (es y en, `confianza.preguntas.lista` en `src/i18n.js`), pero **no se publican en producción** sin que Dirección confirme que Ayemi lo hace:
@@ -443,6 +488,8 @@ Por T10, «Quién está detrás» sigue con `SITIO.mostrarQuienEstaDetras = fals
 
 ## Pendiente para T11
 
+**Atendido en T11** (ver «Detalle de T11 · Pendiente para T11, cómo quedó»). Solo sigue abierto el último punto, `absolute_redirect off;` en nginx, fuera del alcance de T11.
+
 - **Directorio y página con la misma ruta (nginx).** Una demo tiene su página en `/proyectos/<slug>` y sus medios en `/proyectos/<slug>/<archivo>`. Con `try_files $uri $uri/ /index.html`, pedir `/proyectos/<slug>` encuentra el directorio de medios y, sin `index.html` dentro, nginx responde 403 en vez de la app. Deja de pasar cuando T11 prerenderice cada demo en `dist/proyectos/<slug>/index.html`. Hoy no afecta a ITA, que vive en `/casos/ita-2026`. Por la Decisión 2026-11-20 se resuelve en T11, no en T6.
 - **Lo mismo pasa ya con `/proyectos` (comprobado en T7).** Como `dist/proyectos/` existe por los medios, nginx responde `/proyectos` → 301 `/proyectos/` → **403**, y `/proyectos/ita-2026/` → 403 (la app lo habría llevado a `/casos/ita-2026`). Se arregla al prerenderizar `dist/proyectos/index.html`; para `/proyectos/<slug de caso-cliente>` T11 tendrá que decidir si genera un HTML que redirija o añade una 301 en servidor.
 - **`/proyectos` sin HTML propio.** En Vercel y en `vite preview` se sirve el de la portada: error #418 de hidratación y `aria-current` equivocado en la cabecera hasta que exista `dist/proyectos/index.html`.
@@ -451,7 +498,7 @@ Por T10, «Quién está detrás» sigue con `SITIO.mostrarQuienEstaDetras = fals
 
 ## Bloqueos
 
-Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»). Ninguno en T5 (los puntos sin especificar están en «Detalle de T5»). Ninguno nuevo en T6 (los puntos sin especificar están en «Detalle de T6 · segundo intento»). Ninguno en T7 (los puntos sin especificar están en «Detalle de T7»; lo que toca a T11, en «Pendiente para T11»). Ninguno en T8 (los puntos sin especificar están en «Detalle de T8»). Ninguno nuevo en T9 (los puntos sin especificar están en «Detalle de T9 · segundo intento»). Ninguno en T10 (los puntos sin especificar están en «Detalle de T10» y en «Pendiente de Dirección antes de producción»).
+Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»). Ninguno en T5 (los puntos sin especificar están en «Detalle de T5»). Ninguno nuevo en T6 (los puntos sin especificar están en «Detalle de T6 · segundo intento»). Ninguno en T7 (los puntos sin especificar están en «Detalle de T7»; lo que toca a T11, en «Pendiente para T11»). Ninguno en T8 (los puntos sin especificar están en «Detalle de T8»). Ninguno nuevo en T9 (los puntos sin especificar están en «Detalle de T9 · segundo intento»). Ninguno en T10 (los puntos sin especificar están en «Detalle de T10» y en «Pendiente de Dirección antes de producción»). Ninguno en T11 (los puntos sin especificar están en «Detalle de T11»).
 
 ### T9 · portada, confianza y preguntas frecuentes · RESUELTO
 

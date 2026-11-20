@@ -8,10 +8,20 @@
  *
  * Este paso corre después de `vite build` y escribe el HTML de cada ruta:
  *
- *   dist/index.html
- *   dist/laboratorio/index.html, dist/casos/index.html, dist/pcb/index.html…
- *   dist/casos/<slug>/index.html
+ *   dist/index.html                      con el JSON-LD `FAQPage`
+ *   dist/laboratorio/index.html, dist/pcb/index.html…
+ *   dist/proyectos/index.html            la galería
+ *   dist/casos/<slug>/index.html         caso de cliente o pieza
+ *   dist/proyectos/<slug>/index.html     demo del Laboratorio
  *   dist/sitemap.xml
+ *
+ * Cada ficha publicada (contenido/proyectos/) lleva su título, su resumen,
+ * su primera imagen como og:image y un JSON-LD `CreativeWork`.
+ *
+ * `/casos` no se genera: es una 301 a `/proyectos#casos` en Vercel y nginx, y
+ * el sitemap no lista URL que redirigen. Un caso de cliente pedido por
+ * `/proyectos/<slug>` recibe un HTML que lleva a `/casos/<slug>`: su carpeta
+ * de medios vive en esa ruta, y sin `index.html` nginx respondería 403.
  *
  * Tanto la reescritura de Vercel como la de nginx sirven un archivo estático si
  * existe antes de caer en index.html, así que estas páginas se entregan tal
@@ -79,6 +89,10 @@ const escapar = (texto) =>
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
 
+/** Bloque JSON-LD. `<` va escapado para que ningún texto cierre el `<script>`. */
+const bloqueJsonLd = (datos) =>
+  `    <script type="application/ld+json">\n${JSON.stringify(datos, null, 2).replace(/</g, '\\u003c')}\n    </script>\n`;
+
 async function main() {
   const plantilla = await fs.readFile(path.join(DIST, 'index.html'), 'utf8');
 
@@ -95,16 +109,65 @@ async function main() {
        `react-router`, no en `react-router-dom/server` como en v6. */
     const { StaticRouter } = await import('react-router');
 
-    await servidor.ssrLoadModule('/src/i18n.js');
+    const { default: i18n } = await servidor.ssrLoadModule('/src/i18n.js');
     const { default: App } = await servidor.ssrLoadModule('/src/App.jsx');
-    const { PIEZAS, buscarLinea, piezasSinCaso, rutaDePieza } = await servidor.ssrLoadModule(
+    const { buscarLinea, piezasSinCaso, rutaDePieza } = await servidor.ssrLoadModule(
       '/src/config/piezas.js'
     );
-    const { RUTA_CASOS, RUTA_ENLACES, RUTA_LABORATORIO, RUTA_PCB, RUTA_PRIVACIDAD } = await servidor.ssrLoadModule(
-      '/src/config/secciones.js'
-    );
+    const {
+      RUTA_CASOS,
+      RUTA_ENLACES,
+      RUTA_LABORATORIO,
+      RUTA_PCB,
+      RUTA_PRIVACIDAD,
+      RUTA_PROYECTOS,
+    } = await servidor.ssrLoadModule('/src/config/secciones.js');
     const { SITIO, PERFILES, esPendiente } = await servidor.ssrLoadModule('/src/config/sitio.js');
-    const { CASOS } = await servidor.ssrLoadModule('/src/config/casos.js');
+    const { proyectosPublicados, urlMedio } = await servidor.ssrLoadModule(
+      '/src/config/proyectos.js'
+    );
+
+    /* El HTML estático sale en español, el idioma por defecto de i18n. */
+    const IDIOMA = 'es';
+    const t = i18n.getFixedT(IDIOMA);
+
+    /* URL de cada ficha: los casos de clientes viven en /casos/<slug> y las
+       demos del Laboratorio en /proyectos/<slug> (design.md, «Rutas»). */
+    const urlDeProyecto = (p) =>
+      `${p.tipo === 'laboratorio' ? RUTA_PROYECTOS : RUTA_CASOS}/${p.slug}`;
+    const archivoDe = (url) => path.join(...url.replace(/^\//, '').split('/'), 'index.html');
+
+    /* JSON-LD de una ficha: solo lo que la ficha declara. */
+    const creativeWork = (p) => {
+      const textos = p.textos[IDIOMA];
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'CreativeWork',
+        name: textos.titulo,
+        description: textos.resumen,
+        url: `${SITIO.url}${urlDeProyecto(p)}`,
+        image: p.imagenes.map((img) => `${SITIO.url}${urlMedio(p.slug, img.src)}`),
+        inLanguage: IDIOMA,
+        ...(p.fecha ? { datePublished: p.fecha } : {}),
+        ...(p.stack?.length ? { keywords: p.stack.join(', ') } : {}),
+        creator: { '@type': 'Organization', name: SITIO.nombre, url: SITIO.url },
+      };
+    };
+
+    /* JSON-LD de la portada: las mismas preguntas que pinta PreguntasFrecuentes. */
+    const preguntas = t('confianza.preguntas.lista', { returnObjects: true });
+    const faqPage = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: (Array.isArray(preguntas) ? preguntas : []).map(({ p, r }) => ({
+        '@type': 'Question',
+        name: p,
+        acceptedAnswer: { '@type': 'Answer', text: r },
+      })),
+    };
+    if (!faqPage.mainEntity.length) {
+      throw new Error('/: confianza.preguntas.lista está vacía, no hay FAQPage que escribir');
+    }
 
     /* Rutas a generar, cada una con su título y descripción propios: una ficha
        compartida en un chat debe decir de qué pieza habla.
@@ -117,6 +180,7 @@ async function main() {
         archivo: 'index.html',
         titulo: null, // se conserva el de la plantilla
         descripcion: null,
+        jsonLd: faqPage,
       },
       {
         url: RUTA_LABORATORIO,
@@ -148,18 +212,28 @@ async function main() {
           'Qué datos usa Ayemi, para qué, con quién los comparte y cómo ejercer tus derechos ARCO. Incluye cookies de GA4, Meta Pixel y Microsoft Clarity.',
       },
       {
-        url: RUTA_CASOS,
-        archivo: path.join('casos', 'index.html'),
-        titulo: 'Casos · Ayemi',
-        descripcion:
-          'Trabajo entregado por Ayemi: el caso del sitio de ITA, con su crédito, y las piezas con ficha propia. Solo trabajo real.',
+        url: RUTA_PROYECTOS,
+        archivo: path.join('proyectos', 'index.html'),
+        titulo: `${t('nav.proyectos')} · Ayemi`,
+        descripcion: t('proyectos.entradilla'),
       },
-      ...CASOS.map((caso) => ({
-        url: `${RUTA_CASOS}/${caso.slug}`,
-        archivo: path.join(RUTA_CASOS.replace(/^\//, ''), caso.slug, 'index.html'),
-        titulo: `Caso ${caso.cliente} · Ayemi`,
-        descripcion: caso.problema[0],
-      })),
+      /* Una ruta por ficha publicada, con su título, su resumen y su primera
+         imagen. El esquema exige al menos una imagen en toda ficha publicada. */
+      ...proyectosPublicados().map((p) => {
+        const textos = p.textos[IDIOMA];
+        const [primera] = p.imagenes;
+        return {
+          url: urlDeProyecto(p),
+          archivo: archivoDe(urlDeProyecto(p)),
+          titulo: `${textos.titulo} · Ayemi`,
+          descripcion: textos.resumen,
+          imagen: urlMedio(p.slug, primera.src),
+          imagenAncho: primera.ancho,
+          imagenAlto: primera.alto,
+          imagenAlt: primera.alt[IDIOMA],
+          jsonLd: creativeWork(p),
+        };
+      }),
       /* Las piezas con caso comparten ruta con él: ya salen arriba. */
       ...piezasSinCaso().map((pieza) => {
         const linea = buscarLinea(pieza.linea);
@@ -250,6 +324,26 @@ async function main() {
           .replace(/(<meta\s+name="twitter:image"\s+content=")[^"]*(")/, `$1${imagen}$2`);
       }
 
+      /* Las fichas declaran las medidas y el texto alternativo de su imagen:
+         los de la plantilla describen otra (1200 × 630, el logotipo). */
+      if (ruta.imagenAncho && ruta.imagenAlto) {
+        html = html
+          .replace(/(<meta\s+property="og:image:width"\s+content=")[^"]*(")/, `$1${ruta.imagenAncho}$2`)
+          .replace(/(<meta\s+property="og:image:height"\s+content=")[^"]*(")/, `$1${ruta.imagenAlto}$2`);
+      }
+      if (ruta.imagenAlt) {
+        const alt = escapar(ruta.imagenAlt);
+        html = html
+          .replace(/(<meta\s+property="og:image:alt"\s+content=")[^"]*(")/, `$1${alt}$2`)
+          .replace(/(<meta\s+name="twitter:image:alt"\s+content=")[^"]*(")/, `$1${alt}$2`);
+      }
+
+      /* JSON-LD propio de la ruta (`FAQPage` en la portada, `CreativeWork` en
+         cada ficha), después del de la organización. */
+      if (ruta.jsonLd) {
+        html = html.replace('</head>', `${bloqueJsonLd(ruta.jsonLd)}  </head>`);
+      }
+
       /* Enlace canónico: evita que la misma pieza se indexe por varias URL. */
       const canonico = `${SITIO.url}${ruta.url === '/' ? '/' : ruta.url}`;
       html = html.replace(
@@ -277,6 +371,38 @@ async function main() {
       console.log(
         `  ${ruta.url.padEnd(34)} → ${ruta.archivo.replace(/\\/g, '/').padEnd(40)} ${cuerpo.length} car.`
       );
+    }
+
+    /* ── Casos de clientes pedidos por /proyectos/<slug> ──────────────────
+       En la app, DemoOCaso los lleva a /casos/<slug>. En el servidor esa ruta
+       es la carpeta de medios de la ficha: sin index.html, nginx responde 403
+       y Vercel sirve la portada. Este HTML lleva a la página del caso
+       conservando los parámetros (UTM) y el ancla; sin JavaScript, la
+       redirección por meta refresh. No entra en el sitemap. */
+    const redirigidas = [];
+    for (const p of proyectosPublicados().filter((p) => p.tipo === 'caso-cliente')) {
+      const origen = `${RUTA_PROYECTOS}/${p.slug}`;
+      const destino = urlDeProyecto(p);
+      /* Con barra final: es la carpeta con el index.html prerenderizado, así
+         nginx no añade otro salto (301 a la barra) y `vite preview` sirve ese
+         HTML en lugar de la portada. El canónico va sin barra, como el de la
+         página del caso. */
+      const destinoJs = JSON.stringify(`${destino}/`).replace(/</g, '\\u003c');
+      const html =
+        `<!doctype html>\n<html lang="${IDIOMA}">\n  <head>\n` +
+        `    <meta charset="UTF-8" />\n` +
+        `    <title>${escapar(p.textos[IDIOMA].titulo)} · Ayemi</title>\n` +
+        `    <link rel="canonical" href="${escapar(`${SITIO.url}${destino}`)}" />\n` +
+        `    <meta http-equiv="refresh" content="0; url=${escapar(`${destino}/`)}" />\n` +
+        `    <script>location.replace(${destinoJs} + location.search + location.hash);</script>\n` +
+        `  </head>\n  <body>\n` +
+        `    <a href="${escapar(`${destino}/`)}">${escapar(p.textos[IDIOMA].titulo)}</a>\n` +
+        `  </body>\n</html>\n`;
+      const archivo = archivoDe(origen);
+      await fs.mkdir(path.dirname(path.join(DIST, archivo)), { recursive: true });
+      await fs.writeFile(path.join(DIST, archivo), html, 'utf8');
+      redirigidas.push(origen);
+      console.log(`  ${origen.padEnd(34)} → ${archivo.replace(/\\/g, '/').padEnd(40)} lleva a ${destino}`);
     }
 
     /* ── sitemap.xml ─────────────────────────────────────────────────────── */
@@ -310,6 +436,7 @@ async function main() {
 
     console.log(`\n  sitemap.xml con ${rutas.length} URL · robots.txt → ${SITIO.url}`);
     console.log(`  JSON-LD sameAs: ${sameAs.join(', ') || '(sin perfiles)'}`);
+    console.log(`  Redirecciones a /casos/<slug>: ${redirigidas.join(', ') || '(ninguna)'}`);
     console.log('Prerenderizado completo.');
   } finally {
     await servidor.close();
