@@ -75,6 +75,14 @@ Comprobantes base (siempre): `npm run lint` · `npm run build` ·
     única `urlMedio(slug, ruta)` convierte la ruta relativa de la ficha en `/proyectos/<slug>/<archivo>`; así el
     build del cliente y el prerender dan la misma URL. `casos.js` deja de usar `public/casos/ita/` cuando ITA se
     pinte desde su ficha (no borres esa carpeta en T6; se retira en T13).
+  - **Decisión 2026-11-20 (bloqueos de T6):** el rótulo del bloque 2 es **«Qué hicimos» / «What we did»** (clave
+    `caso.hicimos`); «solución» no se usa en copia visible (§1.11). Se aceptan **todas** las propuestas de Kiro de
+    «puntos sin especificar» de la bitácora de T6, tal como están escritas: ubicación de imágenes/cifras/resultado/
+    testimonio dentro del bloque 2; `CasoOFicha` → `PaginaProyecto` sin tocar `App.jsx` hasta T7; copiar solo medios de
+    fichas `publicado` y solo el primer nivel; diagrama en línea con `?raw` saneado; «Ver el código» en «Cómo está
+    hecho»; WhatsApp primario y «Abrir la demo» secundario; sin eventos hasta T8; `fijarUtmContenido(slug)` (se acepta
+    el efecto en `conOrigenWhatsapp`); los textos de «Lo que entregaríamos» y el resto de textos nuevos es/en tal cual.
+    El choque directorio/página en nginx se resuelve en T11 (anótalo allí, no en T6).
 
 - [ ] **T7 · Rutas, navegación y redirecciones**
   - `App.jsx`: rutas de design.md con `lazy()`. Navbar/Footer: «Proyectos» sustituye a «Casos» (es/en).
