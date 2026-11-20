@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ayemi.org/contenido/proyectos/proyecto.schema.json",
+  "title": "Ficha de proyecto de Ayemi",
+  "description": "Contrato de cada proyecto del portafolio (R1). Las rutas locales de medios son relativas a la carpeta de la ficha: contenido/proyectos/<slug>/.",
+  "type": "object",
+  "required": ["slug", "tipo", "estado"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "tipo": { "enum": ["caso-cliente", "laboratorio"] },
+    "estado": { "enum": ["en-construccion", "publicado", "retirado"] },
+    "fecha": { "type": "string", "format": "date" },
+    "categorias": {
+      "type": "array",
+      "items": { "enum": ["tiendas", "pagos", "ia", "integraciones", "hardware"] },
+      "uniqueItems": true
+    },
+    "stack": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/textoNoVacio" },
+      "uniqueItems": true
+    },
+    "textos": {
+      "type": "object",
+      "properties": {
+        "es": { "$ref": "#/$defs/textosIdioma" },
+        "en": { "$ref": "#/$defs/textosIdioma" }
+      }
+    },
+    "imagenes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/imagen" }
+    },
+    "video": {
+      "type": "object",
+      "required": ["mp4", "poster"],
+      "properties": {
+        "mp4": { "$ref": "#/$defs/ruta" },
+        "webm": { "$ref": "#/$defs/ruta" },
+        "poster": { "$ref": "#/$defs/ruta" },
+        "duracionSeg": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "gif": { "$ref": "#/$defs/ruta" },
+    "demo": {
+      "type": "object",
+      "required": ["url"],
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "usuarioPrueba": { "type": "string" },
+        "claveDePrueba": { "type": "string" },
+        "seReinicia": { "$ref": "#/$defs/textoNoVacio" }
+      }
+    },
+    "codigo": { "type": "string", "format": "uri" },
+    "diagrama": { "type": "string", "pattern": "\\.svg$" },
+    "marcasAjenas": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/textoNoVacio" },
+      "uniqueItems": true
+    },
+    "verificadoEl": { "type": "string", "format": "date" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "estado": { "const": "publicado" } },
+        "required": ["estado"]
+      },
+      "then": {
+        "required": ["imagenes", "diagrama", "textos"],
+        "properties": {
+          "imagenes": { "type": "array", "minItems": 1 },
+          "textos": { "type": "object", "required": ["es", "en"] }
+        },
+        "anyOf": [{ "required": ["video"] }, { "required": ["gif"] }]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "estado": { "const": "publicado" },
+          "tipo": { "const": "laboratorio" }
+        },
+        "required": ["estado", "tipo"]
+      },
+      "then": {
+        "required": ["demo", "codigo"]
+      }
+    }
+  ],
+  "$defs": {
+    "textoNoVacio": { "type": "string", "minLength": 1 },
+    "ruta": { "type": "string", "minLength": 1 },
+    "textosIdioma": {
+      "type": "object",
+      "properties": {
+        "titulo": { "$ref": "#/$defs/textoNoVacio" },
+        "resumen": { "$ref": "#/$defs/textoNoVacio" },
+        "problema": { "$ref": "#/$defs/textoNoVacio" },
+        "solucion": { "$ref": "#/$defs/textoNoVacio" },
+        "entregamos": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/textoNoVacio" }
+        }
+      }
+    },
+    "imagen": {
+      "type": "object",
+      "required": ["src", "ancho", "alto", "alt"],
+      "properties": {
+        "src": { "$ref": "#/$defs/ruta" },
+        "ancho": { "type": "integer", "minimum": 1 },
+        "alto": { "type": "integer", "minimum": 1 },
+        "alt": {
+          "type": "object",
+          "required": ["es", "en"],
+          "properties": {
+            "es": { "$ref": "#/$defs/textoNoVacio" },
+            "en": { "$ref": "#/$defs/textoNoVacio" }
+          }
+        }
+      }
+    }
+  }
+}
