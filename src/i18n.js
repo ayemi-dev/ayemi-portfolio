@@ -50,7 +50,7 @@ const es = {
     queConstruimos: 'Qué construimos',
     comoTrabajamos: 'Cómo trabajamos',
     laboratorio: 'Laboratorio',
-    casos: 'Casos',
+    proyectos: 'Proyectos',
     contacto: 'Contacto',
   },
 
@@ -1100,7 +1100,7 @@ const en = {
     queConstruimos: 'What we build',
     comoTrabajamos: 'How we work',
     laboratorio: 'Lab',
-    casos: 'Cases',
+    proyectos: 'Projects',
     contacto: 'Contact',
   },
 

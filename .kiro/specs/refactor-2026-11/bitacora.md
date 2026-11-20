@@ -263,13 +263,71 @@ Ninguno bloquea. Se resolvieron con la opción más conservadora y se cambian si
   - Aviso del entorno de prueba: `vite preview` sirve `dist/index.html` (la portada) para las URL sin barra final como `/casos/ita-2026`, y React da el error #418 de hidratación al montar otra página sobre ese HTML. Pasa igual en `/casos` y `/pcb`, que T6 no toca. Con barra final, que sirve el HTML prerenderizado como hacen Vercel y nginx, no hay errores. No se cambió nada por esto.
 - Fuera del commit, como en T1–T5: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
 
+T7 · 2026-11-20 · hecho · `App.jsx` registra `/proyectos` y `/proyectos/:slug` y carga en diferido (`lazy()` + `Suspense`) las cuatro páginas de design.md; `/casos` y `/portafolio` llevan a `/proyectos#casos`; «Proyectos» sustituye a «Casos» en la cabecera y el pie (es/en) y va primero; `vercel.json` y `nginx.conf` con las 301 nuevas (en nginx no había ninguna y se añadieron todas), comprobadas en un contenedor `nginx:1.27-alpine`.
+
+## Detalle de T7
+
+### Archivos
+
+- `src/App.jsx`: `Inicio`, `Proyectos`, `DemoOCaso` y `CasoOFicha` con `lazy()`, dentro de un único `<Suspense fallback={null}>` alrededor de `<Routes>`. Rutas nuevas `/proyectos` y `/proyectos/:slug`. `/casos` y `/portafolio` pasan de pintar `Casos` / ir a `/casos` a `<Navigate to="/proyectos#casos" replace />`. El resto de rutas no cambia (`/p/:corto` intacta).
+- `src/pages/DemoOCaso.jsx` (nuevo): página de `/proyectos/:slug`. Si el slug es un `caso-cliente`, `<Navigate replace>` a `/casos/<slug>`; si no, `PaginaProyecto` (que da «no encontrada» si no hay ficha publicada). Resuelve el punto que T6 dejó para T7: `/proyectos/ita-2026` ya no duplica `/casos/ita-2026`.
+- `src/config/secciones.js`: `NAVEGACION` = Proyectos · Qué construimos · Cómo trabajamos · Laboratorio · Contacto (orden de design.md). La entrada `proyectos` lleva `rutas: [RUTA_CASOS]` para que quede señalada también en `/casos/<slug>`. Comentarios de rutas al día.
+- `src/components/Navbar.jsx`: una entrada de tipo `ruta` también se marca como actual por sus `rutas` (antes solo las de tipo `ancla`). El pie (`Footer.jsx`) lee `NAVEGACION` y no necesitó cambios.
+- `src/i18n.js`: `nav.casos` («Casos» / «Cases») pasa a `nav.proyectos` («Proyectos» / «Projects»). Nadie más usaba `nav.casos`.
+- `vercel.json` y `nginx.conf`: tabla de abajo.
+
+### Redirecciones
+
+| Origen | Destino | Código | vercel.json | nginx.conf | En la app (`<Navigate>`) |
+|---|---|---|---|---|---|
+| `/casos` | `/proyectos#casos` | 301 | nueva | nueva (también `/casos/`) | nueva |
+| `/portafolio`, `/piezas` | `/proyectos#casos` (antes `/casos`) | 301 | destino cambiado | nueva | `/portafolio`: destino cambiado; `/piezas` sin barra no tiene ruta en la app |
+| `/portafolio/<retirado>`, `/piezas/<retirado>` (`panel-inventario-integradores`, `plataforma-contactos-whatsapp`, `tecnificacion-agricola`) | `/proyectos#casos` (antes `/casos`) | 301 | destino cambiado | nueva | sin cambio: `RedireccionPieza` lleva a `/casos/<slug>`, que da «no encontrada» (ya pasaba antes de T7) |
+| `/portafolio/wabot`, `/piezas/wabot` | `/laboratorio#wabot` | 301 | sin cambio | nueva | sin cambio |
+| `/portafolio/<slug>`, `/piezas/<slug>` | `/casos/<slug>` | 301 | sin cambio (el destino sigue siendo válido) | nueva | sin cambio |
+| `/proyectos/<slug de caso-cliente>` | `/casos/<slug>` | — | — | — | nueva (`DemoOCaso`) |
+| `/p/328`, `/p/esp32`, `/p/stm32` | `/pcb#atmega328p`, `/pcb#esp32`, `/pcb#stm32` | 302 | sin tocar | sin tocar | sin tocar |
+
+En nginx las regex se evalúan en orden y gana la primera, así que van de lo concreto a lo general. El ancla va entre comillas porque `#` abre un comentario en nginx.
+
+### Puntos que T7 no especificaba
+
+Ninguno bloquea. Se resolvieron con la opción más conservadora y cada uno se cambia en una línea:
+
+- **Destino de `/portafolio` y de los slugs retirados.** T7 dice «actualizados» sin dar el destino. Antes iban a `/casos`; ahora van directo a `/proyectos#casos`, el nuevo destino de `/casos`, para no encadenar dos 301.
+- **nginx no tenía redirecciones de `/portafolio/*` ni `/piezas/*`** (solo las tenían `vercel.json` y la app). Se añadieron las mismas que en Vercel para que R3.2 se cumpla también en el contenedor.
+- **Qué va con `lazy()`.** Las cuatro páginas de la tabla de rutas de design.md (`Inicio`, `Proyectos`, `PaginaProyecto` vía `DemoOCaso`, y `CasoOFicha`). Las demás páginas siguen en el paquete principal. El respaldo de `Suspense` es `null`: con HTML prerenderizado la hidratación conserva ese HTML mientras llega el trozo, y en navegación interna el trozo pesa 0,3–24 KB.
+- **Enlaces internos que aún apuntan a `/casos`** («Volver a Casos» de `FichaPieza`, botones de `Casos.jsx`): T7 no los nombra y siguen funcionando por el `<Navigate>` (comprobado: «Volver a Casos» lleva a `/proyectos#casos` con el grupo a 64 px del borde). El rótulo «Volver a Casos» queda para revisión.
+- **`src/pages/Casos.jsx`** queda sin ruta y no se borra, porque T7 no lo nombra.
+- **`/casos/<slug de laboratorio>`** no lleva a `/proyectos/<slug>`: hoy no hay demos publicadas y T7 no lo pide. `CasoOFicha` sigue igual.
+- **Barra final en Vercel.** La regla `/casos` de `vercel.json` sigue el estilo de las existentes; Vercel no se puede probar en local (está prohibido correr `vercel`), así que `/casos/` con barra en Vercel queda sin comprobar.
+
+### Comprobantes
+
+- `npm run lint`: código 0.
+- `npm run validar`: «Fichas de proyecto válidas: 1.», código 0.
+- `npm run build`: código 0, «Prerenderizado completo.», sitemap con 9 URL. Trozos nuevos: `Inicio` 24 KB, `PaginaProyecto` 9 KB, `CasoOFicha` 7 KB, `Proyectos` 5 KB, `DemoOCaso` 0,3 KB. Aviso nuevo esperado: «`<Navigate>` must not be used on the initial render in a `<StaticRouter>`» al prerenderizar `/casos` (ver «Pendiente para T11»). Siguen las advertencias `[Ayemi §3.10] … 18 px / 22 px`, anteriores a T1.
+- `python .ayemi/verificar.py . --solo-errores`: «Sin hallazgos», 89 archivos.
+- nginx: `nginx.conf` y `dist/` montados en `nginx:1.27-alpine` (la imagen del `Dockerfile`). `nginx -t` correcto y `curl` sobre cada fila de la tabla: todos los códigos y destinos coinciden. `/casos/ita-2026/` y `/casos/calculadora-series/` dan 200; `/p/*` siguen en 302; `/healthz` 200. El contenedor y la imagen se borraron al terminar.
+- Navegador: Chrome sin interfaz por CDP, cero errores y cero avisos en consola salvo el caso anotado abajo.
+  - `vite preview` (HTML prerenderizado): `/`, `/casos/ita-2026/`, `/laboratorio/`, `/pcb/` y `/casos/calculadora-series/` hidratan sin errores. Cabecera y pie: Proyectos · Qué construimos · Cómo trabajamos · Laboratorio · Contacto. «Proyectos» lleva `aria-current="page"` en `/proyectos` y en `/casos/*`; «Laboratorio» en `/laboratorio`; «Qué construimos» en `/pcb`. Clic en «Proyectos» desde la portada → `/proyectos` con la galería; clic en la tarjeta de ITA → `/casos/ita-2026`. En inglés: Projects · What we build · How we work · Lab · Contact.
+  - `vite` en desarrollo (sin prerender), cada redirección de la app: `/casos`, `/casos/` y `/portafolio` → `/proyectos#casos` con el grupo a 64 px del borde; `/proyectos/ita-2026` y `/portafolio/ita-2026` → `/casos/ita-2026`; `/piezas/calculadora-series` → `/casos/calculadora-series`; `/piezas/wabot` → `/laboratorio#wabot`; `/proyectos/no-existe` → «Esta página no está.».
+  - 390 × 844 en `/proyectos`: `scrollWidth` = 390, ningún elemento fuera de la pantalla; el menú móvil muestra las cinco entradas con «Proyectos» marcado.
+  - `vite preview` en `/proyectos` sin barra: React da el error #418 de hidratación, porque aún no existe `dist/proyectos/index.html` y se sirve el HTML de la portada. La página se pinta bien, pero la cabecera conserva el `aria-current` de la portada (React no corrige atributos al recuperarse). Lo resuelve T11.
+  - El script de prueba, el perfil de Chrome y los registros quedaron en `%TEMP%` y se borraron.
+- Fuera del commit, como en T1–T6: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
+
 ## Pendiente para T11
 
 - **Directorio y página con la misma ruta (nginx).** Una demo tiene su página en `/proyectos/<slug>` y sus medios en `/proyectos/<slug>/<archivo>`. Con `try_files $uri $uri/ /index.html`, pedir `/proyectos/<slug>` encuentra el directorio de medios y, sin `index.html` dentro, nginx responde 403 en vez de la app. Deja de pasar cuando T11 prerenderice cada demo en `dist/proyectos/<slug>/index.html`. Hoy no afecta a ITA, que vive en `/casos/ita-2026`. Por la Decisión 2026-11-20 se resuelve en T11, no en T6.
+- **Lo mismo pasa ya con `/proyectos` (comprobado en T7).** Como `dist/proyectos/` existe por los medios, nginx responde `/proyectos` → 301 `/proyectos/` → **403**, y `/proyectos/ita-2026/` → 403 (la app lo habría llevado a `/casos/ita-2026`). Se arregla al prerenderizar `dist/proyectos/index.html`; para `/proyectos/<slug de caso-cliente>` T11 tendrá que decidir si genera un HTML que redirija o añade una 301 en servidor.
+- **`/proyectos` sin HTML propio.** En Vercel y en `vite preview` se sirve el de la portada: error #418 de hidratación y `aria-current` equivocado en la cabecera hasta que exista `dist/proyectos/index.html`.
+- **`/casos` en el prerender y el sitemap.** `prerender.mjs` sigue generando `dist/casos/index.html` (vacío, porque la ruta es un `<Navigate>`, con el aviso de `StaticRouter`) y lo lista en `sitemap.xml`. Vercel y nginx redirigen antes de servirlo, pero el sitemap no debería listar una URL con 301. T7 no nombra `prerender.mjs`; se quita al añadir `/proyectos` en T11.
+- **Redirecciones absolutas de nginx.** `return 301 "/…"` sale como `http://<host>/…` sin puerto (igual que las `/p/*` de antes). Detrás de un proxy con HTTPS conviene `absolute_redirect off;`. No se cambió por estar fuera de T7.
 
 ## Bloqueos
 
-Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»). Ninguno en T5 (los puntos sin especificar están en «Detalle de T5»). Ninguno nuevo en T6 (los puntos sin especificar están en «Detalle de T6 · segundo intento»).
+Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»). Ninguno en T5 (los puntos sin especificar están en «Detalle de T5»). Ninguno nuevo en T6 (los puntos sin especificar están en «Detalle de T6 · segundo intento»). Ninguno en T7 (los puntos sin especificar están en «Detalle de T7»; lo que toca a T11, en «Pendiente para T11»).
 
 ### T6 · rótulo «La solución» contra el léxico del manual · RESUELTO
 

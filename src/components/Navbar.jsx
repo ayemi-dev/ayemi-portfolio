@@ -59,8 +59,9 @@ export const Navbar = () => {
 
   /* Un ancla y una ruta no se enlazan igual ni se marcan igual como actuales.
      El ancla lleva la barra delante para que funcione también desde otra ruta;
-     la ruta se compara contra la URL, así que «Casos» queda señalado tanto en
-     /casos como en cualquier caso o ficha. */
+     la ruta se compara contra la URL, así que «Proyectos» queda señalado tanto
+     en /proyectos como en cualquier demo, y por `rutas` en cualquier caso o
+     ficha de /casos. */
   const coincide = (ruta) => pathname === ruta || pathname.startsWith(`${ruta}/`);
   const enlaces = NAVEGACION.map((entrada) => ({
     id: entrada.id,
@@ -68,7 +69,7 @@ export const Navbar = () => {
     destino: destinoDe(entrada),
     activo:
       entrada.tipo === 'ruta'
-        ? coincide(entrada.destino)
+        ? coincide(entrada.destino) || Boolean(entrada.rutas?.some(coincide))
         : (enInicio && entrada.secciones.includes(seccionActiva)) ||
           Boolean(entrada.rutas?.some(coincide)),
   }));

@@ -11,14 +11,17 @@
  *
  *   /              la landing
  *   /laboratorio   placas abiertas y WaBot (manual 2.2, §1.3)
- *   /casos         trabajo entregado: casos de estudio y fichas
+ *   /proyectos     galería: casos de clientes y proyectos del Laboratorio
+ *   /casos/<slug>  caso de cliente o ficha de una pieza (/casos redirige a
+ *                  /proyectos#casos)
  *   /pcb           la línea Hardware, destino del anuncio de Facebook
  */
 
 /**
  * Ruta vieja del portafolio (el tablero de La Fábrica). Se retiró en la edición
- * 2.2 del sitio: `/portafolio` redirige a `/casos` y `/portafolio/<slug>` a
- * `/casos/<slug>`, con 301 en vercel.json y con <Navigate> dentro de la app.
+ * 2.2 del sitio. Desde la refactorización 2026-11, `/portafolio` redirige a
+ * `/proyectos#casos` y `/portafolio/<slug>` a `/casos/<slug>`, con 301 en
+ * vercel.json y nginx.conf y con <Navigate> dentro de la app.
  */
 export const RUTA_PORTAFOLIO = '/portafolio';
 
@@ -35,15 +38,17 @@ export const RUTA_PRIVACIDAD = '/privacidad';
 export const RUTA_ENLACES = '/enlaces';
 
 /**
- * Casos: `/casos` enseña el trabajo entregado; `/casos/<slug>` es un caso de
- * estudio (config/casos.js) o la ficha de una pieza (config/piezas.js).
+ * Casos: `/casos/<slug>` es un caso de cliente (su ficha en
+ * contenido/proyectos/) o la ficha de una pieza (config/piezas.js). `/casos`
+ * solo redirige a `/proyectos#casos` (301 en vercel.json y nginx.conf).
  */
 export const RUTA_CASOS = '/casos';
 
 /**
  * Galería del portafolio (refactorización 2026-11): `/proyectos` agrupa los
  * casos de clientes y los proyectos del Laboratorio; `/proyectos/<slug>` es
- * la página de una demo. La ruta se registra en App.jsx en T7.
+ * la página de una demo. Un caso de cliente pedido por `/proyectos/<slug>`
+ * lleva a `/casos/<slug>`, para que cada página tenga una sola URL.
  */
 export const RUTA_PROYECTOS = '/proyectos';
 
@@ -51,10 +56,10 @@ export const RUTA_PROYECTOS = '/proyectos';
 export const RUTA_CASO_ITA = `${RUTA_CASOS}/ita-2026`;
 
 /**
- * La navegación tal como se pinta, en orden (manual 2.2, decisión de
- * Dirección del 6 de noviembre de 2026):
+ * La navegación tal como se pinta, en orden (refactorización 2026-11,
+ * design.md; «Proyectos» sustituye a «Casos»):
  *
- *   Qué construimos · Cómo trabajamos · Laboratorio · Casos · Contacto
+ *   Proyectos · Qué construimos · Cómo trabajamos · Laboratorio · Contacto
  *
  * `tipo` distingue las dos naturalezas, porque un ancla y una ruta no se
  * enlazan igual ni se marcan como actuales igual:
@@ -62,8 +67,9 @@ export const RUTA_CASO_ITA = `${RUTA_CASOS}/ita-2026`;
  *   ancla  destino `/#<ancla>`; activo cuando se lee alguna de sus `secciones`
  *   ruta   destino propio; activo cuando la URL coincide
  *
- * `rutas` marca además una entrada de ancla como actual en otras páginas:
- * /pcb es la línea Hardware, así que cuenta como «Qué construimos».
+ * `rutas` marca además una entrada como actual en otras páginas: /pcb es la
+ * línea Hardware, así que cuenta como «Qué construimos», y /casos/<slug> es
+ * un proyecto, así que cuenta como «Proyectos».
  *
  * Qué va dentro de cada entrada:
  *   Qué construimos ... las cuatro líneas (§1.9), la capacidad técnica y las
@@ -73,6 +79,9 @@ export const RUTA_CASO_ITA = `${RUTA_CASOS}/ita-2026`;
  * entrada propia.
  */
 export const NAVEGACION = [
+  /* `rutas`: un caso de cliente vive en /casos/<slug> y también es un
+     proyecto, así que la entrada queda señalada ahí. */
+  { id: 'proyectos', tipo: 'ruta', destino: RUTA_PROYECTOS, rutas: [RUTA_CASOS] },
   {
     id: 'queConstruimos',
     tipo: 'ancla',
@@ -87,7 +96,6 @@ export const NAVEGACION = [
     secciones: ['como-trabajamos', 'alternativas'],
   },
   { id: 'laboratorio', tipo: 'ruta', destino: RUTA_LABORATORIO },
-  { id: 'casos', tipo: 'ruta', destino: RUTA_CASOS },
   { id: 'contacto', tipo: 'ancla', ancla: 'contacto', secciones: ['contacto'] },
 ];
 

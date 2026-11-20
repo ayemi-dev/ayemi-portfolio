@@ -24,7 +24,7 @@
     },
     {
       "source": "/:base(portafolio|piezas)/:slug(panel-inventario-integradores|plataforma-contactos-whatsapp|tecnificacion-agricola)",
-      "destination": "/casos",
+      "destination": "/proyectos#casos",
       "statusCode": 301
     },
     {
@@ -39,7 +39,12 @@
     },
     {
       "source": "/:base(portafolio|piezas)",
-      "destination": "/casos",
+      "destination": "/proyectos#casos",
+      "statusCode": 301
+    },
+    {
+      "source": "/casos",
+      "destination": "/proyectos#casos",
       "statusCode": 301
     },
     {
