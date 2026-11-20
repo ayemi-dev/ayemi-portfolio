@@ -78,9 +78,46 @@ ffmpeg usado: `2025-12-28-git-9ab2a437a1-full_build-www.gyan.dev`.
   - Las capturas se tomaron en `%TEMP%` y se borraron al terminar; no van en el commit.
 - Fuera del commit, como en T1: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
 
+T3 · 2026-11-20 · hecho · `scripts/importar-proyecto.mjs`, script `importar-proyecto` en `package.json` y `sharp` 0.35.5 como devDependency. Una ficha de prueba importada desde `%TEMP%` quedó válida y se borró.
+
+## Detalle de T3
+
+### Qué hace
+
+`npm run importar-proyecto -- <ruta-al-repo>` lee `<repo>/ayemi/proyecto.json` y los archivos de `<repo>/ayemi/medios/`, y deja la ficha en `contenido/proyectos/<slug>/`, con el `slug` que trae la propia ficha.
+
+- Los PNG y JPG (`.png`, `.jpg`, `.jpeg`) se convierten a WebP (calidad 80) con el lado mayor ≤ 1600 px, sin agrandar las que ya son menores y respetando la orientación EXIF. No se copia el original.
+- La ficha se reescribe para apuntar al `.webp`. Si el objeto de la imagen lleva `ancho`/`alto`, se actualizan a las medidas nuevas.
+- El resto de archivos de `medios/` (mp4, webm, svg, gif, webp…) se copia tal cual.
+- Todo se prepara en una carpeta temporal y se valida con `scripts/validar-proyectos.mjs` sobre esa carpeta. Solo si la ficha es válida se copia a `contenido/proyectos/`. Si no, se muestran los «<slug>: falta <campo>» del validador, no se importa nada y el código es 1. La carpeta temporal se borra siempre.
+
+### Puntos que T3 no especificaba
+
+Se resolvieron con la opción más conservadora; ninguno cambia el contrato y cada uno se cambia sin tocar la interfaz del comando:
+
+- **La ficha ya existe.** Si `contenido/proyectos/<slug>/` existe, el importador se detiene con código 1 y no sobrescribe nada (las reglas prohíben borrar archivos no nombrados). Para reimportar hay que quitar antes la carpeta a mano.
+- **Lado de 1600 px.** «≤ 1600 px» se aplicó al lado mayor, para que también las capturas verticales de teléfono queden acotadas.
+- **Slug.** Se comprueba con el patrón del esquema antes de usarlo como nombre de carpeta, para que una ficha no pueda escribir fuera de `contenido/proyectos/`.
+- **Subcarpetas de `medios/`.** Solo se copian los archivos del primer nivel (`medios/*`, como dice la tarea).
+- **Choque de nombres.** Si `foto.png` se convertiría en un `foto.webp` que ya existe, o dos imágenes darían el mismo `.webp`, el importador se detiene.
+
+### Comprobantes
+
+- `npm run lint`: código 0. ESLint solo revisa `*.{js,jsx}`; los `.mjs` de `scripts/` quedan fuera, igual que `validar-proyectos.mjs` en T1.
+- `npm run validar`: «Fichas de proyecto válidas: 1.», código 0.
+- `npm run build`: código 0, «Prerenderizado completo.», sitemap con 9 URL.
+- `python .ayemi/verificar.py . --solo-errores`: «Sin hallazgos», 76 archivos.
+- Repo de prueba en `%TEMP%\ayemi-repo-prueba` con una ficha `laboratorio` `publicado` (guardada con BOM), un JPG de 1440 × 900, un PNG de 2400 × 1500, `ita.mp4`, `ita-poster.webp` y `diagrama.svg`:
+  - Importación: código 0, «5 archivo(s) de medios, 2 convertido(s) a WebP». La ficha quedó con `medios/captura.webp` 1440 × 900 y `medios/grande.webp` 1600 × 1000, y `npm run validar` dio «Fichas de proyecto válidas: 2.».
+  - Segunda importación del mismo repo: código 1, «ya existe contenido/proyectos/prueba-importador/».
+  - La misma ficha sin `demo`: código 1, «prueba-importador: falta demo», y no se creó la carpeta.
+  - Se borraron `contenido/proyectos/prueba-importador/` y el repo de prueba; no quedan carpetas `ayemi-importar-*` en `%TEMP%`.
+- `npm install -D sharp` avisa de vulnerabilidades en dependencias que ya estaban; `npm audit fix` no se corrió porque cambiaría paquetes que T3 no nombra.
+- Fuera del commit, como en T1 y T2: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
+
 ## Bloqueos
 
-Ninguno en T1.
+Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»).
 
 ### T2 · ficha `publicado` sin video ni GIF · RESUELTO
 
