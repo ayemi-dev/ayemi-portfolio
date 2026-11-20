@@ -199,9 +199,51 @@ Se resolvieron con la opción más conservadora. Ninguno cambia el contrato, y c
   - El script de prueba, el perfil de Chrome y la copia de `App.jsx` quedaron en `%TEMP%` y se borraron.
 - Fuera del commit, como en T1–T4: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
 
+T6 · 2026-11-20 · bloqueado · sin cambios de código: R5 fija el rótulo «La solución» para el bloque 2 y el manual (§1.11, `ayemi-voz`, R0.1) retira «solución» del léxico (ver Bloqueos). Junto al bloqueo quedan anotados los puntos de T6 que la tarea no especifica, cada uno con su propuesta.
+
+## Detalle de T6
+
+- Se leyeron `requirements.md`, `design.md`, las reglas de `tasks.md`, `src/pages/{Caso,CasoOFicha}.jsx`, `src/config/{casos,proyectos,secciones,sitio}.js`, `src/medicion/medicion.js`, `prerender.mjs`, `vercel.json`, `nginx.conf`, la ficha de ITA, su `diagrama.svg` y el esquema.
+- Se empezó por la parte de medios de la Decisión 2026-11-20 (`scripts/copiar-medios.mjs`, `dev` y `build` en `package.json`, `public/proyectos/` en `.gitignore`, `urlMedio(slug, ruta)` y sus llamadas en `casos.js`, `TarjetaProyecto.jsx` y `HeroProyectos.jsx`). Al redactar los rótulos de R5 apareció el choque con el manual y, siguiendo las reglas, **se deshicieron todos esos cambios**, se borraron `scripts/copiar-medios.mjs` y `public/proyectos/`, y el árbol quedó como tras T5. El único cambio de este commit es esta bitácora.
+- `python .ayemi/verificar.py` no detecta el choque: el léxico de §1.11 solo se revisa en `.md`, `.mdx` y `.txt`, como aviso. En `src/i18n.js` el rótulo habría pasado los comprobantes sin que nadie lo viera; por eso se para aquí y no se deja a la revisión.
+- Comprobantes sobre el estado actual (igual que tras T5):
+  - `npm run lint`: código 0.
+  - `npm run validar`: «Fichas de proyecto válidas: 1.», código 0.
+  - `npm run build`: código 0, «Prerenderizado completo.», sitemap con 9 URL.
+  - `python .ayemi/verificar.py . --solo-errores`: «Sin hallazgos», 82 archivos.
+  - Navegador: `vite preview` (puerto 4173) y Chrome sin interfaz a 1440 px y 390 px. `/casos/ita-2026` responde 200 y se ve como tras T5: etiqueta, h1, aviso de marca independiente, El problema, Qué hicimos, Resultado con sus 4 cifras, Capturas, Pila técnica y cierre con «Hablemos de tu caso». No hay captura antes/después porque la página no cambió. Las capturas y el perfil de Chrome quedaron en `%TEMP%` y se borraron.
+- Fuera del commit, como en T1–T5: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
+
 ## Bloqueos
 
 Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»). Ninguno en T5 (los puntos sin especificar están en «Detalle de T5»).
+
+### T6 · rótulo «La solución» contra el léxico del manual · ABIERTO
+
+R5.2 nombra el bloque 2 de la página de caso **«La solución»**. El manual retira «solución» del léxico (§1.11; `ayemi-voz`: «solución → sistema, plataforma, herramienta»), y R0.1 dice que ese léxico gobierna todo. Las reglas de `tasks.md` piden detenerse cuando la tarea choca con el manual. El rótulo es copia visible en es y en, así que lo decide el arquitecto:
+
+1. Usar **«Qué hicimos»** / «What we did», la clave `caso.hicimos` que ya existe y que la página de ITA usa hoy para ese mismo contenido (T2 mapeó `hicimos` → `textos.solucion`). Propuesta de Kiro: no inventa copia y no cambia lo que se ve hoy.
+2. Otro rótulo nuevo, por ejemplo «Lo que construimos» / «What we built».
+3. Mantener «La solución» con una excepción escrita al §1.11 (la aprueba la dirección de marca).
+
+El campo `textos.<idioma>.solucion` del esquema no es visible y puede quedarse como está.
+
+### T6 · puntos sin especificar que también hacen falta para reanudar · ABIERTOS
+
+Ninguno bloquea por sí solo. Para que la siguiente ejecución no se detenga otra vez, cada uno lleva la propuesta que Kiro aplicaría si el arquitecto no dice otra cosa:
+
+- **Datos del caso que R5 no ubica.** El orden de R5 no tiene sitio para `imagenes` (obligatorias en toda ficha publicada), ni para las `cifras`, el `resultado`, el `testimonio`, el `sitio` y el aviso de marca independiente que hoy tiene `/casos/ita-2026`. Propuesta: cabecera con etiqueta, h1, enlace al `sitio` y aviso de `cliente` (solo si existen); `imagenes`, `cifras`, `resultado` y `testimonio` dentro del bloque 2, después del texto y del video, con subtítulos h3. Así el caso no pierde nada y el orden de R5 no cambia.
+- **Ruta `/proyectos/:slug`.** T6 dice que las dos rutas usan la misma página; T7 registra las rutas de design.md con `lazy()`. Propuesta, como en T5: `CasoOFicha` pinta `PaginaProyecto` para las fichas `caso-cliente` (y `FichaPieza` para el resto); `PaginaProyecto` acepta las dos rutas, pero `App.jsx` no se toca hasta T7. Hoy no hay demos publicadas, así que no hay nada que ver en `/proyectos/<slug>`.
+- **Qué fichas copia `copiar-medios.mjs`.** La decisión dice `contenido/proyectos/<slug>/medios/*`. Copiar también las fichas `en-construccion` o `retirado` publicaría sus archivos en una URL que se puede adivinar. Propuesta: solo las `publicado` (R0.5) y solo el primer nivel de `medios/`, como el importador. No borra nada de `public/proyectos/` (carpeta generada, fuera de git).
+- **Diagrama.** Sus clases usan `var(--ay-*)` y con `<img>` no heredan los tokens. Propuesta: pintarlo en línea con `import.meta.glob('…/medios/*.svg', { query: '?raw' })`, que da el mismo texto en el cliente y en el prerender, quitando `<script>`, atributos `on…` y `javascript:`. El archivo se sigue copiando a `public/proyectos/<slug>/`.
+- **Enlace a `codigo`.** R5 no dice dónde va. Propuesta: «Ver el código» en «Cómo está hecho», junto al stack.
+- **Una sola acción principal.** «Pruébalo» y el cierre de WhatsApp son dos acciones. Propuesta: WhatsApp primario y «Abrir la demo» secundario (§5.3).
+- **`clic_demo` y `caso_visto`.** Los nombra T8. Propuesta: T6 deja `BloquePruebalo` y `PaginaProyecto` sin eventos.
+- **`utm_content=<slug>`.** design.md lo pone en la página de caso. Propuesta: una función nueva `fijarUtmContenido(slug)` en `medicion.js` que solo escribe si no había `utm_content`, sin tocar los eventos existentes. Efecto que hay que aceptar: desde ese momento `conOrigenWhatsapp` añade «Origen: ita-2026» a cualquier WhatsApp de la visita, y `rastrear` manda ese `utm_content` en todos los eventos.
+- **«Lo que entregaríamos».** R5 da los tres temas (código a tu nombre, documentación, traspaso) pero no el texto. Propuesta, para revisión: «Código a tu nombre: el repositorio y la infraestructura quedan en tus cuentas desde el primer día.» · «Documentación: cómo se instala, cómo se opera y cómo lo retoma otro equipo.» · «Traspaso: una sesión de entrega técnica y un documento de operación.», más `entregamos[]` de la ficha.
+- **Resto de textos nuevos (es/en), para revisión.** «Proyecto demostrativo de Ayemi» / «Ayemi demo project»; «Ayemi no tiene relación con {{marca}}.» / «Ayemi has no relationship with {{marca}}.»; El problema / The problem; Pruébalo / Try it; Abrir la demo; Usuario de prueba; Clave de prueba; Copiar / Copiado; «La demo se reinicia cada {{cada}}.»; Cómo está hecho / How it is built; Lo que entregaríamos / What we would deliver; «¿Lo quieres para tu negocio?» / «Want it for your business?»; botón «Escríbenos por WhatsApp» / «Message us on WhatsApp»; y el mensaje de design.md, «Hola, vi «{{titulo}}» en ayemi.org y quiero algo así para mi negocio.», con el dominio tomado de `SITIO.url`.
+- **Directorio y página con la misma ruta.** Con la decisión, una demo tiene su página en `/proyectos/<slug>` y sus medios en `/proyectos/<slug>/<archivo>`. En nginx (`try_files $uri $uri/ /index.html`), pedir `/proyectos/<slug>` encuentra el directorio de medios y, sin `index.html` dentro, responde 403 en vez de la app. Deja de pasar cuando T11 prerenderice cada demo en `dist/proyectos/<slug>/index.html`. Hoy no afecta a ITA, que vive en `/casos/ita-2026`. Para tener en cuenta en T7/T11.
+
 
 ### T2 · ficha `publicado` sin video ni GIF · RESUELTO
 
