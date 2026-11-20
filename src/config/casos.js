@@ -3,28 +3,24 @@
  *
  * Desde la refactorización 2026-11 los datos viven en la ficha
  * `contenido/proyectos/<slug>/proyecto.json` (`tipo: caso-cliente`). Este
- * módulo los reexporta con la misma forma de antes para que la página actual
- * siga igual mientras llega `PaginaProyecto` (T6).
+ * módulo los reexporta con la forma de antes para `/casos` (`Casos.jsx`), las
+ * piezas y el prerender. La página de cada caso lee la ficha directamente
+ * (`PaginaProyecto`, T6).
  *
  * Lo que no se sabe todavía queda vacío en la ficha y la página no lo pinta:
  *
  *   resultadoNegocio  '' → sin párrafo de resultado comercial
  *   testimonio        null → sin bloque de testimonio
  *
- * Las capturas se sirven desde public/casos/<carpeta>/ (copias de las que
- * están en `medios/`); se tomaron del sitio en producción el 28 de octubre de
- * 2026. Las que muestran personal del cliente van aparte
+ * Las capturas se sirven desde `/proyectos/<slug>/` (`urlMedio`; las copia
+ * de `medios/` `scripts/copiar-medios.mjs`); se tomaron del sitio en
+ * producción el 28 de octubre de 2026. Las que muestran personal del cliente van aparte
  * (capturasConPersonal) y solo salen con permisoPersonal: true; hasta
  * entonces sus archivos viven en pendientes/casos/<carpeta>/ (pasos en
  * pendientes/LEEME.md).
  */
 
-import { porTipo } from './proyectos';
-
-/** Carpeta de public/ que sirve los medios de cada caso. */
-const PUBLICO = {
-  'ita-2026': '/casos/ita',
-};
+import { porTipo, urlMedio } from './proyectos';
 
 /** El texto del caso va en español (es contenido, no interfaz). */
 const IDIOMA = 'es';
@@ -32,7 +28,7 @@ const IDIOMA = 'es';
 const parrafos = (texto) => (texto ? texto.split('\n\n') : []);
 
 const captura = (slug) => (img) => ({
-  src: img.src.replace(/^medios\//, `${PUBLICO[slug] ?? `/casos/${slug}`}/`),
+  src: urlMedio(slug, img.src),
   ancho: img.ancho,
   alto: img.alto,
   alt: img.alt[IDIOMA],

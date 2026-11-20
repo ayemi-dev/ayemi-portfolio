@@ -40,7 +40,7 @@ export const TarjetaProyecto = ({ proyecto }) => {
     >
       {imagen && (
         <img
-          src={urlMedio(proyecto, imagen.src)}
+          src={urlMedio(proyecto.slug, imagen.src)}
           width={imagen.ancho}
           height={imagen.alto}
           alt={imagen.alt[idioma]}

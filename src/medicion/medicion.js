@@ -115,6 +115,23 @@ export function leerUtm() {
 }
 
 /**
+ * Página de caso: fija `utm_content=<slug>` para el resto de la visita si la
+ * entrada no traía uno (design.md, «WhatsApp con tema y UTM»). Desde ese
+ * momento `conOrigenWhatsapp` y `rastrear` lo incluyen como cualquier otro UTM.
+ */
+export function fijarUtmContenido(slug) {
+  if (!enNavegador || !slug) return;
+  const utm = leerUtm();
+  if (utm.utm_content) return;
+  const nuevo = { ...utm, utm_content: slug };
+  try {
+    sessionStorage.setItem(UTM_LS, JSON.stringify(nuevo));
+  } catch {
+    window.__ayemiUtm = nuevo;
+  }
+}
+
+/**
  * WhatsApp no recibe parámetros de campaña, así que el origen viaja en el texto
  * del mensaje: «Origen: instagram / bio / lanzamiento». Quien contesta sabe de
  * dónde llegó la persona y lo puede anotar.

@@ -9,9 +9,11 @@
  * existen en el repositorio pero ninguna función de aquí las devuelve.
  *
  * Las rutas de medios (`medios/…`) son relativas a la carpeta de la ficha.
- * Cómo llegan al navegador se decide más adelante (T6/T11); mientras tanto,
- * `casos.js` sirve las copias de `public/casos/<carpeta>/`.
+ * Llegan al navegador en `/proyectos/<slug>/<archivo>` (ver `urlMedio`).
  */
+
+import i18n from '../i18n';
+import { SITIO } from './sitio';
 
 const FICHAS = Object.values(
   import.meta.glob('/contenido/proyectos/*/proyecto.json', { eager: true, import: 'default' })
@@ -52,14 +54,49 @@ export const slugDeStack = (nombre) =>
     .replace(/^-|-$/g, '');
 
 /**
- * Carpeta de public/ que sirve los medios de cada ficha, la misma que usa
- * `casos.js`. Mientras T6/T11 no decidan el mecanismo general, los archivos de
- * `medios/` que se pintan se copian a esta carpeta.
+ * URL pública de una ruta `medios/…` de la ficha: `/proyectos/<slug>/<archivo>`.
+ *
+ * `scripts/copiar-medios.mjs` copia `contenido/proyectos/<slug>/medios/*` a
+ * `public/proyectos/<slug>/` antes de `vite` (dev) y de `vite build`, así que
+ * el build del cliente y el prerender dan la misma URL. Es la única función
+ * que compone estas URL.
  */
-const PUBLICO = {
-  'ita-2026': '/casos/ita',
+export const urlMedio = (slug, ruta) => `/proyectos/${slug}/${ruta.replace(/^medios\//, '')}`;
+
+/* Diagramas SVG como texto, para pintarlos en línea: sus clases usan los
+   tokens `var(--ay-*)`, y un SVG cargado como imagen no los hereda. `?raw` da
+   el mismo texto en el cliente y en el prerender. */
+const DIAGRAMAS = import.meta.glob('/contenido/proyectos/*/medios/*.svg', {
+  eager: true,
+  query: '?raw',
+  import: 'default',
+});
+
+/** Quita `<script>`, `<foreignObject>`, atributos `on…` y enlaces `javascript:`. */
+const sanear = (svg) =>
+  svg
+    .replace(/<script[\s\S]*?<\/script\s*>/gi, '')
+    .replace(/<script[^>]*\/>/gi, '')
+    .replace(/<foreignObject[\s\S]*?<\/foreignObject\s*>/gi, '')
+    .replace(/\s+on[a-z]+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, '')
+    .replace(/\s+(?:xlink:)?href\s*=\s*("\s*javascript:[^"]*"|'\s*javascript:[^']*')/gi, '')
+    .replace(/<\?xml[\s\S]*?\?>/i, '')
+    .trim();
+
+/** El SVG del diagrama de la ficha, saneado, o `''` si no tiene. */
+export const diagramaDe = (proyecto) => {
+  if (!proyecto.diagrama) return '';
+  const svg = DIAGRAMAS[`/contenido/proyectos/${proyecto.slug}/${proyecto.diagrama}`];
+  return svg ? sanear(svg) : '';
 };
 
-/** URL pública de una ruta `medios/…` de la ficha. */
-export const urlMedio = (proyecto, ruta) =>
-  ruta.replace(/^medios\//, `${PUBLICO[proyecto.slug] ?? `/casos/${proyecto.slug}`}/`);
+/**
+ * Mensaje de WhatsApp de la página de caso (design.md): «Hola, vi «<título>»
+ * en ayemi.org y quiero algo así para mi negocio.» El dominio sale de
+ * `SITIO.url`.
+ */
+export const mensajeDeProyecto = (proyecto, idioma) =>
+  i18n.getFixedT(idioma)('caso.mensajeProyecto', {
+    titulo: proyecto.textos[idioma].titulo,
+    dominio: SITIO.url.replace(/^https?:\/\//, ''),
+  });

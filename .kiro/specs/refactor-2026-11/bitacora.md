@@ -214,11 +214,66 @@ T6 · 2026-11-20 · bloqueado · sin cambios de código: R5 fija el rótulo «La
   - Navegador: `vite preview` (puerto 4173) y Chrome sin interfaz a 1440 px y 390 px. `/casos/ita-2026` responde 200 y se ve como tras T5: etiqueta, h1, aviso de marca independiente, El problema, Qué hicimos, Resultado con sus 4 cifras, Capturas, Pila técnica y cierre con «Hablemos de tu caso». No hay captura antes/después porque la página no cambió. Las capturas y el perfil de Chrome quedaron en `%TEMP%` y se borraron.
 - Fuera del commit, como en T1–T5: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
 
+T6 · 2026-11-20 · hecho · `src/pages/PaginaProyecto.jsx` con el orden de R5 (El problema · Qué hicimos · Pruébalo · Cómo está hecho · Lo que entregaríamos · ¿Lo quieres para tu negocio?) y `BloquePruebalo`, `DiagramaYStack`, `EntregaConLlaves`, `CierreWhatsapp`; `CasoOFicha` pinta `PaginaProyecto` para los casos de clientes; `scripts/copiar-medios.mjs` + `urlMedio(slug, ruta)` sirven los medios desde `/proyectos/<slug>/`. Bloqueos de T6 resueltos con las Decisiones 2026-11-20 (medios y bloqueos de T6).
+
+## Detalle de T6 · segundo intento (Decisiones 2026-11-20 aplicadas)
+
+### Archivos
+
+- `scripts/copiar-medios.mjs` (nuevo): copia el primer nivel de `contenido/proyectos/<slug>/medios/` a `public/proyectos/<slug>/`, solo de fichas `publicado`. Quita el BOM antes de leer la ficha y se detiene (código 1) si el `slug` no cumple el patrón del esquema. No borra nada de `public/proyectos/`.
+- `package.json`: `dev` = `node scripts/copiar-medios.mjs && vite --host`; `build` = `node scripts/validar-proyectos.mjs && node scripts/copiar-medios.mjs && vite build && node prerender.mjs`.
+- `.gitignore`: `public/proyectos/` (comprobado con `git check-ignore`).
+- `src/config/proyectos.js`: `urlMedio(slug, ruta)` → `/proyectos/<slug>/<archivo>`, la única que compone esas URL; se quitó la tabla `PUBLICO`. `diagramaDe(proyecto)`: el SVG por `import.meta.glob('/contenido/proyectos/*/medios/*.svg', { query: '?raw' })`, saneado (sin `<script>`, `<foreignObject>`, atributos `on…`, `href` con `javascript:` ni declaración XML). `mensajeDeProyecto(proyecto, idioma)` (design.md), con el dominio de `SITIO.url`.
+- `src/config/casos.js`: sin tabla `PUBLICO`; las capturas salen de `urlMedio`. Ya no usa `public/casos/ita/` (la carpeta sigue en el repo; se retira en T13). Sigue alimentando `/casos`, `piezas.js` y el prerender.
+- `src/features/hero/HeroProyectos.jsx` y `src/features/proyectos/TarjetaProyecto.jsx`: llaman a `urlMedio(proyecto.slug, …)`.
+- `src/medicion/medicion.js`: nueva `fijarUtmContenido(slug)`; escribe `utm_content` en `sessionStorage['ayemi:utm']` solo si no había uno. Los `EVENTOS` y el resto no cambian. Efecto aceptado: desde ese momento `conOrigenWhatsapp` añade «Origen: ita-2026» y `rastrear` manda ese `utm_content`.
+- `src/pages/PaginaProyecto.jsx` (nuevo): cabecera (etiqueta «Proyecto demostrativo de Ayemi» si `laboratorio`, o «CASO · <cliente>»; h1; «Ayemi no tiene relación con <marca>» por cada `marcasAjenas`; enlace al `sitio`; aviso de marca independiente del `cliente`). Bloque 2 «Qué hicimos»: texto, video con controles (`VideoProyecto controles`) o GIF, y con h3 Capturas, Resultado (cifras, `resultado`, `resultadoNegocio`) y Testimonio. Textos de la ficha en el idioma activo. Sin eventos (T8).
+- `src/features/proyectos/BloquePruebalo.jsx` (nuevo): «Abrir la demo» secundario (`target="_blank"`, `rel="noopener"`), usuario y clave en `<code>` con botón «Copiar» / «Copiado» (`navigator.clipboard`, `aria-live`, icono de comprobación además del texto) y «La demo se reinicia cada …». Sin `clic_demo` (T8).
+- `src/features/proyectos/DiagramaYStack.jsx` (nuevo): diagrama en línea, stack (h3 «PILA TÉCNICA») y «Ver el código» (terciario) si hay `codigo`.
+- `src/features/proyectos/EntregaConLlaves.jsx` (nuevo): los tres puntos fijos más `textos.<idioma>.entregamos[]`.
+- `src/features/proyectos/CierreWhatsapp.jsx` (nuevo): «¿Lo quieres para tu negocio?» y el único botón primario, «Escríbenos por WhatsApp», con `mensajeDeProyecto`.
+- `src/pages/CasoOFicha.jsx`: `buscarProyecto(slug)?.tipo === 'caso-cliente'` → `PaginaProyecto`; si no, `FichaPieza`. `App.jsx` no se tocó (T7). `src/pages/Caso.jsx` queda sin uso y no se borra, porque T6 no lo nombra.
+- `src/i18n.js` (es/en), dentro de `caso.*`: `demostrativo`, `sinRelacion`, `pruebalo`, `abrirDemo`, `usuarioPrueba`, `claveDePrueba`, `copiar`, `copiado`, `seReinicia`, `comoEstaHecho`, `verCodigo`, `entregariamos`, `entrega[]`, `cierreTitulo`, `cierreBoton`, `mensajeProyecto`. Los textos en español son los de la propuesta aceptada. **Para revisión, los de Kiro en inglés que la propuesta no daba:** «Open the demo», «Test user», «Test password», «Copy» / «Copied», «The demo resets every {{cada}}.», «See the code» y los tres puntos de «What we would deliver» («Code in your name: the repository and the infrastructure live in your accounts from day one.» · «Documentation: how to install it, how to run it and how another team picks it up.» · «Handover: a technical handover session and an operations document.»).
+
+### Puntos que T6 no especificaba
+
+Ninguno bloquea. Se resolvieron con la opción más conservadora y se cambian sin tocar la API de los componentes:
+
+- **GIF.** Solo se pinta si la ficha no tiene `video`. Con `prefers-reduced-motion: reduce` no se pinta (un GIF no se puede pausar, §3.13 y WCAG 2.2.2); quedan las capturas. El esquema no da `ancho`/`alto` ni `alt` del GIF, así que va sin `width`/`height` (a revisar en T12) y con el título como `alt`. Hoy ninguna ficha usa GIF.
+- **Diagrama en móvil.** A 390 px el SVG de 720 de ancho dejaría su texto a unos 7 px. No baja de 480 px y se desplaza dentro de su caja (`role="region"`, nombre «Cómo está hecho», `tabIndex=0` para recorrerla con el teclado); la página no se desborda. El `<style>` del SVG en línea es global: sus clases (`.caja`, `.flecha`, `.nombre`, `.detalle`) no coinciden con ninguna clase del sitio hoy.
+- **`seReinicia`** es una sola cadena en el esquema, no `es`/`en`: se interpola tal cual en los dos idiomas.
+- **`/proyectos/:slug`.** `PaginaProyecto` pinta cualquier ficha publicada por su slug, sin mirar si la ruta corresponde a su `tipo`. Que `/proyectos/ita-2026` no duplique `/casos/ita-2026` se decide al registrar las rutas en T7.
+- **`pendientes/LEEME.md`** sigue diciendo que las capturas con personal se copian a `public/casos/ita/` y a `medios/`. Desde T6 basta con `medios/`; no se cambió porque T6 no lo nombra y `public/casos/ita/` se retira en T13.
+
+### Comprobantes
+
+- `npm run lint`: código 0.
+- `npm run validar`: «Fichas de proyecto válidas: 1.», código 0.
+- `npm run build`: código 0. «Medios copiados a public/proyectos/: 7 archivo(s) de 1 ficha(s).», «Prerenderizado completo.», sitemap con 9 URL. Siguen las advertencias `[Ayemi §3.10] … 18 px / 22 px`, anteriores a T1. `dist/proyectos/ita-2026/` tiene los 7 archivos y `dist/casos/ita-2026/index.html` ya trae el SVG en línea y todas las URL en `/proyectos/ita-2026/`.
+- `python .ayemi/verificar.py . --solo-errores`: «Sin hallazgos», 88 archivos. En la primera pasada dio 1 error falso («`<img>` sin atributo alt») por un comentario de `proyectos.js` que decía «cargado con `<img>`»; se reescribió el comentario.
+- Navegador: `vite preview` (puerto 4173) y Chrome sin interfaz por CDP en `/casos/ita-2026/`, a 1440 × 900 y 390 × 844, con y sin `prefers-reduced-motion: reduce`. Cero errores y cero avisos en consola:
+  - Un h1; h2 en este orden: El problema · Qué hicimos · Cómo está hecho · Lo que entregaríamos · ¿Lo quieres para tu negocio?; h3: Capturas · Resultado · PILA TÉCNICA. Sin «Pruébalo» (ITA es `caso-cliente`) ni avisos de marca ajena (no tiene `marcasAjenas`). Etiqueta «CASO · ITA», enlace a `soluciones-ita.com` y aviso «ITA es una marca independiente».
+  - Video: `currentSrc` `/proyectos/ita-2026/ita.webm`, con controles, sin sonido, y avanza (≈ 2,9 s a los 3 s). Con movimiento reducido: sin `<video>`, póster `/proyectos/ita-2026/ita-poster.webp`.
+  - Las 3 capturas cargan desde `/proyectos/ita-2026/` con `width`/`height`. El diagrama sale en línea y sigue el tema: `.caja` con `fill` `rgb(26, 29, 33)` en oscuro y `rgb(255, 255, 255)` en claro.
+  - Un solo botón primario: «Escríbenos por WhatsApp», con «Hola, vi «Un sitio que explica la rectificación industrial de ITA en dos idiomas» en ayemi.org y quiero algo así para mi negocio.». `sessionStorage['ayemi:utm']` = `{"utm_content":"ita-2026"}`.
+  - 390 px: `scrollWidth` = 390 y ningún elemento de la página sale de la pantalla (el diagrama se desplaza dentro de su región: 512 px de contenido en 348 px).
+  - Inglés: h1 y h2 en inglés («The problem», «What we did», «How it is built», «What we would deliver», «Want it for your business?»), `alt` en inglés y mensaje de WhatsApp en inglés.
+  - `/casos/no-existe` → «Esta página no está.».
+  - Las capturas de pantalla completas de escritorio y móvil se revisaron a ojo: sin solapes ni huecos. Se tomaron en `%TEMP%` y se borraron, igual que el script de prueba (estaba en la raíz del repo, fuera del commit) y el perfil de Chrome.
+  - Aviso del entorno de prueba: `vite preview` sirve `dist/index.html` (la portada) para las URL sin barra final como `/casos/ita-2026`, y React da el error #418 de hidratación al montar otra página sobre ese HTML. Pasa igual en `/casos` y `/pcb`, que T6 no toca. Con barra final, que sirve el HTML prerenderizado como hacen Vercel y nginx, no hay errores. No se cambió nada por esto.
+- Fuera del commit, como en T1–T5: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
+
+## Pendiente para T11
+
+- **Directorio y página con la misma ruta (nginx).** Una demo tiene su página en `/proyectos/<slug>` y sus medios en `/proyectos/<slug>/<archivo>`. Con `try_files $uri $uri/ /index.html`, pedir `/proyectos/<slug>` encuentra el directorio de medios y, sin `index.html` dentro, nginx responde 403 en vez de la app. Deja de pasar cuando T11 prerenderice cada demo en `dist/proyectos/<slug>/index.html`. Hoy no afecta a ITA, que vive en `/casos/ita-2026`. Por la Decisión 2026-11-20 se resuelve en T11, no en T6.
+
 ## Bloqueos
 
-Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»). Ninguno en T5 (los puntos sin especificar están en «Detalle de T5»).
+Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»). Ninguno en T5 (los puntos sin especificar están en «Detalle de T5»). Ninguno nuevo en T6 (los puntos sin especificar están en «Detalle de T6 · segundo intento»).
 
-### T6 · rótulo «La solución» contra el léxico del manual · ABIERTO
+### T6 · rótulo «La solución» contra el léxico del manual · RESUELTO
+
+**Resuelto el 2026-11-20** con la Decisión 2026-11-20 (bloqueos de T6) de `tasks.md`: el bloque 2 se rotula «Qué hicimos» / «What we did» (clave `caso.hicimos`) y «solución» no se usa en copia visible. Aplicado en el segundo intento de T6.
 
 R5.2 nombra el bloque 2 de la página de caso **«La solución»**. El manual retira «solución» del léxico (§1.11; `ayemi-voz`: «solución → sistema, plataforma, herramienta»), y R0.1 dice que ese léxico gobierna todo. Las reglas de `tasks.md` piden detenerse cuando la tarea choca con el manual. El rótulo es copia visible en es y en, así que lo decide el arquitecto:
 
@@ -228,7 +283,9 @@ R5.2 nombra el bloque 2 de la página de caso **«La solución»**. El manual re
 
 El campo `textos.<idioma>.solucion` del esquema no es visible y puede quedarse como está.
 
-### T6 · puntos sin especificar que también hacen falta para reanudar · ABIERTOS
+### T6 · puntos sin especificar que también hacen falta para reanudar · RESUELTOS
+
+**Resueltos el 2026-11-20.** La Decisión 2026-11-20 (bloqueos de T6) acepta todas estas propuestas tal como están escritas, y el segundo intento de T6 las aplicó. El último punto (directorio y página en nginx) pasa a «Pendiente para T11».
 
 Ninguno bloquea por sí solo. Para que la siguiente ejecución no se detenga otra vez, cada uno lleva la propuesta que Kiro aplicaría si el arquitecto no dice otra cosa:
 
@@ -259,7 +316,7 @@ Las salidas posibles cambian el contrato o el contenido, así que las decide el 
 
 ### T2 · puntos sin especificar que también hacen falta para reanudar · RESUELTOS
 
-**Resueltos el 2026-11-20.** La Decisión 2026-11-20 no los nombra; como ninguno bloqueaba por sí solo, el segundo intento aplicó la propuesta escrita para cada uno (detalle en «Detalle de T2 · segundo intento»). Si el arquitecto prefiere otra salida, se cambia sin tocar la API de `proyectos.js`. El de los medios sigue abierto para T6/T11.
+**Resueltos el 2026-11-20.** La Decisión 2026-11-20 no los nombra; como ninguno bloqueaba por sí solo, el segundo intento aplicó la propuesta escrita para cada uno (detalle en «Detalle de T2 · segundo intento»). Si el arquitecto prefiere otra salida, se cambia sin tocar la API de `proyectos.js`. El de los medios quedó resuelto en T6 con la Decisión 2026-11-20 (medios): `scripts/copiar-medios.mjs` y `urlMedio(slug, ruta)`.
 
 Ninguno bloquea por sí solo, pero cada uno obliga a decidir algo:
 

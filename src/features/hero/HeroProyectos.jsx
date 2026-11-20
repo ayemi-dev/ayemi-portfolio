@@ -50,7 +50,7 @@ const idiomaDe = (i18n) => (i18n.resolvedLanguage === 'en' ? 'en' : 'es');
 const capturasDeRespaldo = (t, idioma) => {
   const ita = buscarProyecto('ita-2026');
   const deIta = (ita?.imagenes ?? []).map((img) => ({
-    src: urlMedio(ita, img.src),
+    src: urlMedio(ita.slug, img.src),
     ancho: img.ancho,
     alto: img.alto,
     alt: img.alt[idioma],
@@ -125,9 +125,9 @@ const RotacionVideos = ({ proyectos, idioma }) => {
     <figure>
       <VideoProyecto
         key={proyecto.slug}
-        mp4={urlMedio(proyecto, video.mp4)}
-        webm={urlMedio(proyecto, video.webm)}
-        poster={urlMedio(proyecto, video.poster)}
+        mp4={urlMedio(proyecto.slug, video.mp4)}
+        webm={urlMedio(proyecto.slug, video.webm)}
+        poster={urlMedio(proyecto.slug, video.poster)}
         titulo={titulo}
         loop={proyectos.length === 1}
         onEnded={() => setActual((i) => (i + 1) % proyectos.length)}

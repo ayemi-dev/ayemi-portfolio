@@ -999,6 +999,36 @@ const es = {
     testimonio: 'Testimonio',
     pila: 'PILA TÉCNICA',
     mensajeWhatsapp: 'Hola, vi el caso de {{cliente}} y tengo algo parecido en mi operación.',
+    // ── Página de caso (refactorización 2026-11, T6) ─────────────────────
+    demostrativo: 'Proyecto demostrativo de Ayemi',
+    sinRelacion: 'Ayemi no tiene relación con {{marca}}.',
+    pruebalo: 'Pruébalo',
+    abrirDemo: 'Abrir la demo',
+    usuarioPrueba: 'Usuario de prueba',
+    claveDePrueba: 'Clave de prueba',
+    copiar: 'Copiar',
+    copiado: 'Copiado',
+    seReinicia: 'La demo se reinicia cada {{cada}}.',
+    comoEstaHecho: 'Cómo está hecho',
+    verCodigo: 'Ver el código',
+    entregariamos: 'Lo que entregaríamos',
+    entrega: [
+      {
+        titulo: 'Código a tu nombre',
+        texto: 'el repositorio y la infraestructura quedan en tus cuentas desde el primer día.',
+      },
+      {
+        titulo: 'Documentación',
+        texto: 'cómo se instala, cómo se opera y cómo lo retoma otro equipo.',
+      },
+      {
+        titulo: 'Traspaso',
+        texto: 'una sesión de entrega técnica y un documento de operación.',
+      },
+    ],
+    cierreTitulo: '¿Lo quieres para tu negocio?',
+    cierreBoton: 'Escríbenos por WhatsApp',
+    mensajeProyecto: 'Hola, vi «{{titulo}}» en {{dominio}} y quiero algo así para mi negocio.',
   },
 
   enlaces: {
@@ -1988,6 +2018,35 @@ const en = {
     testimonio: 'Testimonial',
     pila: 'TECHNICAL STACK',
     mensajeWhatsapp: 'Hi, I saw the {{cliente}} case and have something similar in my operation.',
+    demostrativo: 'Ayemi demo project',
+    sinRelacion: 'Ayemi has no relationship with {{marca}}.',
+    pruebalo: 'Try it',
+    abrirDemo: 'Open the demo',
+    usuarioPrueba: 'Test user',
+    claveDePrueba: 'Test password',
+    copiar: 'Copy',
+    copiado: 'Copied',
+    seReinicia: 'The demo resets every {{cada}}.',
+    comoEstaHecho: 'How it is built',
+    verCodigo: 'See the code',
+    entregariamos: 'What we would deliver',
+    entrega: [
+      {
+        titulo: 'Code in your name',
+        texto: 'the repository and the infrastructure live in your accounts from day one.',
+      },
+      {
+        titulo: 'Documentation',
+        texto: 'how to install it, how to run it and how another team picks it up.',
+      },
+      {
+        titulo: 'Handover',
+        texto: 'a technical handover session and an operations document.',
+      },
+    ],
+    cierreTitulo: 'Want it for your business?',
+    cierreBoton: 'Message us on WhatsApp',
+    mensajeProyecto: 'Hi, I saw «{{titulo}}» on {{dominio}} and want something like it for my business.',
   },
 
   enlaces: {
