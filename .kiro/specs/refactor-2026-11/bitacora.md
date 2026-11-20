@@ -156,9 +156,52 @@ Se resolvieron con la opción más conservadora. Ninguno cambia el contrato, y c
   - Las capturas y el script de prueba quedaron en `%TEMP%` y se borraron.
 - Fuera del commit, como en T1–T3: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
 
+T5 · 2026-11-20 · hecho · `src/pages/Proyectos.jsx`, `src/features/proyectos/TarjetaProyecto.jsx` y `FiltrosProyectos.jsx`: galería con los grupos `#casos` y `#laboratorio` (hoy solo se pinta `#casos`, con ITA), filtros en `?tipo=&stack=` con comas, contador «N proyectos» en `aria-live` y estado vacío con Emi y «Quitar filtros». La ruta `/proyectos` se registra en T7.
+
+## Detalle de T5
+
+### Archivos
+
+- `src/pages/Proyectos.jsx` (nuevo): `Seccion` de nivel 1 (h1), filtros, contador y un `<section id="casos">` / `<section id="laboratorio">` por grupo, cada uno con su h2 y una cuadrícula de 2 columnas desde `md`. Un grupo sin fichas, o sin ninguna que pase los filtros, no se pinta. Si ninguno queda, `EstadoConEmi estado="vacio"` con el botón secundario «Quitar filtros», que deja la URL en `/proyectos`.
+- `src/features/proyectos/FiltrosProyectos.jsx` (nuevo): dos grupos (`role="group"` con su etiqueta) de `<button aria-pressed>`, dentro de `role="search"`. El botón activo lleva `IconoComprobacion` a 16 px además del borde de acento (§5.5, independencia del color). Un grupo sin opciones no se pinta.
+- `src/features/proyectos/TarjetaProyecto.jsx` (nuevo): primera imagen de la ficha en 16:10 (`object-cover`, con `width`/`height` y `loading="lazy"`), etiqueta «PROYECTO DEMOSTRATIVO» si `laboratorio`, título h3, resumen y chips de stack con el mismo estilo que la pila de `Caso.jsx`. El enlace está en el título y cubre la tarjeta con un pseudoelemento, para que su nombre accesible sea solo el título. Destino: `/casos/<slug>` para `caso-cliente` y `/proyectos/<slug>` para `laboratorio` (design.md, «Rutas»).
+- `src/config/proyectos.js`: nueva `slugDeStack(nombre)` («Next.js» → `nextjs`, «Tailwind CSS» → `tailwind-css`).
+- `src/config/secciones.js`: nueva constante `RUTA_PROYECTOS = '/proyectos'`.
+- `src/i18n.js` (es/en): bloque `proyectos.*` (etiqueta, h1, entradilla, filtros, las cinco categorías, contador en singular y plural, nombres de los grupos, etiqueta de demo, estado vacío y «Quitar filtros»).
+
+### Puntos que T5 no especificaba
+
+Se resolvieron con la opción más conservadora. Ninguno cambia el contrato, y cada uno se cambia sin tocar la API de los componentes:
+
+- **Ruta.** T5 no la nombra y T7 registra en `App.jsx` las rutas de design.md con `lazy()`, así que `App.jsx` no se tocó. Hasta T7, `/proyectos` sigue en «no encontrado». Para las pruebas de navegador se añadió una ruta temporal que se quitó antes del commit.
+- **Qué categorías se ofrecen.** Solo las que usa al menos una ficha publicada (`categorias()` de design.md), en el orden del esquema. R4.2 dice «las cinco categorías», pero ofrecer filtros que siempre dan cero resultados choca con R0.5. Como ITA tiene `categorias: []`, hoy no se pinta el grupo «Tipo», solo «Stack» (7 tecnologías). **Para revisión.**
+- **Cómo se combinan.** Dentro de un grupo, varios valores se suman (basta con que la ficha tenga uno). Entre grupos, la ficha debe cumplir los dos.
+- **Valores en la URL.** `stack` usa `slugDeStack` del nombre de la ficha, porque el ejemplo de R4.2 (`stack=nextjs`) no es el nombre tal cual. Las comas se escriben literales (`?stack=react,vite`), no `%2C`. Un valor que ninguna ficha usa no se descarta: cuenta como filtro, así que un enlace viejo como `?tipo=pagos` lleva al estado vacío con «Quitar filtros» en vez de enseñar resultados que no pidió.
+- **Historial.** Cada cambio de filtro reemplaza la entrada del historial (`replace`) y conserva el ancla, para que «atrás» salga de la galería y no deshaga los filtros uno a uno.
+- **«Expresión neutral» de Emi.** El catálogo de `EstadoConEmi` no tiene una expresión «neutral»; se usó el estado `vacio` (expresión `vacio`, pose `flotando`), el que el §7 asigna a los estados vacíos.
+- **Textos nuevos.** T5 solo fija «Casos de clientes», «Proyectos del Laboratorio», «Proyecto demostrativo» y «Quitar filtros». El resto lo escribió Kiro y **necesita revisión**: etiqueta `PROYECTOS`; h1 «Proyectos que puedes **ver funcionando**.»; entradilla «Trabajo real, con capturas y video de lo que hace. Cada proyecto dice si se hizo para un cliente o si es un proyecto demostrativo de Ayemi.»; etiquetas de filtro `TIPO` / `STACK`; categorías Tiendas, Pagos, IA, Integraciones, Hardware; vacío «Ningún proyecto coincide con estos filtros. Quita alguno para ver más proyectos.» Todo el bloque `en` (Client cases, Lab projects, DEMO PROJECT, Clear filters, etc.) también es de Kiro.
+- **Etiqueta de demo.** Va en caja alta con `.ay-etiqueta` («PROYECTO DEMOSTRATIVO», dos palabras), como las etiquetas de `Casos.jsx`. T6 pone la versión larga, «Proyecto demostrativo de Ayemi», arriba de la página de la demo.
+- **Cierre de la página.** T5 no pide botón primario ni cierre con WhatsApp, así que la galería no lleva ninguno.
+
+### Comprobantes
+
+- `npm run lint`: código 0.
+- `npm run validar`: «Fichas de proyecto válidas: 1.», código 0.
+- `npm run build`: código 0, «Prerenderizado completo.», sitemap con 9 URL (T11 añade `/proyectos`).
+- `python .ayemi/verificar.py . --solo-errores`: «Sin hallazgos», 82 archivos.
+- Navegador: `vite preview` con la ruta temporal y Chrome sin interfaz por CDP, a 1440 × 900 y 390 × 844, con teclas reales (`Input.dispatchKeyEvent`). Cero errores y cero avisos en consola:
+  - Carga: un h1, un h2 «Casos de clientes» en `#casos`, sin `#laboratorio` (no hay demos publicadas), 1 tarjeta → `/casos/ita-2026`, contador «1 proyecto» con `aria-live="polite"`.
+  - Teclado: Tab llega al primer filtro (10 pulsaciones en escritorio, 6 en móvil). Enter sobre «React» → `aria-pressed="true"` y URL `/proyectos?stack=react`. Tab + Espacio sobre «Vite» → `?stack=react,vite`. Dos Tab más llegan a «react-router» y Espacio lo suma: `?stack=react,vite,react-router`. Espacio sobre «React» activo lo quita: `?stack=vite,react-router`.
+  - `?tipo=pagos&stack=react`: sin h2 ni tarjetas, Emi visible, contador «0 proyectos». Enter sobre «Quitar filtros» deja `/proyectos`, todos los filtros en `false` y el contador en «1 proyecto». El contador solo cambia de texto, y por tanto solo se anuncia, cuando cambia el número; con una sola ficha eso pasa al ir y volver de 0.
+  - `/proyectos#casos`: el grupo queda a 64 px del borde superior, bajo la cabecera fija.
+  - 390 px: `scrollWidth` = 390 y ningún elemento de la página sale de la pantalla.
+  - Inglés (botón «Cambiar idioma»): «Projects you can see working.», «Client cases», «1 project»; con `?tipo=pagos`, «0 projects» y «Clear filters».
+  - El script de prueba, el perfil de Chrome y la copia de `App.jsx` quedaron en `%TEMP%` y se borraron.
+- Fuera del commit, como en T1–T4: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
+
 ## Bloqueos
 
-Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»).
+Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»). Ninguno en T5 (los puntos sin especificar están en «Detalle de T5»).
 
 ### T2 · ficha `publicado` sin video ni GIF · RESUELTO
 

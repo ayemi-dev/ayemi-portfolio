@@ -40,6 +40,13 @@ export const RUTA_ENLACES = '/enlaces';
  */
 export const RUTA_CASOS = '/casos';
 
+/**
+ * Galería del portafolio (refactorización 2026-11): `/proyectos` agrupa los
+ * casos de clientes y los proyectos del Laboratorio; `/proyectos/<slug>` es
+ * la página de una demo. La ruta se registra en App.jsx en T7.
+ */
+export const RUTA_PROYECTOS = '/proyectos';
+
 /** Caso de ITA. De aquí sale todo enlace hacia él (/enlaces, la ficha). */
 export const RUTA_CASO_ITA = `${RUTA_CASOS}/ita-2026`;
 

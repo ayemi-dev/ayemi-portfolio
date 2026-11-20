@@ -960,6 +960,36 @@ const es = {
     cierre: '¿Tienes algo parecido? Cuéntanos tu idea o qué se rompe hoy.',
   },
 
+  // ── Galería /proyectos (refactorización 2026-11, T5) ───────────────────
+  proyectos: {
+    etiqueta: 'PROYECTOS',
+    titulo: 'Proyectos que puedes ',
+    acento: 'ver funcionando',
+    tituloDespues: '.',
+    entradilla:
+      'Trabajo real, con capturas y video de lo que hace. Cada proyecto dice si se hizo para un cliente o si es un proyecto demostrativo de Ayemi.',
+    filtros: 'Filtrar proyectos',
+    filtroTipo: 'TIPO',
+    filtroStack: 'STACK',
+    categorias: {
+      tiendas: 'Tiendas',
+      pagos: 'Pagos',
+      ia: 'IA',
+      integraciones: 'Integraciones',
+      hardware: 'Hardware',
+    },
+    contador_one: '{{count}} proyecto',
+    contador_other: '{{count}} proyectos',
+    grupos: {
+      casos: 'Casos de clientes',
+      laboratorio: 'Proyectos del Laboratorio',
+    },
+    demostrativo: 'PROYECTO DEMOSTRATIVO',
+    vacioTitulo: 'Ningún proyecto coincide con estos filtros.',
+    vacioTexto: 'Quita alguno para ver más proyectos.',
+    quitarFiltros: 'Quitar filtros',
+  },
+
   caso: {
     etiqueta: 'CASO · {{cliente}}',
     problema: 'El problema',
@@ -1918,6 +1948,35 @@ const en = {
       'Smaller parts, each with its own sheet: what it solves, what it is built with and where to see it.',
     verFicha: 'See the sheet',
     cierre: 'Have something similar? Tell us your idea or what breaks today.',
+  },
+
+  proyectos: {
+    etiqueta: 'PROJECTS',
+    titulo: 'Projects you can ',
+    acento: 'see working',
+    tituloDespues: '.',
+    entradilla:
+      'Real work, with screenshots and video of what it does. Each project says whether it was built for a client or is an Ayemi demo project.',
+    filtros: 'Filter projects',
+    filtroTipo: 'TYPE',
+    filtroStack: 'STACK',
+    categorias: {
+      tiendas: 'Stores',
+      pagos: 'Payments',
+      ia: 'AI',
+      integraciones: 'Integrations',
+      hardware: 'Hardware',
+    },
+    contador_one: '{{count}} project',
+    contador_other: '{{count}} projects',
+    grupos: {
+      casos: 'Client cases',
+      laboratorio: 'Lab projects',
+    },
+    demostrativo: 'DEMO PROJECT',
+    vacioTitulo: 'No project matches these filters.',
+    vacioTexto: 'Remove one to see more projects.',
+    quitarFiltros: 'Clear filters',
   },
 
   caso: {

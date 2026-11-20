@@ -38,6 +38,20 @@ export const categorias = () => unicos(PUBLICADOS.map((p) => p.categorias ?? [])
 export const stacks = () => unicos(PUBLICADOS.map((p) => p.stack ?? []));
 
 /**
+ * Valor de una tecnología en la URL de la galería (`?stack=nextjs`):
+ * minúsculas, sin acentos ni puntos y con guiones en lugar de espacios.
+ * «Next.js» → `nextjs` · «Tailwind CSS» → `tailwind-css`.
+ */
+export const slugDeStack = (nombre) =>
+  nombre
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/\./g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+
+/**
  * Carpeta de public/ que sirve los medios de cada ficha, la misma que usa
  * `casos.js`. Mientras T6/T11 no decidan el mecanismo general, los archivos de
  * `medios/` que se pintan se copian a esta carpeta.
