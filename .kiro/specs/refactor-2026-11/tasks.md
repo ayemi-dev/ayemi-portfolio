@@ -103,6 +103,13 @@ Comprobantes base (siempre): `npm run lint` · `npm run build` ·
     son proyectos demostrativos) · ¿Firmamos confidencialidad? · ¿Cómo empiezo?
   - Comprobantes: base.
 
+  - **Decisión 2026-11-20 (bloqueos de T9):** se aceptan las propuestas 1–4 de Kiro tal como están en la
+    bitácora (no se quita ninguna sección; orden propuesto; destacados = hasta 3 fichas publicadas más recientes;
+    Transparencia solo con demos publicadas; `SeccionEntregaConLlaves` en `features/confianza/`). Se aprueba el
+    borrador de las 8 preguntas es/en tal cual. Las respuestas 3 y 7 (después de la entrega; confidencialidad) van
+    con su texto del borrador, sin la marca «[confirmar]» en la copia, y se listan en la bitácora bajo
+    «Pendiente de Dirección antes de producción»: no se publican en producción sin esa confirmación.
+
 - [ ] **T10 · «Quién está detrás» (oculta)**
   - `QuienEstaDetras.jsx` con foto o video breve (props), `SITIO.mostrarQuienEstaDetras = false` en `src/config/sitio.js`.
   - Comprobantes: base + con `false` no aparece en el HTML prerenderizado ni en `sitemap.xml`.
