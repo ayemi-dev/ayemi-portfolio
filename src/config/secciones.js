@@ -106,8 +106,9 @@ export const destinoDe = ({ tipo, destino, ancla }) =>
 
 /**
  * Secciones de la portada que observa `useSeccionActiva`, en orden. Incluye
- * las que no tienen entrada propia (el Laboratorio y «Quiénes somos») para que,
- * al leerlas, no quede marcada la entrada anterior.
+ * las que no tienen entrada propia (entrega, transparencia y preguntas, el
+ * Laboratorio y «Quiénes somos») para que, al leerlas, no quede marcada la
+ * entrada anterior.
  */
 export const SECCIONES = [
   'que-construimos',
@@ -115,6 +116,9 @@ export const SECCIONES = [
   'ofertas',
   'como-trabajamos',
   'alternativas',
+  'entrega',
+  'transparencia',
+  'preguntas',
   'del-laboratorio',
   'quienes-somos',
   'contacto',

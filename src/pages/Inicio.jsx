@@ -7,6 +7,10 @@ import { Posicionamiento } from '../features/posicionamiento/Posicionamiento';
 import { AnticipoLaboratorio } from '../features/laboratorio/AnticipoLaboratorio';
 import { QuienesSomos } from '../features/quienes/QuienesSomos';
 import { Contacto } from '../features/contact/Contacto';
+import { ProyectosDestacados } from '../features/proyectos/ProyectosDestacados';
+import { SeccionEntregaConLlaves } from '../features/confianza/EntregaConLlaves';
+import { Transparencia } from '../features/confianza/Transparencia';
+import { PreguntasFrecuentes } from '../features/confianza/PreguntasFrecuentes';
 
 /**
  * Inicio · la landing
@@ -14,9 +18,12 @@ import { Contacto } from '../features/contact/Contacto';
  *
  * NARRATIVA, en el orden de la navegación (config/secciones.js)
  *   Portada .............. la idea y lo que recibes (§1.6)
+ *   Proyectos destacados . las tres fichas publicadas más recientes (T9)
  *   Qué construimos ...... las cuatro líneas (§1.9), la capacidad técnica y
  *                          las ofertas de entrada; Hardware enlaza a /pcb
  *   Cómo trabajamos ...... el método y frente a las alternativas (§1.7, §1.8)
+ *   Confianza ............ entrega con llaves, transparencia de las demos y
+ *                          preguntas frecuentes (R7, T9); sin entrada propia
  *   Laboratorio .......... anticipo: los productos y la puerta a /laboratorio
  *   Quiénes somos ........ empresa familiar, valores y Emi (§1.1, §1.4, §4)
  *   Contacto ............. formulario y canales directos
@@ -50,6 +57,8 @@ export const Inicio = () => (
       <HeroProyectos />
     </div>
 
+    <ProyectosDestacados />
+
     {/* ── Qué construimos ─────────────────────────────────────────────── */}
     <Servicios />
     <Suspense fallback={<Reserva id="capacidad" alto="80vh" />}>
@@ -60,6 +69,11 @@ export const Inicio = () => (
     {/* ── Cómo trabajamos ─────────────────────────────────────────────── */}
     <Metodo />
     <Posicionamiento />
+
+    {/* ── Confianza (R7) ──────────────────────────────────────────────── */}
+    <SeccionEntregaConLlaves />
+    <Transparencia />
+    <PreguntasFrecuentes />
 
     <AnticipoLaboratorio />
     <QuienesSomos />

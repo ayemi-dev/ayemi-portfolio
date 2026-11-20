@@ -1031,6 +1031,57 @@ const es = {
     mensajeProyecto: 'Hola, vi «{{titulo}}» en {{dominio}} y quiero algo así para mi negocio.',
   },
 
+  // ── Portada: destacados, transparencia y preguntas (refactorización 2026-11, T9)
+  confianza: {
+    destacados: {
+      titulo: 'Proyectos destacados',
+      verTodos: 'Ver todos los proyectos',
+    },
+    transparencia: {
+      comprobada: 'Comprobada el',
+    },
+    preguntas: {
+      etiqueta: 'PREGUNTAS FRECUENTES',
+      titulo: 'Lo que nos preguntan antes de empezar.',
+      lista: [
+        {
+          p: '¿Cuánto tarda?',
+          r: 'Te damos una fecha con rango al cotizar: un mínimo, un máximo y los supuestos que sostienen cada uno. Entregamos por pasos cortos, así que ves avances funcionando antes del final.',
+        },
+        {
+          p: '¿El código es mío?',
+          r: 'Sí. El repositorio, la infraestructura y la documentación quedan a tu nombre desde el primer día. Si mañana otro equipo lo retoma, tiene todo lo que necesita.',
+        },
+        {
+          /* Pendiente de Dirección antes de producción (bitácora, T9). */
+          p: '¿Qué pasa después de la entrega?',
+          r: 'Cerramos con una sesión de entrega técnica y un documento de operación. Si quieres que sigamos a cargo después, lo acordamos por escrito con su propio alcance.',
+        },
+        {
+          p: '¿Trabajan con hardware?',
+          r: 'Sí. Diseñamos placas electrónicas y te entregamos el proyecto de KiCad editable y los archivos de fabricación (Gerber, BOM, CPL). En Hardware (/pcb) está el detalle.',
+        },
+        {
+          p: '¿Cómo se cotiza?',
+          r: 'Primero entendemos qué quieres construir. Después te mandamos una estimación con rango y los supuestos que la sostienen; si el alcance cambia, el cambio se escribe antes de hacerlo.',
+        },
+        {
+          p: '¿Las demos son de clientes?',
+          r: 'No. Los proyectos del Laboratorio son proyectos demostrativos de Ayemi, hechos para que pruebes cómo trabajamos. Los casos de clientes van aparte y rotulados como tales.',
+        },
+        {
+          /* Pendiente de Dirección antes de producción (bitácora, T9). */
+          p: '¿Firmamos confidencialidad?',
+          r: 'Sí. Si tu proyecto lo necesita, firmamos un acuerdo de confidencialidad antes de que nos cuentes los detalles.',
+        },
+        {
+          p: '¿Cómo empiezo?',
+          r: 'Escríbenos por WhatsApp o desde el formulario con lo que quieres construir. Basta una descripción breve para la primera conversación.',
+        },
+      ],
+    },
+  },
+
   enlaces: {
     // Claim de marca (§1.11): dos frases, la segunda en cian.
     claim: 'Lo construimos.',
@@ -2047,6 +2098,56 @@ const en = {
     cierreTitulo: 'Want it for your business?',
     cierreBoton: 'Message us on WhatsApp',
     mensajeProyecto: 'Hi, I saw «{{titulo}}» on {{dominio}} and want something like it for my business.',
+  },
+
+  confianza: {
+    destacados: {
+      titulo: 'Featured projects',
+      verTodos: 'See all projects',
+    },
+    transparencia: {
+      comprobada: 'Checked on',
+    },
+    preguntas: {
+      etiqueta: 'FAQ',
+      titulo: 'What people ask us before starting.',
+      lista: [
+        {
+          p: 'How long does it take?',
+          r: 'We give you a date range with the quote: a minimum, a maximum and the assumptions behind each. We deliver in short steps, so you see working progress before the end.',
+        },
+        {
+          p: 'Is the code mine?',
+          r: 'Yes. The repository, the infrastructure and the documentation are in your name from day one. If another team picks it up tomorrow, it has everything it needs.',
+        },
+        {
+          /* Pending Brand Direction before production (log, T9). */
+          p: 'What happens after delivery?',
+          r: 'We close with a technical handover session and an operations document. If you want us to stay in charge afterwards, we agree on it in writing with its own scope.',
+        },
+        {
+          p: 'Do you work with hardware?',
+          r: 'Yes. We design electronic boards and hand you the editable KiCad project and the manufacturing files (Gerber, BOM, CPL). Hardware (/pcb) has the details.',
+        },
+        {
+          p: 'How do you quote?',
+          r: 'First we understand what you want to build. Then we send you an estimate with a range and the assumptions behind it; if the scope changes, the change is written down before we make it.',
+        },
+        {
+          p: 'Are the demos client work?',
+          r: 'No. Lab projects are Ayemi demo projects, built so you can try how we work. Client cases are listed separately and labelled as such.',
+        },
+        {
+          /* Pending Brand Direction before production (log, T9). */
+          p: 'Do we sign an NDA?',
+          r: 'Yes. If your project needs it, we sign a non-disclosure agreement before you share the details.',
+        },
+        {
+          p: 'How do I start?',
+          r: 'Message us on WhatsApp or through the form with what you want to build. A short description is enough for the first conversation.',
+        },
+      ],
+    },
   },
 
   enlaces: {

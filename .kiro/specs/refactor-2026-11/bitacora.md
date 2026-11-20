@@ -360,6 +360,51 @@ T9 · 2026-11-20 · bloqueado · sin cambios de código: el orden de portada de 
   - Navegador: `vite preview` (puerto 4173) y Chrome sin interfaz por CDP en `/`, a 1440 × 900 y 390 × 844, recorriendo la página entera para cargar lo diferido. Consola sin errores ni avisos. Un solo h1 («Tienes una idea. La convertimos en algo que funciona.»). Secciones en este orden: `inicio` · `que-construimos` · `capacidad` · `ofertas` · `como-trabajamos` · `alternativas` · `del-laboratorio` · `quienes-somos` · `contacto`. Sin desbordes: `scrollWidth` = ancho de la ventana en los dos tamaños y ningún elemento fuera de la pantalla. La captura completa de escritorio se revisó a ojo: sin solapes ni huecos. El script, las capturas y el perfil de Chrome quedaron en `%TEMP%` y se borraron; el servidor se cerró.
 - Fuera del commit, como en T1–T8: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
 
+T9 · 2026-11-20 · hecho · portada con Proyectos destacados (hoy 1 tarjeta, ITA), Entrega con llaves, Transparencia (sin pintar: no hay demos publicadas) y las 8 preguntas frecuentes es/en con `<details>`; ninguna sección quitada. Las respuestas 3 y 7 quedan pendientes de Dirección antes de producción.
+
+## Detalle de T9 · segundo intento (Decisión 2026-11-20 aplicada)
+
+### Archivos
+
+- `src/features/proyectos/ProyectosDestacados.jsx` (nuevo): sección `#destacados`, «Proyectos destacados» / «Featured projects», hasta 3 fichas publicadas más recientes por `fecha` (`proyectosPublicados().slice(0, 3)`) con `TarjetaProyecto`, y «Ver todos los proyectos» / «See all projects» → `/proyectos` como botón secundario. Sin fichas, no se pinta. Las piezas no entran.
+- `src/features/confianza/EntregaConLlaves.jsx` (nuevo, exporta `SeccionEntregaConLlaves`): sección `#entrega` con `hero.pruebas.llavesTitulo` como h2, `llavesTexto` y un h3 + párrafo con `traspasoTitulo` / `traspasoTexto`. El componente de T6 en `features/proyectos/` no se tocó.
+- `src/features/confianza/Transparencia.jsx` (nuevo): sección `#transparencia` con una línea por demo publicada (`porTipo('laboratorio')`): título enlazado a `/proyectos/<slug>`, «Comprobada el» / «Checked on» + `verificadoEl` en `<time>` monoespaciado, y `caso.seReinicia` con `demo.seReinicia`. Sin demos publicadas no se pinta, así que hoy no aparece.
+- `src/features/confianza/PreguntasFrecuentes.jsx` (nuevo): sección `#preguntas` con el patrón `<details>/<summary>` de `PreguntasPcb` y la lista `confianza.preguntas.lista` (`p`, `r`), que T11 leerá para `FAQPage`.
+- `src/i18n.js`: bloque `confianza` en es y en con los textos del borrador aprobado, tal cual. Las respuestas 3 y 7 van sin «[confirmar]» y con un comentario que remite a esta bitácora. En la respuesta 4, `/pcb` va como texto plano (sin las comillas de código del borrador) para que la misma cadena sirva al JSON-LD.
+- `src/pages/Inicio.jsx`: orden de la propuesta 1: Hero · Proyectos destacados · Servicios · TechStack · Ofertas · Método · Posicionamiento · Entrega con llaves · Transparencia · Preguntas · Laboratorio · Quiénes somos · Contacto.
+- `src/config/secciones.js`: `entrega`, `transparencia` y `preguntas` entran en `SECCIONES` después de `alternativas`, sin entrada propia en `NAVEGACION`.
+
+### Puntos que T9 no especificaba
+
+Ninguno bloquea. Se resolvieron sin texto nuevo que prometa algo:
+
+- **Fondos.** Destacados en `alterno` (separa el hero de Servicios), Entrega en `alterno`, Transparencia en `profundo` y Preguntas en `lienzo`, para que no queden dos secciones seguidas con el mismo fondo, tampoco cuando Transparencia aparezca.
+- **Encabezados sin texto en la propuesta.** Entrega lleva como microetiqueta `hero.panelEtiqueta` («QUÉ RECIBES»), el rótulo del panel del hero de donde salieron esos textos (la propuesta 4 pide microetiqueta y ningún texto nuevo). Transparencia toma como título `quienes.valores.transparencia.nombre` («Transparencia» / «Transparency») y no lleva microetiqueta. Destacados no lleva microetiqueta: «PROYECTOS» sobre «Proyectos destacados» repetiría la palabra.
+- **`#destacados` fuera de `SECCIONES`.** La propuesta 1 solo añade las tres secciones de confianza. Al leer los destacados no se marca ninguna entrada, igual que en el hero.
+- **Enlace de Transparencia.** Lleva `ay-toque` (§5.3, 44 × 44 px), porque va suelto y no sobre una tarjeta.
+
+### Comprobantes
+
+- `npm run lint`: código 0.
+- `npm run validar`: «Fichas de proyecto válidas: 1.», código 0.
+- `npm run build`: código 0, «Prerenderizado completo.», sitemap con 9 URL. `dist/index.html` trae `#destacados`, `#entrega`, `#preguntas` y los 8 `<details>`; `#transparencia` no está, como se esperaba. Siguen los avisos ya conocidos: `<Navigate>` en `StaticRouter` (T11) y `[Ayemi §3.10] … 18 px / 22 px`, anteriores a T1.
+- `python .ayemi/verificar.py . --solo-errores`: «Sin hallazgos», 93 archivos.
+- Navegador: `vite preview` (puerto 4173) y Chrome sin interfaz por CDP en `/`, a 1440 × 900 y 390 × 844, con GA4, Meta y Clarity bloqueados y recorriendo la página entera para cargar lo diferido.
+  - Un solo h1. Secciones de primer nivel en este orden: `destacados` · `que-construimos` · `capacidad` · `ofertas` · `como-trabajamos` · `alternativas` · `entrega` · `preguntas` · `del-laboratorio` · `quienes-somos` · `contacto`.
+  - Destacados: 1 tarjeta (ITA) y el botón «Ver todos los proyectos» → `/proyectos`. Preguntas: 8 `<details>`; al abrir el primero se ve la respuesta. Al cambiar a inglés con el botón de idioma: «Featured projects», «See all projects», «Handed over with the keys», «FAQ», «What people ask us before starting.», «How long does it take?».
+  - Sin desbordes: `scrollWidth` = ancho de la ventana a 390 px (a 1440 px, 1425 por la barra de desplazamiento). A 390 px, los únicos elementos fuera de la pantalla son botones del carrusel de `#capacidad` (TechStack), recortados por su propio contenedor con desplazamiento horizontal. Es lo mismo que antes de T9.
+  - Capturas de destacados, entrega y preguntas en los dos tamaños, revisadas a ojo: sin solapes ni cortes, y la medida de lectura se respeta.
+  - Consola: sin errores de la app. Hay un error de red ajeno a T9: `https://cdn.simpleicons.org/css3/1572B6` responde 404 (logotipo de CSS3 que TechStack pide al CDN). En el comprobante de T8 no salía, así que el cambio parece estar del lado de simpleicons. No se tocó porque está fuera del alcance de T9. Queda anotado para T12/T13.
+  - El script, las capturas y el perfil de Chrome quedaron en `%TEMP%` y se borraron; el servidor se cerró.
+- Fuera del commit, como en T1–T8: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
+
+## Pendiente de Dirección antes de producción
+
+Por la Decisión 2026-11-20 (bloqueos de T9), estas respuestas de las preguntas frecuentes de la portada ya están en la copia (es y en, `confianza.preguntas.lista` en `src/i18n.js`), pero **no se publican en producción** sin que Dirección confirme que Ayemi lo hace:
+
+- **3 · ¿Qué pasa después de la entrega?** / What happens after delivery?: «Si quieres que sigamos a cargo después, lo acordamos por escrito con su propio alcance.»
+- **7 · ¿Firmamos confidencialidad?** / Do we sign an NDA?: «Sí. Si tu proyecto lo necesita, firmamos un acuerdo de confidencialidad antes de que nos cuentes los detalles.»
+
 ## Pendiente para T11
 
 - **Directorio y página con la misma ruta (nginx).** Una demo tiene su página en `/proyectos/<slug>` y sus medios en `/proyectos/<slug>/<archivo>`. Con `try_files $uri $uri/ /index.html`, pedir `/proyectos/<slug>` encuentra el directorio de medios y, sin `index.html` dentro, nginx responde 403 en vez de la app. Deja de pasar cuando T11 prerenderice cada demo en `dist/proyectos/<slug>/index.html`. Hoy no afecta a ITA, que vive en `/casos/ita-2026`. Por la Decisión 2026-11-20 se resuelve en T11, no en T6.
@@ -370,9 +415,11 @@ T9 · 2026-11-20 · bloqueado · sin cambios de código: el orden de portada de 
 
 ## Bloqueos
 
-Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»). Ninguno en T5 (los puntos sin especificar están en «Detalle de T5»). Ninguno nuevo en T6 (los puntos sin especificar están en «Detalle de T6 · segundo intento»). Ninguno en T7 (los puntos sin especificar están en «Detalle de T7»; lo que toca a T11, en «Pendiente para T11»). Ninguno en T8 (los puntos sin especificar están en «Detalle de T8»).
+Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»). Ninguno en T5 (los puntos sin especificar están en «Detalle de T5»). Ninguno nuevo en T6 (los puntos sin especificar están en «Detalle de T6 · segundo intento»). Ninguno en T7 (los puntos sin especificar están en «Detalle de T7»; lo que toca a T11, en «Pendiente para T11»). Ninguno en T8 (los puntos sin especificar están en «Detalle de T8»). Ninguno nuevo en T9 (los puntos sin especificar están en «Detalle de T9 · segundo intento»).
 
-### T9 · portada, confianza y preguntas frecuentes · ABIERTO
+### T9 · portada, confianza y preguntas frecuentes · RESUELTO
+
+**Resuelto el 2026-11-20** con la Decisión 2026-11-20 (bloqueos de T9) de `tasks.md`: se aceptan las propuestas 1–4 tal como están escritas y el borrador de las 8 preguntas tal cual. Las respuestas 3 y 7 van sin «[confirmar]» y quedan en «Pendiente de Dirección antes de producción». Aplicado en el segundo intento de T9.
 
 T9 se detuvo antes de escribir código. Cada punto lleva la propuesta que Kiro aplicaría si el arquitecto la acepta tal como está escrita.
 
