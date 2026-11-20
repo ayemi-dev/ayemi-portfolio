@@ -196,7 +196,7 @@ export const Laboratorio = () => {
           </h2>
           <div className="mt-8">
             <Boton variante="primario" tamano="grande" to="/#contacto">
-              {t('hero.botonPrimario')}
+              {t('hero.botonSecundario')}
             </Boton>
           </div>
         </div>

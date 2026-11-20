@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import Hero from '../features/hero/Hero';
+import HeroProyectos from '../features/hero/HeroProyectos';
 import { Servicios } from '../features/servicios/Servicios';
 import { OfertasEntrada } from '../features/ofertas/OfertasEntrada';
 import { Metodo } from '../features/metodo/Metodo';
@@ -47,7 +47,7 @@ const Reserva = ({ id, alto = '60vh' }) => (
 export const Inicio = () => (
   <>
     <div id="inicio">
-      <Hero />
+      <HeroProyectos />
     </div>
 
     {/* ── Qué construimos ─────────────────────────────────────────────── */}

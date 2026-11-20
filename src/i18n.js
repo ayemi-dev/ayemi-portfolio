@@ -62,8 +62,13 @@ const es = {
     tituloDespues: '.',
     descripcion:
       'Software, placas electrónicas e integraciones a la medida. Lo construimos con método y te lo entregamos documentado, probado y a tu nombre.',
-    botonPrimario: 'Cuéntanos tu idea',
-    botonSecundario: 'Ver qué construimos',
+    botonPrimario: 'Ver proyectos',
+    botonSecundario: 'Cuéntanos tu idea',
+
+    /* Medios del hero (HeroProyectos). Rotan solas, así que llevan un control
+       para detenerlas (WCAG 2.2.2). */
+    pausarCapturas: 'Pausar las capturas',
+    reanudarCapturas: 'Reanudar las capturas',
 
     /* Voz de Emi · §7. Segunda persona, dos frases, sin emojis. El contrato
        propone «Hola. ¿Empezamos por tu primer proceso?» como ejemplo de
@@ -1001,6 +1006,12 @@ const es = {
     pie: 'Ayemi · Fábrica de software e innovación',
   },
 
+  // ── Video de un proyecto (VideoProyecto) ───────────────────────────────
+  video: {
+    pausar: 'Pausar el video',
+    reproducir: 'Reproducir el video',
+  },
+
   cookies: {
     region: 'Aviso de cookies',
     texto: 'Usamos cookies de Google Analytics, Meta y Microsoft Clarity para medir qué funciona en el sitio. Tus datos y cómo desactivarlas, en el',
@@ -1040,8 +1051,11 @@ const en = {
     tituloDespues: '.',
     descripcion:
       'Custom software, electronic boards and integrations. We build it with method and hand it over documented, tested and in your name.',
-    botonPrimario: 'Tell us your idea',
-    botonSecundario: 'See what we build',
+    botonPrimario: 'See projects',
+    botonSecundario: 'Tell us your idea',
+
+    pausarCapturas: 'Pause the screenshots',
+    reanudarCapturas: 'Resume the screenshots',
 
     emiSaludo:
       'Hi, I am Emi. I walk with you while you explore what we build and how we do it.',
@@ -1949,6 +1963,11 @@ const en = {
       sitio: { titulo: 'Meet Ayemi', texto: 'What we build and how we work.' },
     },
     pie: 'Ayemi · Software and innovation factory',
+  },
+
+  video: {
+    pausar: 'Pause the video',
+    reproducir: 'Play the video',
   },
 
   cookies: {

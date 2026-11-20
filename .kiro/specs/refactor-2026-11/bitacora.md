@@ -115,9 +115,50 @@ Se resolvieron con la opción más conservadora; ninguno cambia el contrato y ca
 - `npm install -D sharp` avisa de vulnerabilidades en dependencias que ya estaban; `npm audit fix` no se corrió porque cambiaría paquetes que T3 no nombra.
 - Fuera del commit, como en T1 y T2: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
 
+T4 · 2026-11-20 · hecho · `HeroProyectos.jsx` sustituye al hero en la portada con el video de ITA (única ficha publicada con video), «Ver proyectos» → `/proyectos` y «Cuéntanos tu idea» → WhatsApp; `VideoProyecto.jsx` con `preload="none"`, reproducción al entrar en pantalla y póster con movimiento reducido; Emi sigue en su sitio.
+
+## Detalle de T4
+
+### Archivos
+
+- `src/features/hero/HeroProyectos.jsx` (nuevo): etiqueta, `h1` y descripción iguales que antes. Columna derecha: `BienvenidaEmi` arriba, igual que en `Hero.jsx`, y debajo los medios.
+  - Con fichas publicadas que tengan `video`: rotan sus videos (al terminar uno empieza el siguiente; con uno solo, `loop`). Pie con `textos.<idioma>.titulo` de la ficha.
+  - Sin ninguno: rotan con fundido de 400 ms (`duration-lenta`), cada 5 s, las capturas de ITA y las vistas perspectiva/superior/inferior de las placas con ficha de `PLACAS` (`public/pcb/*`), con el `alt` de `/pcb`. Con movimiento reducido, solo la primera captura, quieta. Hoy esta rama no se ve porque ITA tiene video.
+- `src/features/proyectos/VideoProyecto.jsx` (nuevo): `<video muted playsInline loop preload="none" poster>` con `webm` y `mp4`; `IntersectionObserver` (25 %) reproduce al entrar y pausa al salir. Con `prefers-reduced-motion: reduce` pinta `<img>` con el póster. Props `controles` (para T6) y `diferido`.
+- `src/hooks/useMovimientoReducido.js` (nuevo): `useSyncExternalStore` sobre la media query; en el prerender vale `false`, así que no hay desajuste de hidratación. Va en un archivo aparte porque ESLint (`react-refresh/only-export-components`) no deja exportarlo junto al componente.
+- `src/config/proyectos.js`: nueva `urlMedio(proyecto, ruta)`, con la misma tabla `PUBLICO` que `casos.js` (`ita-2026` → `/casos/ita`).
+- `public/casos/ita/`: copias de `ita.mp4`, `ita.webm` e `ita-poster.webp` de `medios/`, el mismo mecanismo provisional que T2 usó con las capturas.
+- `src/pages/Inicio.jsx`: usa `HeroProyectos`. `src/features/hero/Hero.jsx` queda sin uso y no se borra, porque T4 no lo nombra.
+- `src/i18n.js` (es/en): `hero.botonPrimario` = «Ver proyectos» / «See projects»; `hero.botonSecundario` = «Cuéntanos tu idea» / «Tell us your idea»; nuevas `hero.pausarCapturas`, `hero.reanudarCapturas`, `video.pausar`, `video.reproducir`.
+- `src/pages/Casos.jsx` y `src/pages/Laboratorio.jsx`: sus botones de cierre leían `hero.botonPrimario`; ahora leen `hero.botonSecundario` para seguir diciendo «Cuéntanos tu idea» → `/#contacto`. Sin este cambio dirían «Ver proyectos» y llevarían al contacto.
+
+### Puntos que T4 no especificaba
+
+Se resolvieron con la opción más conservadora. Ninguno cambia el contrato, y cada uno se puede cambiar sin tocar la API de los componentes:
+
+- **Texto del mensaje de WhatsApp.** «Mismo texto que hoy usa el botón» se leyó como la etiqueta: «Cuéntanos tu idea» era el texto del botón primario actual, que hoy lleva a `/#contacto` sin mensaje de WhatsApp. Para el «tema idea» se reutiliza el mensaje de `/enlaces` con su tema «Otra idea» / «Another idea»: «Hola, Ayemi. Quiero platicar de: Otra idea.» No se escribió copia nueva. `medicion.js` le añade el origen UTM y lo cuenta como `clic_whatsapp`, sin cambios. **Para revisión**: si se prefiere otro texto, basta una clave nueva en i18n.
+- **Panel «Qué recibes».** Salió del hero porque T4 solo pide conservar etiqueta, título y descripción, y T9 reutiliza `hero.pruebas.llaves*` en «Entrega con llaves». Los textos siguen en i18n.
+- **Pausa.** El video (12 s en bucle) y la rotación se mueven solos más de 5 s, así que WCAG 2.2.2 pide poder detenerlos. Cada uno lleva un botón terciario de texto («Pausar el video» / «Reproducir el video»). No se añadió ningún icono, porque eso necesita aprobación de la dirección de marca.
+- **Orden de fuentes.** Primero `webm`, después `mp4`. En el Chrome sin interfaz de esta máquina, la decodificación VP9 por hardware dio `PIPELINE_ERROR_DECODE`. Con `--disable-accelerated-video-decode` el mismo `ita.webm` se reproduce, y `ffmpeg -v error -i ita.webm -f null -` lo decodifica sin errores, así que el fallo es del entorno y no del archivo. Si aparece en navegadores reales, basta poner `mp4` primero.
+- **`/proyectos`** todavía no existe (llega en T5/T7). Hasta entonces «Ver proyectos» acaba en la ruta de «no encontrado».
+
+### Comprobantes
+
+- `npm run lint`: código 0.
+- `npm run validar`: «Fichas de proyecto válidas: 1.», código 0.
+- `npm run build`: código 0, «Prerenderizado completo.», sitemap con 9 URL. Siguen las advertencias `[Ayemi §3.10] … 18 px / 22 px`, que ya estaban antes de T1.
+- `python .ayemi/verificar.py . --solo-errores`: «Sin hallazgos», 79 archivos.
+- `dist/index.html`: el `<video … poster="/casos/ita/ita-poster.webp" muted playsInline loop preload="none" aria-label="…">` y el enlace `wa.me/…?text=Hola%2C%20Ayemi.%20Quiero%20platicar%20de%3A%20Otra%20idea.` están en el HTML prerenderizado.
+- Navegador: `vite preview` y Chrome sin interfaz por CDP, con `Emulation.setEmulatedMedia` (la misma emulación de DevTools → Rendering → `prefers-reduced-motion`). Cero errores y cero avisos en consola:
+  - 390 × 844 y 1440 × 900, sin preferencia: hay `<video>`, `muted`, `currentSrc` `/casos/ita/ita.webm`, y avanza (2,54 s → 5,60 s en 3 s) con decodificación por software. Botones: «Ver proyectos → /proyectos», «Cuéntanos tu idea (abre en una pestaña nueva) → wa.me…», «Pausar el video».
+  - 390 × 844 y 1440 × 900, `prefers-reduced-motion: reduce`: no hay `<video>`. Se ve `<img src="/casos/ita/ita-poster.webp">` con el título de la ficha como `alt` (350 px de ancho en móvil) y no hay botón de pausa.
+  - 390 px: `scrollWidth` = 390 y ningún elemento del hero sale de la pantalla. Fuera del hero sí se salen botones de carruseles con desplazamiento horizontal que ya existían; la página no se desborda.
+  - Las capturas y el script de prueba quedaron en `%TEMP%` y se borraron.
+- Fuera del commit, como en T1–T3: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
+
 ## Bloqueos
 
-Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»).
+Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»).
 
 ### T2 · ficha `publicado` sin video ni GIF · RESUELTO
 

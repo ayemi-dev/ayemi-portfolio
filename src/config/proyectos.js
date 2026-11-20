@@ -36,3 +36,16 @@ export const categorias = () => unicos(PUBLICADOS.map((p) => p.categorias ?? [])
 
 /** Tecnologías que usa al menos una ficha publicada. */
 export const stacks = () => unicos(PUBLICADOS.map((p) => p.stack ?? []));
+
+/**
+ * Carpeta de public/ que sirve los medios de cada ficha, la misma que usa
+ * `casos.js`. Mientras T6/T11 no decidan el mecanismo general, los archivos de
+ * `medios/` que se pintan se copian a esta carpeta.
+ */
+const PUBLICO = {
+  'ita-2026': '/casos/ita',
+};
+
+/** URL pública de una ruta `medios/…` de la ficha. */
+export const urlMedio = (proyecto, ruta) =>
+  ruta.replace(/^medios\//, `${PUBLICO[proyecto.slug] ?? `/casos/${proyecto.slug}`}/`);

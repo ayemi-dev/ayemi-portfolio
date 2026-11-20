@@ -151,7 +151,7 @@ export const Casos = () => {
           <p className="max-w-lectura text-cuerpo-l text-texto">{t('casos.cierre')}</p>
           <div className="mt-6">
             <Boton variante="primario" tamano="grande" to="/#contacto">
-              {t('hero.botonPrimario')}
+              {t('hero.botonSecundario')}
             </Boton>
           </div>
         </div>
