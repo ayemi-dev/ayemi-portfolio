@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img" aria-labelledby="diagrama-ita-titulo diagrama-ita-desc">
+  <title id="diagrama-ita-titulo">Cómo está hecho el sitio de ITA · How the ITA site is built</title>
+  <desc id="diagrama-ita-desc">Sitio estático en español e inglés, formulario que envía desde el servidor y correo de ITA. Static site in Spanish and English, a form sent from the server, and ITA's inbox.</desc>
+  <style>
+    .caja { fill: var(--ay-superficie); stroke: var(--ay-borde-fuerte); stroke-width: 1; }
+    .flecha { fill: none; stroke: var(--ay-acento); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .nombre { fill: var(--ay-texto); font-family: var(--ay-fuente-corporativa); font-size: var(--ay-texto-cuerpo); font-weight: 600; }
+    .detalle { fill: var(--ay-texto-suave); font-family: var(--ay-fuente-tecnica); font-size: var(--ay-texto-micro); }
+  </style>
+
+  <rect class="caja" x="4" y="32" width="192" height="96" rx="10" />
+  <text class="nombre" x="100" y="72" text-anchor="middle">Sitio estático</text>
+  <text class="detalle" x="100" y="100" text-anchor="middle">static site · es · en</text>
+
+  <path class="flecha" d="M204 80 H252 M244 72 L252 80 L244 88" />
+
+  <rect class="caja" x="264" y="32" width="192" height="96" rx="10" />
+  <text class="nombre" x="360" y="72" text-anchor="middle">Formulario</text>
+  <text class="detalle" x="360" y="100" text-anchor="middle">form · server</text>
+
+  <path class="flecha" d="M464 80 H512 M504 72 L512 80 L504 88" />
+
+  <rect class="caja" x="524" y="32" width="192" height="96" rx="10" />
+  <text class="nombre" x="620" y="72" text-anchor="middle">Correo de ITA</text>
+  <text class="detalle" x="620" y="100" text-anchor="middle">email · Resend</text>
+</svg>

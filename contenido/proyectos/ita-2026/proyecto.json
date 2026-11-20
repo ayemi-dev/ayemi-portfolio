@@ -1,0 +1,133 @@
+{
+  "$schema": "../proyecto.schema.json",
+  "slug": "ita-2026",
+  "tipo": "caso-cliente",
+  "estado": "publicado",
+  "fecha": "2026-09-10",
+  "categorias": [],
+  "stack": ["React", "Vite", "Tailwind CSS", "react-router", "i18next", "Motion", "Resend"],
+  "pieza": "ita-2026",
+  "cliente": "ITA",
+  "sitio": "https://soluciones-ita.com",
+  "permisoPersonal": false,
+  "testimonio": null,
+  "textos": {
+    "es": {
+      "titulo": "Un sitio que explica la rectificación industrial de ITA en dos idiomas",
+      "resumen": "Presencia pública de ITA en dos idiomas, con siete secciones y un formulario cuyo mensaje llega al correo de verdad, no a un buzón que nadie revisa.",
+      "problema": "ITA (Ingeniería y Tecnología Apolo) mantiene y recupera líneas de recubrimiento metálico en plantas industriales de México. El contenido de su oferta estaba en documentos de trabajo y había que convertirlo en un sitio público.\n\nNecesitaban explicar sus cuatro líneas de solución en español y en inglés, enseñar casos reales y recibir solicitudes de evaluación sin que se perdieran en un buzón.",
+      "solucion": "Llevamos el contenido de sus documentos (el PDF «Contenido Web 2026» y su documento V2.0) al sitio sin reescribir su mensaje.\n\nSiete páginas públicas en español e inglés: inicio, soluciones con preguntas frecuentes, casos de éxito, sobre ITA, contacto y las dos páginas legales.\n\nFormularios que envían desde el servidor al correo de ITA, con confirmación por WhatsApp.\n\nFotografía real de su operación y un mapa con los estados donde tienen presencia.\n\nSu aviso de privacidad oficial, publicado tal como lo entregó el cliente.",
+      "cifras": [
+        { "que": "Páginas públicas", "valor": "7" },
+        { "que": "Idiomas", "valor": "es · en" },
+        { "que": "Del primer commit a producción", "valor": "12 semanas" },
+        { "que": "Commits hasta producción", "valor": "86" }
+      ],
+      "resultado": "El sitio está en producción en su propio dominio, soluciones-ita.com, desde el 10 de septiembre de 2026.",
+      "resultadoNegocio": ""
+    },
+    "en": {
+      "titulo": "A site that explains ITA's industrial rectification work in two languages",
+      "resumen": "ITA's public presence in two languages, with seven sections and a form whose messages reach a real inbox, not one nobody checks.",
+      "problema": "ITA (Ingeniería y Tecnología Apolo) maintains and restores metal coating lines in industrial plants across Mexico. The content of their offering lived in working documents and had to become a public website.\n\nThey needed to explain their four solution lines in Spanish and English, show real cases and receive evaluation requests without them getting lost in an inbox.",
+      "solucion": "We brought the content of their documents (the «Contenido Web 2026» PDF and their V2.0 document) to the site without rewriting their message.\n\nSeven public pages in Spanish and English: home, solutions with frequently asked questions, success stories, about ITA, contact and the two legal pages.\n\nForms that send from the server to ITA's inbox, with confirmation over WhatsApp.\n\nReal photography of their operation and a map of the states where they operate.\n\nTheir official privacy notice, published exactly as the client delivered it.",
+      "cifras": [
+        { "que": "Public pages", "valor": "7" },
+        { "que": "Languages", "valor": "es · en" },
+        { "que": "From first commit to production", "valor": "12 weeks" },
+        { "que": "Commits to production", "valor": "86" }
+      ],
+      "resultado": "The site has been live on its own domain, soluciones-ita.com, since September 10, 2026.",
+      "resultadoNegocio": ""
+    }
+  },
+  "imagenes": [
+    {
+      "src": "medios/problema-escritorio.jpg",
+      "ancho": 1440,
+      "alto": 900,
+      "alt": {
+        "es": "Sección «El problema» del sitio de ITA en escritorio: el titular «La estabilidad de una línea no depende de un solo equipo» y un diagrama de señales de falla.",
+        "en": "The «El problema» section of the ITA site on desktop: the headline «La estabilidad de una línea no depende de un solo equipo» and a diagram of failure signals."
+      },
+      "pie": {
+        "es": "El problema, explicado en el idioma de la planta.",
+        "en": "The problem, explained in the plant's own language."
+      }
+    },
+    {
+      "src": "medios/beneficios-escritorio.jpg",
+      "ancho": 1440,
+      "alto": 900,
+      "alt": {
+        "es": "Sección de beneficios del sitio de ITA: una línea de recubrimiento metálico y la lista «Lo que buscamos en cada intervención».",
+        "en": "Benefits section of the ITA site: a metal coating line and the list «Lo que buscamos en cada intervención»."
+      },
+      "pie": {
+        "es": "Beneficios en lista desplegable, con fotografía de su operación.",
+        "en": "Benefits in an expandable list, with photography of their operation."
+      }
+    },
+    {
+      "src": "medios/experiencia-movil.jpg",
+      "ancho": 780,
+      "alto": 1688,
+      "alt": {
+        "es": "Sección «Experiencia aplicada en procesos industriales críticos» del sitio de ITA en un teléfono.",
+        "en": "The «Experiencia aplicada en procesos industriales críticos» section of the ITA site on a phone."
+      },
+      "pie": {
+        "es": "La misma página en el teléfono.",
+        "en": "The same page on a phone."
+      }
+    }
+  ],
+  "capturasConPersonal": [
+    {
+      "src": "medios/inicio-escritorio.jpg",
+      "ancho": 1440,
+      "alto": 900,
+      "alt": {
+        "es": "Portada del sitio de ITA en escritorio: técnicos con casco en planta y el titular «Estabilidad, control y continuidad para sistemas de rectificación industrial».",
+        "en": "Home page of the ITA site on desktop: technicians in hard hats on a plant floor and the headline «Estabilidad, control y continuidad para sistemas de rectificación industrial»."
+      },
+      "pie": {
+        "es": "Portada en escritorio.",
+        "en": "Home page on desktop."
+      }
+    },
+    {
+      "src": "medios/contacto-escritorio.jpg",
+      "ancho": 1440,
+      "alto": 900,
+      "alt": {
+        "es": "Página de contacto de ITA con el formulario «Cuéntanos sobre tu caso» y la foto de un técnico frente a un tablero.",
+        "en": "ITA's contact page with the «Cuéntanos sobre tu caso» form and a photo of a technician in front of a control panel."
+      },
+      "pie": {
+        "es": "Contacto: el formulario llega al correo de ITA.",
+        "en": "Contact: the form reaches ITA's inbox."
+      }
+    },
+    {
+      "src": "medios/inicio-movil.jpg",
+      "ancho": 780,
+      "alto": 1688,
+      "alt": {
+        "es": "Portada del sitio de ITA en un teléfono, con los botones «Solicitar evaluación técnica» y «Conocer nuestras soluciones».",
+        "en": "Home page of the ITA site on a phone, with the «Solicitar evaluación técnica» and «Conocer nuestras soluciones» buttons."
+      },
+      "pie": {
+        "es": "La misma portada en el teléfono.",
+        "en": "The same home page on a phone."
+      }
+    }
+  ],
+  "video": {
+    "mp4": "medios/ita.mp4",
+    "webm": "medios/ita.webm",
+    "poster": "medios/ita-poster.webp",
+    "duracionSeg": 12
+  },
+  "diagrama": "medios/diagrama.svg"
+}

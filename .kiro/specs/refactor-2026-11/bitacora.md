@@ -18,7 +18,7 @@ T1 · 2026-11-19 · hecho · `contenido/proyectos/proyecto.schema.json` (JSON Sc
 
 T2 · 2026-11-20 · bloqueado · sin cambios de código: la ficha de ITA no puede ser `publicado` porque no tiene video ni GIF y el esquema de T1 los exige (ver Bloqueos).
 
-## Detalle de T2
+## Detalle de T2 · primer intento
 
 - Se leyeron `requirements.md`, `design.md`, las reglas de `tasks.md`, `src/config/casos.js`, `src/config/piezas.js`, `src/pages/Caso.jsx`, `src/pages/Casos.jsx`, `prerender.mjs` y `pendientes/LEEME.md`.
 - Se buscó un video o GIF de ITA en el repositorio (`*.mp4`, `*.webm`, `*.gif`, `*.mov`, fuera de `node_modules`): no hay ninguno. Las grabaciones de `../.capturas-tmp/` son de otros temas (placas, código, Laboratorio), no del sitio de ITA.
@@ -29,11 +29,62 @@ T2 · 2026-11-20 · bloqueado · sin cambios de código: la ficha de ITA no pued
   - `python .ayemi/verificar.py . --solo-errores`: «Sin hallazgos», 0 errores.
 - No hay captura antes/después de `/casos/ita-2026` porque la página no cambió.
 
+T2 · 2026-11-20 · hecho · ficha `contenido/proyectos/ita-2026/proyecto.json` (`caso-cliente`, `publicado`) con 3 capturas, video de 12 s (`ita.mp4` 710 KB, `ita.webm` 329 KB, `ita-poster.webp`) y `diagrama.svg`; `src/config/proyectos.js`; `casos.js` reexporta desde la ficha y `/casos/ita-2026` queda idéntica. Bloqueo de T2 resuelto con la Decisión 2026-11-20.
+
+## Detalle de T2 · segundo intento (Decisión 2026-11-20 aplicada)
+
+### Archivos
+
+- `contenido/proyectos/ita-2026/proyecto.json`: todo lo de `CASOS[0]`. `problema` y `hicimos` (ahora `textos.<idioma>.solucion`) son párrafos unidos con `\n\n`; `cifras`, `resultado` y `resultadoNegocio` van dentro de `textos.es`/`textos.en`; `pieza`, `cliente`, `sitio`, `permisoPersonal` (`false`), `testimonio` (`null`) y `capturasConPersonal` en el nivel superior; el `pie` de cada captura como `pie.es`/`pie.en`. `fecha` = `2026-09-10` (salida a producción, según `resultado`). `stack` = la `pila` de la pieza `ita-2026` de `piezas.js`. `categorias` = `[]`. Sin `marcasAjenas`: ITA es el cliente, no una marca ajena usada en una demo (R0.6).
+- `contenido/proyectos/ita-2026/medios/`: `problema-escritorio.jpg`, `beneficios-escritorio.jpg`, `experiencia-movil.jpg` (copias de `public/casos/ita/`), `ita.mp4`, `ita.webm`, `ita-poster.webp`, `diagrama.svg`.
+- `capturasConPersonal`: solo sus datos en la ficha, con `src: medios/<archivo>`. Los tres `.jpg` siguen en `pendientes/casos/ita/` y no se copiaron, para que ningún glob los publique sin permiso. El validador no comprueba esas rutas porque el esquema no tiene ese campo.
+- `pendientes/LEEME.md`: los pasos para cuando llegue el permiso ahora apuntan a `public/casos/ita/` + `medios/` y a `proyecto.json`.
+- `src/config/proyectos.js`: `proyectosPublicados()`, `porTipo(tipo)`, `buscarProyecto(slug)`, `categorias()`, `stacks()` sobre `import.meta.glob('/contenido/proyectos/*/proyecto.json', { eager: true, import: 'default' })`. Solo devuelve fichas `publicado`, de la más reciente a la más antigua.
+- `src/config/casos.js`: `CASOS = porTipo('caso-cliente')` convertido a la forma anterior (textos en español, párrafos separados de nuevo). Las imágenes se sirven desde `public/casos/ita/` (tabla `PUBLICO`), como proponía el primer intento; el mecanismo general para servir `medios/` queda para T6/T11. `buscarCaso` y `capturasDe` no cambian de firma.
+- `diagrama.svg`: sitio estático → formulario → correo de ITA, 720 × 160, `fill`/`stroke` solo con clases que usan `var(--ay-superficie)`, `var(--ay-borde-fuerte)`, `var(--ay-acento)`, `var(--ay-texto)`, `var(--ay-texto-suave)`. Lleva `role="img"`, `<title>` y `<desc>` en es/en. Las variables solo se resuelven si el SVG va en línea dentro de la página; cargado con `<img>` no hereda los tokens. Lo decide T6 al pintarlo.
+
+### Video
+
+Hecho solo con las 3 capturas reales publicables (no hay una cuarta sin personal). Las tres se apilan en vertical (las dos de escritorio a 1280 × 800; la móvil a 592 × 1280, centrada sobre Grafito `0x0E1217`, el `--ay-lienzo` oscuro) y una ventana de 1280 × 720 recorre la tira: 1 s quieta arriba, 10 s de desplazamiento lineal a 216 px/s, 1 s quieta abajo. 12 s, 30 fps, sin audio. `duracionSeg: 12`. El póster es el primer cuadro: la primera captura escalada a 1280 de ancho y recortada a 720 de alto.
+
+Resultado (ffprobe): `ita.mp4` H.264 High 1280 × 720, 12,0 s, 726 804 bytes (≤ 2 MB), `faststart`; `ita.webm` VP9 1280 × 720, 12,0 s, 337 159 bytes; `ita-poster.webp` 45 620 bytes.
+
+Comandos exactos, desde `contenido/proyectos/ita-2026/medios/` (PowerShell o bash; para otro caso basta cambiar los tres nombres y, si la altura de la tira cambia, el `2160` = alto total − 720 y el `216` = `2160 / 10`):
+
+```bash
+ffmpeg -y -loop 1 -framerate 30 -t 12 -i problema-escritorio.jpg -loop 1 -framerate 30 -t 12 -i beneficios-escritorio.jpg -loop 1 -framerate 30 -t 12 -i experiencia-movil.jpg -filter_complex "[0]scale=1280:800,setsar=1[a];[1]scale=1280:800,setsar=1[b];[2]scale=-2:1280,pad=1280:1280:(ow-iw)/2:0:color=0x0E1217,setsar=1[c];[a][b][c]vstack=inputs=3,crop=1280:720:0:'min(max(0,t-1)*216,2160)',format=yuv420p[v]" -map "[v]" -an -c:v libx264 -preset slow -crf 26 -profile:v high -movflags +faststart ita.mp4
+
+ffmpeg -y -loop 1 -framerate 30 -t 12 -i problema-escritorio.jpg -loop 1 -framerate 30 -t 12 -i beneficios-escritorio.jpg -loop 1 -framerate 30 -t 12 -i experiencia-movil.jpg -filter_complex "[0]scale=1280:800,setsar=1[a];[1]scale=1280:800,setsar=1[b];[2]scale=-2:1280,pad=1280:1280:(ow-iw)/2:0:color=0x0E1217,setsar=1[c];[a][b][c]vstack=inputs=3,crop=1280:720:0:'min(max(0,t-1)*216,2160)',format=yuv420p[v]" -map "[v]" -an -c:v libvpx-vp9 -b:v 0 -crf 36 -row-mt 1 ita.webm
+
+ffmpeg -y -i problema-escritorio.jpg -vf "scale=1280:800,crop=1280:720:0:0" -c:v libwebp -quality 80 ita-poster.webp
+```
+
+ffmpeg usado: `2025-12-28-git-9ab2a437a1-full_build-www.gyan.dev`.
+
+### Textos en inglés · para revisión
+
+`src/i18n.js` no tiene el contenido de ITA en inglés (solo `enlaces.caso` = «Case: ITA website»). Todo `textos.en`, los `alt.en` y los `pie.en` de `proyecto.json` (6 capturas) los escribió Kiro y **necesitan revisión**. Los titulares del sitio de ITA citados en los `alt` se dejaron en español porque así aparecen en la captura. Las líneas `detalle` de `diagrama.svg` están en inglés técnico corto (`static site · es · en`, `form · server`, `email · Resend`) y su `<title>`/`<desc>` en ambos idiomas; también para revisión.
+
+### Comprobantes
+
+- `npm run validar`: «Fichas de proyecto válidas: 1.», código 0.
+- `npm run lint`: código 0, sin avisos.
+- `npm run build`: código 0, «Prerenderizado completo.», sitemap con 9 URL. Siguen las advertencias `[Ayemi §3.10] … 18 px / 22 px`, anteriores a T1.
+- `python .ayemi/verificar.py . --solo-errores`: «Sin hallazgos», 75 archivos.
+- `/casos/ita-2026` antes/después, servido con `vite preview` (puerto 4173) y capturado con Chrome sin interfaz:
+  - HTML prerenderizado `dist/casos/ita-2026/index.html`: idéntico al de antes salvo los hashes de `/assets/`.
+  - Captura de escritorio 1440 × 5200: SHA-256 `EA6EC4335A9B6ACF…` antes y después, el mismo archivo byte a byte.
+  - Captura de móvil 390 × 9000: SHA-256 `DE357984B4DD9DD5…` antes y después, el mismo archivo byte a byte.
+  - Las capturas se tomaron en `%TEMP%` y se borraron al terminar; no van en el commit.
+- Fuera del commit, como en T1: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
+
 ## Bloqueos
 
 Ninguno en T1.
 
-### T2 · ficha `publicado` sin video ni GIF
+### T2 · ficha `publicado` sin video ni GIF · RESUELTO
+
+**Resuelto el 2026-11-20** con la Decisión 2026-11-20 de `tasks.md` (T2): el esquema no se relaja y ITA lleva un video hecho solo con sus capturas reales. Aplicado en el segundo intento de T2 (ver «Detalle de T2 · segundo intento»).
 
 T2 pide `estado: publicado` y nombra como medios solo las capturas y `diagrama.svg`. El esquema que fijó T1 (R1.3) exige `video` o `gif` en toda ficha `publicado`, y el validador detiene `npm run build` si faltan. ITA no tiene video ni GIF. T4 («si no hay ninguno, rota capturas de ITA») y R5.2 («un bloque sin datos no se pinta») sugieren que el caso sin video estaba previsto, pero el esquema no lo admite.
 
@@ -43,7 +94,9 @@ Las salidas posibles cambian el contrato o el contenido, así que las decide el 
 2. Grabar un video o GIF real de soluciones-ita.com y añadirlo a `medios/`. Hace falta saber quién lo graba y con qué contenido: las capturas con personal siguen sin permiso.
 3. Dejar la ficha en `en-construccion`. Así no se muestra (R0.5), y `/casos/ita-2026` dejaría de existir al terminar la migración.
 
-### T2 · puntos sin especificar que también hacen falta para reanudar
+### T2 · puntos sin especificar que también hacen falta para reanudar · RESUELTOS
+
+**Resueltos el 2026-11-20.** La Decisión 2026-11-20 no los nombra; como ninguno bloqueaba por sí solo, el segundo intento aplicó la propuesta escrita para cada uno (detalle en «Detalle de T2 · segundo intento»). Si el arquitecto prefiere otra salida, se cambia sin tocar la API de `proyectos.js`. El de los medios sigue abierto para T6/T11.
 
 Ninguno bloquea por sí solo, pero cada uno obliga a decidir algo:
 
