@@ -346,6 +346,20 @@ T8 · 2026-11-20 · hecho · `clic_demo` (GA4 `clic_demo`, Meta `trackCustom Cli
   - El script de prueba y el perfil de Chrome quedaron en `%TEMP%` y se borraron; los servidores se cerraron al terminar.
 - Fuera del commit, como en T1–T7: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
 
+T9 · 2026-11-20 · bloqueado · sin cambios de código: el orden de portada de T9 deja fuera seis secciones que hoy existen, entre ellas `#que-construimos`, destino de la entrada «Qué construimos» de la navegación de design.md; además faltan el criterio de «Proyectos destacados» con una sola ficha publicada, el contenido de Transparencia sin demos publicadas, dónde vive `EntregaConLlaves` (ya existe uno de T6) y tres datos de negocio para las preguntas (ver Bloqueos, con propuesta para cada punto y el borrador de las 8 preguntas es/en).
+
+## Detalle de T9
+
+- Se leyeron `requirements.md`, `design.md`, las reglas de `tasks.md`, `ayemi-voz`, `src/pages/Inicio.jsx`, `src/config/{secciones,proyectos}.js`, `src/features/proyectos/EntregaConLlaves.jsx`, `src/features/pcb/PreguntasPcb.jsx` (patrón `<details>` que se reutilizaría), `src/features/hero/{Hero,HeroProyectos}.jsx` y los bloques `hero.pruebas`, `pcb.preguntas` y `quienes.valores` de `src/i18n.js`.
+- No se escribió código: los puntos de «Bloqueos · T9» cambian qué se ve en la portada y qué promete Ayemi, y las reglas piden detenerse. El único cambio de este commit es esta bitácora.
+- Comprobantes sobre el estado actual (igual que tras T8):
+  - `npm run lint`: código 0.
+  - `npm run validar`: «Fichas de proyecto válidas: 1.», código 0.
+  - `npm run build`: código 0. «Medios copiados a public/proyectos/: 7 archivo(s) de 1 ficha(s).», «Prerenderizado completo.», sitemap con 9 URL.
+  - `python .ayemi/verificar.py . --solo-errores`: «Sin hallazgos», 89 archivos.
+  - Navegador: `vite preview` (puerto 4173) y Chrome sin interfaz por CDP en `/`, a 1440 × 900 y 390 × 844, recorriendo la página entera para cargar lo diferido. Consola sin errores ni avisos. Un solo h1 («Tienes una idea. La convertimos en algo que funciona.»). Secciones en este orden: `inicio` · `que-construimos` · `capacidad` · `ofertas` · `como-trabajamos` · `alternativas` · `del-laboratorio` · `quienes-somos` · `contacto`. Sin desbordes: `scrollWidth` = ancho de la ventana en los dos tamaños y ningún elemento fuera de la pantalla. La captura completa de escritorio se revisó a ojo: sin solapes ni huecos. El script, las capturas y el perfil de Chrome quedaron en `%TEMP%` y se borraron; el servidor se cerró.
+- Fuera del commit, como en T1–T8: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
+
 ## Pendiente para T11
 
 - **Directorio y página con la misma ruta (nginx).** Una demo tiene su página en `/proyectos/<slug>` y sus medios en `/proyectos/<slug>/<archivo>`. Con `try_files $uri $uri/ /index.html`, pedir `/proyectos/<slug>` encuentra el directorio de medios y, sin `index.html` dentro, nginx responde 403 en vez de la app. Deja de pasar cuando T11 prerenderice cada demo en `dist/proyectos/<slug>/index.html`. Hoy no afecta a ITA, que vive en `/casos/ita-2026`. Por la Decisión 2026-11-20 se resuelve en T11, no en T6.
@@ -357,6 +371,44 @@ T8 · 2026-11-20 · hecho · `clic_demo` (GA4 `clic_demo`, Meta `trackCustom Cli
 ## Bloqueos
 
 Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»). Ninguno en T5 (los puntos sin especificar están en «Detalle de T5»). Ninguno nuevo en T6 (los puntos sin especificar están en «Detalle de T6 · segundo intento»). Ninguno en T7 (los puntos sin especificar están en «Detalle de T7»; lo que toca a T11, en «Pendiente para T11»). Ninguno en T8 (los puntos sin especificar están en «Detalle de T8»).
+
+### T9 · portada, confianza y preguntas frecuentes · ABIERTO
+
+T9 se detuvo antes de escribir código. Cada punto lleva la propuesta que Kiro aplicaría si el arquitecto la acepta tal como está escrita.
+
+1. **Secciones de la portada que el orden de T9 no nombra. Bloquea.** T9 fija «Hero · Proyectos destacados · Método · Entrega con llaves · Transparencia · Preguntas · Contacto». Hoy la portada tiene además `Servicios` (`#que-construimos`), `TechStack` (`#capacidad`), `OfertasEntrada` (`#ofertas`), `Posicionamiento` (`#alternativas`), `AnticipoLaboratorio` (`#del-laboratorio`) y `QuienesSomos` (`#quienes-somos`). Si la lista es completa, se quitan seis secciones. Entonces la entrada «Qué construimos» de la navegación de design.md (`/#que-construimos`, también marcada en `/pcb`) se queda sin destino, y «Cómo trabajamos» pierde `#alternativas`. T9 tampoco nombra borrar componentes.
+   - **Propuesta de Kiro:** no quitar nada. Las siete piezas de T9 conservan su orden relativo y las demás quedan donde están respecto al Método: Hero · Proyectos destacados · Servicios · TechStack · Ofertas · Método · Posicionamiento · Entrega con llaves · Transparencia · Preguntas · Laboratorio · Quiénes somos · Contacto. La navegación y `SECCIONES` no cambian, salvo que las tres secciones nuevas (`entrega`, `transparencia`, `preguntas`) entran en `SECCIONES` sin entrada propia, para que al leerlas no quede marcada «Cómo trabajamos».
+   - Alternativa: la lista es completa. Entonces hace falta decidir el destino nuevo de «Qué construimos» y de «Cómo trabajamos › alternativas», y si los componentes que salen se borran o se quedan sin uso.
+2. **«Proyectos destacados (3 tarjetas)» con una sola ficha publicada.** Hoy solo ITA está publicada. Las piezas `calculadora-series` e `invitacion-boda` no son fichas. El esquema no tiene un campo `destacado`, y R0.5 impide rellenar huecos.
+   - **Propuesta de Kiro:** las 3 fichas publicadas más recientes por `fecha` (de los dos tipos), con `TarjetaProyecto`, en una sección `#destacados` titulada «Proyectos destacados» / «Featured projects», y debajo «Ver todos los proyectos» / «See all projects» → `/proyectos` como botón secundario (el primario de la vista sigue en el hero). Con menos de 3 se pintan las que haya (hoy 1) y con 0 la sección no se pinta. Las piezas no entran.
+3. **Contenido de Transparencia.** R7 dice «cada demo muestra `verificadoEl` y «se reinicia cada …»». No hay ninguna ficha `laboratorio` publicada, así que con R0.5 el bloque hoy no tendría datos.
+   - **Propuesta de Kiro:** una sección `#transparencia` con una lista de demos publicadas: título (enlace a `/proyectos/<slug>`), «Comprobada el {{fecha}}» / «Checked on {{fecha}}» con la fecha en `font-mono`, y «La demo se reinicia cada {{cada}}.» (`caso.seReinicia`, que ya existe). Si no hay demos publicadas, la sección no se pinta, así que hoy no se vería en la portada. Alternativa: un texto fijo que se pinte siempre, con los textos de `hero.pruebas.rango*` («Estimaciones con rango…»), y la lista de demos debajo cuando existan.
+4. **Dónde vive `EntregaConLlaves`.** T6 ya creó `src/features/proyectos/EntregaConLlaves.jsx` (lista con `caso.entrega` + `entregamos[]`, usada en `PaginaProyecto`). T9 pide un `EntregaConLlaves.jsx` con `hero.pruebas.llaves*`, y R7 pide tres temas: código a tu nombre, documentación y traspaso. `llaves*` cubre los dos primeros; el traspaso está en `hero.pruebas.traspaso*`.
+   - **Propuesta de Kiro:** no tocar el componente de T6. Crear `src/features/confianza/EntregaConLlaves.jsx` (exporta `SeccionEntregaConLlaves`, para no chocar de nombre), sección `#entrega` con microetiqueta, título `hero.pruebas.llavesTitulo`, `hero.pruebas.llavesTexto` y un segundo párrafo con `hero.pruebas.traspasoTitulo` / `traspasoTexto`. Sin textos nuevos. `hero.pruebas.rango*` se queda para Transparencia si se elige la alternativa del punto 3.
+5. **Datos de negocio que el repositorio no tiene.** Tres respuestas comprometen a Ayemi y no hay ningún texto del sitio que las respalde: plazos de software (solo existe el de placas: «Te damos una fecha concreta al cotizar»), qué pasa después de la entrega (no hay nada sobre soporte o mantenimiento) y si se firma confidencialidad (no hay nada). Abajo va el borrador de las 8 preguntas. Las marcadas con **[confirmar]** necesitan que alguien con autoridad diga si Ayemi lo hace. Las demás solo repiten lo que el sitio ya dice. Ninguna lleva precios ni nombres de personas.
+
+#### Borrador de las 8 preguntas (es / en), para aprobar
+
+Componente `src/features/confianza/PreguntasFrecuentes.jsx` con el patrón `<details>/<summary>` de `PreguntasPcb`, sección `#preguntas`, microetiqueta «PREGUNTAS FRECUENTES» / «FAQ», título «Lo que nos preguntan antes de empezar.» / «What people ask us before starting.». Claves en `confianza.preguntas.lista[]` (`p`, `r`), en es y en. El JSON-LD `FAQPage` es de T11 y leerá esa misma lista.
+
+1. **¿Cuánto tarda?** — Te damos una fecha con rango al cotizar: un mínimo, un máximo y los supuestos que sostienen cada uno. Entregamos por pasos cortos, así que ves avances funcionando antes del final.
+   **How long does it take?** — We give you a date range with the quote: a minimum, a maximum and the assumptions behind each. We deliver in short steps, so you see working progress before the end.
+2. **¿El código es mío?** — Sí. El repositorio, la infraestructura y la documentación quedan a tu nombre desde el primer día. Si mañana otro equipo lo retoma, tiene todo lo que necesita.
+   **Is the code mine?** — Yes. The repository, the infrastructure and the documentation are in your name from day one. If another team picks it up tomorrow, it has everything it needs.
+3. **¿Qué pasa después de la entrega?** — Cerramos con una sesión de entrega técnica y un documento de operación. **[confirmar]** Si quieres que sigamos a cargo después, lo acordamos por escrito con su propio alcance.
+   **What happens after delivery?** — We close with a technical handover session and an operations document. **[confirm]** If you want us to stay in charge afterwards, we agree on it in writing with its own scope.
+4. **¿Trabajan con hardware?** — Sí. Diseñamos placas electrónicas y te entregamos el proyecto de KiCad editable y los archivos de fabricación (Gerber, BOM, CPL). En Hardware (`/pcb`) está el detalle.
+   **Do you work with hardware?** — Yes. We design electronic boards and hand you the editable KiCad project and the manufacturing files (Gerber, BOM, CPL). Hardware (`/pcb`) has the details.
+5. **¿Cómo se cotiza?** — Primero entendemos qué quieres construir. Después te mandamos una estimación con rango y los supuestos que la sostienen; si el alcance cambia, el cambio se escribe antes de hacerlo.
+   **How do you quote?** — First we understand what you want to build. Then we send you an estimate with a range and the assumptions behind it; if the scope changes, the change is written down before we make it.
+6. **¿Las demos son de clientes?** — No. Los proyectos del Laboratorio son proyectos demostrativos de Ayemi, hechos para que pruebes cómo trabajamos. Los casos de clientes van aparte y rotulados como tales.
+   **Are the demos client work?** — No. Lab projects are Ayemi demo projects, built so you can try how we work. Client cases are listed separately and labelled as such.
+7. **¿Firmamos confidencialidad?** — **[confirmar]** Sí. Si tu proyecto lo necesita, firmamos un acuerdo de confidencialidad antes de que nos cuentes los detalles.
+   **Do we sign an NDA?** — **[confirm]** Yes. If your project needs it, we sign a non-disclosure agreement before you share the details.
+8. **¿Cómo empiezo?** — Escríbenos por WhatsApp o desde el formulario con lo que quieres construir. Basta una descripción breve para la primera conversación.
+   **How do I start?** — Message us on WhatsApp or through the form with what you want to build. A short description is enough for the first conversation.
+
+Para reanudar T9 basta con aceptar o corregir los puntos 1–5 y el borrador. Con eso no queda nada abierto.
 
 ### T6 · rótulo «La solución» contra el léxico del manual · RESUELTO
 
