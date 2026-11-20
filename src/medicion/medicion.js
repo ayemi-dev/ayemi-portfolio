@@ -14,6 +14,8 @@
  *   formulario_enviado  GA4 generate_lead      Meta Lead
  *   clic_agenda         GA4 clic_agenda        Meta Schedule
  *   clic_red_social     GA4 clic_red_social    Meta ClicRedSocial (custom)
+ *   clic_demo           GA4 clic_demo          Meta ClicDemo (custom)   · proyecto
+ *   caso_visto          GA4 caso_visto         Meta ViewContent         · proyecto, tipo
  */
 
 import { AGENDA_URL } from '../config/externos';
@@ -30,6 +32,8 @@ const EVENTOS = {
   formulario_enviado: { ga4: 'generate_lead', meta: 'Lead' },
   clic_agenda: { ga4: 'clic_agenda', meta: 'Schedule' },
   clic_red_social: { ga4: 'clic_red_social', meta: 'ClicRedSocial', metaPropio: true },
+  clic_demo: { ga4: 'clic_demo', meta: 'ClicDemo', metaPropio: true },
+  caso_visto: { ga4: 'caso_visto', meta: 'ViewContent' },
 };
 
 const enNavegador = typeof window !== 'undefined';

@@ -317,6 +317,35 @@ Ninguno bloquea. Se resolvieron con la opción más conservadora y cada uno se c
   - El script de prueba, el perfil de Chrome y los registros quedaron en `%TEMP%` y se borraron.
 - Fuera del commit, como en T1–T6: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
 
+T8 · 2026-11-20 · hecho · `clic_demo` (GA4 `clic_demo`, Meta `trackCustom ClicDemo`) y `caso_visto` (GA4 `caso_visto`, Meta `ViewContent`) añadidos a `EVENTOS` sin tocar los cuatro existentes; «Abrir la demo» de `BloquePruebalo` dispara `clic_demo` con `proyecto`; `PaginaProyecto` dispara `caso_visto` con `proyecto` y `tipo` una vez por slug, también con StrictMode.
+
+## Detalle de T8
+
+### Archivos
+
+- `src/medicion/medicion.js`: dos entradas nuevas al final de `EVENTOS`, copiadas de design.md, y dos líneas en la tabla del comentario de cabecera. Las cuatro entradas anteriores, `rastrear`, la carga y el escuchador de clics no cambian.
+- `src/features/proyectos/BloquePruebalo.jsx`: nueva prop `proyecto` (slug) y `onClick={() => rastrear('clic_demo', { proyecto })}` en el botón «Abrir la demo». El clic no se intercepta: el enlace sigue abriendo la demo en otra pestaña.
+- `src/pages/PaginaProyecto.jsx`: pasa `proyecto={proyecto.slug}` a `BloquePruebalo` y añade un `useEffect` con dependencias `[slug, tipo]` que llama a `rastrear('caso_visto', { proyecto, tipo })`. Una `useRef` guarda el último slug enviado.
+
+### Puntos que T8 no especificaba
+
+- **«Una vez por slug» con StrictMode.** En desarrollo React monta, desmonta y vuelve a montar cada efecto; la `ref` se conserva en ese ciclo, así que el segundo efecto no reenvía. Un cambio de idioma tampoco reenvía (las dependencias son slug y tipo). Ir a otra página y volver al caso cuenta como otra vista y sí reenvía, porque la página se vuelve a montar. Ningún estado global: dos casos distintos en la misma visita mandan un evento cada uno.
+- **Parámetros extra.** `rastrear` ya añade los UTM de la visita; en la página de caso eso incluye el `utm_content=<slug>` que fija `fijarUtmContenido` (T6). No se añadió nada más.
+
+### Comprobantes
+
+- `npm run lint`: código 0.
+- `npm run validar`: «Fichas de proyecto válidas: 1.», código 0.
+- `npm run build`: código 0, «Prerenderizado completo.», sitemap con 9 URL. Siguen los avisos ya conocidos: `<Navigate>` en `StaticRouter` al prerenderizar `/casos` (T11) y `[Ayemi §3.10] … 18 px / 22 px`, anteriores a T1.
+- `python .ayemi/verificar.py . --solo-errores`: «Sin hallazgos», 89 archivos.
+- Navegador: Chrome sin interfaz por CDP, con las peticiones a `googletagmanager.com`, `facebook.net` y `clarity.ms` bloqueadas.
+  - `vite preview` con IDs vacíos (`.env.local` no define ningún `VITE_*`): `/`, `/casos/ita-2026/` y `/laboratorio/` con la consola limpia, sin errores ni avisos; `window.gtag` y `window.fbq` no existen y no se carga ningún script de terceros. `/proyectos/` da el error #418 de hidratación ya anotado en T7: falta `dist/proyectos/index.html` y se resuelve en T11. No viene de T8.
+  - `vite` en desarrollo (StrictMode activo) con IDs de prueba solo en el entorno del proceso (`VITE_GA4_ID=G-PRUEBA`, `VITE_META_PIXEL_ID=000000`), leyendo `window.dataLayer` y `fbq.queue`. En `/casos/ita-2026` hay un solo `caso_visto` con `{"proyecto":"ita-2026","tipo":"caso-cliente","utm_content":"ita-2026"}` en GA4 y un solo `track ViewContent` en Meta. Al cambiar a inglés no se envía otro. Al ir a `/proyectos` y volver con la tarjeta de ITA, llega el segundo (otra vista). `rastrear('clic_demo', { proyecto: 'prueba' })` sale como GA4 `clic_demo` y Meta `trackCustom ClicDemo`. Consola limpia.
+  - El clic real en «Abrir la demo» no se pudo probar en el navegador porque no hay ninguna ficha `laboratorio` publicada. El cableado se revisó en el código y la traducción del evento se probó arriba. Queda para cuando llegue la primera demo, o para T13.
+  - Visto de paso, no es de T8: con el píxel de Meta activo, la primera carga encola `track PageView` dos veces (una de `prepararMeta` y otra de `vistaDePagina`). R0.8 deja la medición actual como está, así que no se tocó.
+  - El script de prueba y el perfil de Chrome quedaron en `%TEMP%` y se borraron; los servidores se cerraron al terminar.
+- Fuera del commit, como en T1–T7: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
+
 ## Pendiente para T11
 
 - **Directorio y página con la misma ruta (nginx).** Una demo tiene su página en `/proyectos/<slug>` y sus medios en `/proyectos/<slug>/<archivo>`. Con `try_files $uri $uri/ /index.html`, pedir `/proyectos/<slug>` encuentra el directorio de medios y, sin `index.html` dentro, nginx responde 403 en vez de la app. Deja de pasar cuando T11 prerenderice cada demo en `dist/proyectos/<slug>/index.html`. Hoy no afecta a ITA, que vive en `/casos/ita-2026`. Por la Decisión 2026-11-20 se resuelve en T11, no en T6.
@@ -327,7 +356,7 @@ Ninguno bloquea. Se resolvieron con la opción más conservadora y cada uno se c
 
 ## Bloqueos
 
-Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»). Ninguno en T5 (los puntos sin especificar están en «Detalle de T5»). Ninguno nuevo en T6 (los puntos sin especificar están en «Detalle de T6 · segundo intento»). Ninguno en T7 (los puntos sin especificar están en «Detalle de T7»; lo que toca a T11, en «Pendiente para T11»).
+Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»). Ninguno en T5 (los puntos sin especificar están en «Detalle de T5»). Ninguno nuevo en T6 (los puntos sin especificar están en «Detalle de T6 · segundo intento»). Ninguno en T7 (los puntos sin especificar están en «Detalle de T7»; lo que toca a T11, en «Pendiente para T11»). Ninguno en T8 (los puntos sin especificar están en «Detalle de T8»).
 
 ### T6 · rótulo «La solución» contra el léxico del manual · RESUELTO
 

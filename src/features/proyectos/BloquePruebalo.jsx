@@ -2,6 +2,7 @@ import { useEffect, useId, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Boton } from '../../components/ui/Boton';
 import { IconoComprobacion, IconoEnlaceExterno } from '../../components/marca/Iconos';
+import { rastrear } from '../../medicion/medicion';
 
 /**
  * «Pruébalo» · página de una demo del Laboratorio (R5.3)
@@ -12,7 +13,7 @@ import { IconoComprobacion, IconoEnlaceExterno } from '../../components/marca/Ic
  * §5.3 · El botón es secundario: la acción principal de la página es el
  * WhatsApp del cierre. §3.6 · Usuario y clave en monoespaciada.
  *
- * `clic_demo` lo cablea T8.
+ * El clic en «Abrir la demo» dispara `clic_demo` con el slug del proyecto (R8).
  */
 
 const DatoCopiable = ({ etiqueta, valor }) => {
@@ -51,14 +52,21 @@ const DatoCopiable = ({ etiqueta, valor }) => {
   );
 };
 
-export const BloquePruebalo = ({ demo }) => {
+export const BloquePruebalo = ({ demo, proyecto }) => {
   const { t } = useTranslation();
   if (!demo?.url) return null;
 
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <Boton variante="secundario" tamano="grande" href={demo.url} target="_blank" rel="noopener">
+        <Boton
+          variante="secundario"
+          tamano="grande"
+          href={demo.url}
+          target="_blank"
+          rel="noopener"
+          onClick={() => rastrear('clic_demo', { proyecto })}
+        >
           {t('caso.abrirDemo')}
           <IconoEnlaceExterno tamano={16} />
           <span className="sr-only">{t('pie.nuevaPestana')}</span>

@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Microetiqueta } from '../components/marca/Logotipo';
 import { IconoEnlaceExterno } from '../components/marca/Iconos';
 import { Aviso } from '../components/ui/Aviso';
 import { buscarProyecto, diagramaDe, urlMedio } from '../config/proyectos';
-import { fijarUtmContenido } from '../medicion/medicion';
+import { fijarUtmContenido, rastrear } from '../medicion/medicion';
 import { useMovimientoReducido } from '../hooks/useMovimientoReducido';
 import { VideoProyecto } from '../features/proyectos/VideoProyecto';
 import { BloquePruebalo } from '../features/proyectos/BloquePruebalo';
@@ -32,8 +32,10 @@ import { NoEncontrada } from './NoEncontrada';
  *   6          ¿Lo quieres para tu negocio? (WhatsApp, la única acción primaria)
  *
  * Los textos salen de la ficha en el idioma activo; los rótulos, del i18n.
- * Al abrirla fija `utm_content=<slug>` si la visita no traía uno.
- * `caso_visto` lo cablea T8.
+ * Al abrirla fija `utm_content=<slug>` si la visita no traía uno y dispara
+ * `caso_visto` (R8) una sola vez por slug: la `ref` sobrevive al doble efecto
+ * de StrictMode y a los cambios de idioma, y se renueva al cambiar de slug o
+ * al volver a montar la página (otra vista).
  */
 
 const idiomaDe = (i18n) => (i18n.resolvedLanguage === 'en' ? 'en' : 'es');
@@ -60,10 +62,19 @@ export const PaginaProyecto = () => {
   const { t, i18n } = useTranslation();
   const reducido = useMovimientoReducido();
   const proyecto = buscarProyecto(slug);
+  const visto = useRef(null);
 
   useEffect(() => {
     if (proyecto) fijarUtmContenido(proyecto.slug);
   }, [proyecto]);
+
+  const slugVisto = proyecto?.slug;
+  const tipoVisto = proyecto?.tipo;
+  useEffect(() => {
+    if (!slugVisto || visto.current === slugVisto) return;
+    visto.current = slugVisto;
+    rastrear('caso_visto', { proyecto: slugVisto, tipo: tipoVisto });
+  }, [slugVisto, tipoVisto]);
 
   if (!proyecto) return <NoEncontrada />;
 
@@ -235,7 +246,7 @@ export const PaginaProyecto = () => {
 
       {esDemo && proyecto.demo?.url && (
         <Bloque etiqueta={t('caso.pruebalo')}>
-          <BloquePruebalo demo={proyecto.demo} />
+          <BloquePruebalo demo={proyecto.demo} proyecto={proyecto.slug} />
         </Bloque>
       )}
 
