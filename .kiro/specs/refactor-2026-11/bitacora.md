@@ -398,12 +398,48 @@ Ninguno bloquea. Se resolvieron sin texto nuevo que prometa algo:
   - El script, las capturas y el perfil de Chrome quedaron en `%TEMP%` y se borraron; el servidor se cerró.
 - Fuera del commit, como en T1–T8: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
 
+T10 · 2026-11-20 · hecho · `src/features/quienes/QuienEstaDetras.jsx` recibe la foto o el video breve por props y devuelve `null` mientras `SITIO.mostrarQuienEstaDetras = false` (nuevo en `src/config/sitio.js`); no se monta en ninguna página ni entra en la navegación. Con `false` no aparece en los 9 HTML prerenderizados ni en `sitemap.xml`. Sin foto ni video reales en el repositorio.
+
+## Detalle de T10
+
+### Archivos
+
+- `src/features/quienes/QuienEstaDetras.jsx` (nuevo): sección `#quien-esta-detras` con `Seccion` (h2 «Quién está detrás» / «Who is behind it») y un medio a la izquierda y un párrafo a la derecha en escritorio, apilados en móvil. Props: `foto` (`src`, `ancho`, `alto`, `alt: { es, en }`), `video` (`mp4`, `webm`, `poster`, `ancho`, `alto`, `titulo: { es, en }`) y `texto: { es, en }`. El video usa `VideoProyecto` con controles nativos y sin bucle; la foto, `<img>` con `width`/`height` y `loading="lazy"`. Devuelve `null` si la bandera es `false` o si no llega ni foto ni video (R0.5).
+- `src/config/sitio.js`: `SITIO.mostrarQuienEstaDetras: false`, con un comentario que remite a esta bitácora.
+- `src/i18n.js`: `quienEstaDetras.titulo` en es y en. Es la única cadena nueva.
+
+### Puntos que T10 no especificaba
+
+Ninguno bloquea T10, porque la sección sigue oculta. Quedan en «Pendiente de Dirección antes de producción»:
+
+- **Dónde se monta.** T10 pide el componente y la bandera, no su sitio en la portada, cuyo orden fijó T9. Por eso no se montó en ninguna página: hoy no está en ningún HTML ni en el bundle (no hay ninguna importación). Propuesta: montarlo en `Inicio.jsx` entre «Quiénes somos» y «Contacto» y añadirlo a `SECCIONES` sin entrada en `NAVEGACION`, en la tarea que lo publique.
+- **Textos de la persona.** El texto y el `alt` llegan por props en es y en, porque no hay copia escrita ni aprobada. El componente no inventa ninguna.
+- **§1.1.** El manual dice que en público no se citan nombres de personas y que Ayemi es una casa, no una marca personal. Una foto o un video de quién está detrás choca con eso si se nombra a alguien. Lo tiene que decidir Dirección antes de pasar la bandera a `true`.
+
+### Comprobantes
+
+- `npm run lint`: código 0.
+- `npm run validar`: «Fichas de proyecto válidas: 1.», código 0.
+- `npm run build`: código 0, «Prerenderizado completo.», sitemap con 9 URL. Siguen los avisos ya conocidos: `<Navigate>` en `StaticRouter` (T11) y `[Ayemi §3.10] … 18 px / 22 px`, anteriores a T1.
+- `python .ayemi/verificar.py . --solo-errores`: «Sin hallazgos», 94 archivos.
+- Ausencia en el prerender y en el sitemap (estado que se entrega): 0 coincidencias de `quien-esta-detras`, «Quién está detrás» y «Who is behind it» en los 9 HTML de `dist/`, y 0 de `quien|detras|behind` en `dist/sitemap.xml`. El id tampoco está en `dist/assets/*.js`.
+- Prueba de la bandera: como el componente no está montado, la ausencia anterior no prueba la bandera. Se montó de forma temporal en `Inicio.jsx` antes de `Contacto`, con una foto de prueba (el póster de ITA) y un texto «prueba»:
+  - con `false`: build código 0, la sección no está en ningún HTML y el sitemap no cambia;
+  - con `true`: build código 0, la sección aparece en `dist/index.html` y el sitemap sigue igual (no tiene ruta propia).
+  - Después se restauraron `Inicio.jsx` y `sitio.js` desde copia y se volvió a compilar. `git diff` confirma que `Inicio.jsx` no cambió.
+- Fuera del commit, como en T1–T9: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
+
 ## Pendiente de Dirección antes de producción
 
 Por la Decisión 2026-11-20 (bloqueos de T9), estas respuestas de las preguntas frecuentes de la portada ya están en la copia (es y en, `confianza.preguntas.lista` en `src/i18n.js`), pero **no se publican en producción** sin que Dirección confirme que Ayemi lo hace:
 
 - **3 · ¿Qué pasa después de la entrega?** / What happens after delivery?: «Si quieres que sigamos a cargo después, lo acordamos por escrito con su propio alcance.»
 - **7 · ¿Firmamos confidencialidad?** / Do we sign an NDA?: «Sí. Si tu proyecto lo necesita, firmamos un acuerdo de confidencialidad antes de que nos cuentes los detalles.»
+
+Por T10, «Quién está detrás» sigue con `SITIO.mostrarQuienEstaDetras = false`. Para publicarla hace falta que Dirección decida:
+
+- **La foto o el video y el texto (es/en)** que recibe el componente por props, y cómo encajan con §1.1 (no se citan nombres de personas; Ayemi es una casa, no una marca personal).
+- **Dónde se monta.** Propuesta: en la portada, entre «Quiénes somos» y «Contacto», sin entrada en la navegación.
 
 ## Pendiente para T11
 
@@ -415,7 +451,7 @@ Por la Decisión 2026-11-20 (bloqueos de T9), estas respuestas de las preguntas 
 
 ## Bloqueos
 
-Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»). Ninguno en T5 (los puntos sin especificar están en «Detalle de T5»). Ninguno nuevo en T6 (los puntos sin especificar están en «Detalle de T6 · segundo intento»). Ninguno en T7 (los puntos sin especificar están en «Detalle de T7»; lo que toca a T11, en «Pendiente para T11»). Ninguno en T8 (los puntos sin especificar están en «Detalle de T8»). Ninguno nuevo en T9 (los puntos sin especificar están en «Detalle de T9 · segundo intento»).
+Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»). Ninguno en T5 (los puntos sin especificar están en «Detalle de T5»). Ninguno nuevo en T6 (los puntos sin especificar están en «Detalle de T6 · segundo intento»). Ninguno en T7 (los puntos sin especificar están en «Detalle de T7»; lo que toca a T11, en «Pendiente para T11»). Ninguno en T8 (los puntos sin especificar están en «Detalle de T8»). Ninguno nuevo en T9 (los puntos sin especificar están en «Detalle de T9 · segundo intento»). Ninguno en T10 (los puntos sin especificar están en «Detalle de T10» y en «Pendiente de Dirección antes de producción»).
 
 ### T9 · portada, confianza y preguntas frecuentes · RESUELTO
 

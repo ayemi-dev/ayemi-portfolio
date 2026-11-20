@@ -1123,6 +1123,11 @@ const es = {
     reproducir: 'Reproducir el video',
   },
 
+  // ── Quién está detrás (oculta: SITIO.mostrarQuienEstaDetras) ───────────
+  quienEstaDetras: {
+    titulo: 'Quién está detrás',
+  },
+
   cookies: {
     region: 'Aviso de cookies',
     texto: 'Usamos cookies de Google Analytics, Meta y Microsoft Clarity para medir qué funciona en el sitio. Tus datos y cómo desactivarlas, en el',
@@ -2187,6 +2192,10 @@ const en = {
   video: {
     pausar: 'Pause the video',
     reproducir: 'Play the video',
+  },
+
+  quienEstaDetras: {
+    titulo: 'Who is behind it',
   },
 
   cookies: {

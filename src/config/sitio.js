@@ -55,6 +55,14 @@ export const SITIO = {
 
   /** Zona horaria declarada, para fijar expectativas de respuesta. */
   zonaHoraria: 'GMT−6 · Ciudad de México',
+
+  /**
+   * Sección «Quién está detrás» (R6). Preparada y sin publicar: con `false`
+   * no se pinta, no se enlaza, no se prerenderiza y no entra en el sitemap.
+   * Antes de pasarla a `true`, Dirección decide la foto o el video y cómo
+   * encaja con §1.1 (no se citan nombres de personas).
+   */
+  mostrarQuienEstaDetras: false,
 };
 
 /**
