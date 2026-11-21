@@ -634,6 +634,30 @@ T13 · 2026-11-20 · hecho · `scripts/auditoria-navegador.mjs` (copia de `../.c
 - Sin servidor, `npm run auditar` sale con código 1 y el aviso de arrancar `vite preview` (comprobado antes de levantarlo).
 - `vite preview` se cerró al terminar. No quedan archivos temporales. Fuera del commit, como en T1–T12: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
 
+T14 · 2026-11-20 · hecho · `docs/hosting-cloudflare-pages.md`: propuesta de R10 con 31 fuentes oficiales (22 de Cloudflare, 9 de Vercel) y una de Resend, todas consultadas el 2026-11-20 y citadas junto a cada cifra. Recomendación: Cloudflare Pages Free, con Vercel sin borrar 30 días como reversa, porque Vercel Hobby solo admite uso personal o no comercial (Términos §4) y Pro cuesta 20 USD/mes. Sin cambios de configuración.
+
+## Detalle de T14
+
+### Archivos
+
+- `docs/hosting-cloudflare-pages.md` (nuevo): recomendación y riesgos; estado actual; planes y límites de Vercel Hobby, Vercel Pro y Cloudflare Pages Free; cómo sirve cada uno las 301 de `vercel.json`, con tabla de equivalencias, borrador de `public/_redirects` (17 reglas estáticas y 2 dinámicas) y dos reglas de Single Redirects para `www` y `portafolio`; cómo sirve cada uno el prerender; borrador de `public/_headers`; `api/contacto.js` como Pages Function con un módulo común propuesto; variables de entorno; DNS; riesgos; pruebas en `pages.dev`; plan de reversa; fuentes.
+- No se creó `_redirects`, `_headers`, `functions/` ni `servidor/`: van solo como borradores dentro del documento. No se tocaron `vercel.json`, `nginx.conf`, `.env*`, `.vercel/` ni el DNS. Para el estado del DNS solo se hicieron consultas de lectura (`Resolve-DnsName`).
+
+### Hallazgos que el arquitecto debe conocer
+
+- **Cloudflare recomienda Workers para proyectos nuevos.** La portada de la documentación de Pages dice «Start new projects with Workers». R10 pide Pages y la propuesta lo respeta, pero deja la elección Pages o Workers a Dirección. `_redirects` y `_headers` sirven igual en Workers; la función habría que reescribirla.
+- **Barra final.** Pages redirige `/<ruta>/index.html` a `/<ruta>/`, y el prerender pone canónico y sitemap sin barra. La documentación de Pages no dice qué responde `/proyectos` sin barra (Workers responde 307 a `/proyectos/`). El documento propone tres salidas; hay que elegir una antes de cambiar el DNS.
+- **UTM en `_redirects`.** La documentación de Cloudflare no dice si la cadena de consulta del origen pasa al destino. Queda como prueba obligatoria en la vista previa.
+- **`/p/*` hoy sale como 307 en Vercel** (`permanent: false`), no como 302 como en `nginx.conf`. El borrador de `_redirects` usa 307 para no cambiar lo que sirve producción.
+- **Plan actual de Vercel desconocido.** Desde el repositorio no se ve si la cuenta está en Hobby o Pro. Si es Hobby, el uso comercial ya incumple sus términos.
+
+### Comprobantes
+
+- El documento cita cada afirmación de planes y límites con su fuente ([C1]–[C22], [V1]–[V9], [R1]), enlace y fecha de consulta 2026-11-20; cuando la página la publica, también su fecha de última modificación.
+- `npm run lint`: código 0.
+- `npm run build`: código 0, «Prerenderizado completo.», «HTML sin fronteras separadas: 10.».
+- `python .ayemi/verificar.py . --solo-errores`: «Sin hallazgos», 98 archivos revisados.
+- No quedan archivos temporales. Fuera del commit, como en T1–T13: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
 ## Pendiente de Dirección antes de producción
 
 Por la Decisión 2026-11-20 (bloqueos de T9), estas respuestas de las preguntas frecuentes de la portada ya están en la copia (es y en, `confianza.preguntas.lista` en `src/i18n.js`), pero **no se publican en producción** sin que Dirección confirme que Ayemi lo hace:
@@ -658,7 +682,7 @@ Por T10, «Quién está detrás» sigue con `SITIO.mostrarQuienEstaDetras = fals
 
 ## Bloqueos
 
-Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»). Ninguno en T5 (los puntos sin especificar están en «Detalle de T5»). Ninguno nuevo en T6 (los puntos sin especificar están en «Detalle de T6 · segundo intento»). Ninguno en T7 (los puntos sin especificar están en «Detalle de T7»; lo que toca a T11, en «Pendiente para T11»). Ninguno en T8 (los puntos sin especificar están en «Detalle de T8»). Ninguno nuevo en T9 (los puntos sin especificar están en «Detalle de T9 · segundo intento»). Ninguno en T10 (los puntos sin especificar están en «Detalle de T10» y en «Pendiente de Dirección antes de producción»). Ninguno en T11 (los puntos sin especificar están en «Detalle de T11»). Ninguno nuevo en T12 (el tercer intento está en «Detalle de T12 · tercer intento»).
+Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»). Ninguno en T5 (los puntos sin especificar están en «Detalle de T5»). Ninguno nuevo en T6 (los puntos sin especificar están en «Detalle de T6 · segundo intento»). Ninguno en T7 (los puntos sin especificar están en «Detalle de T7»; lo que toca a T11, en «Pendiente para T11»). Ninguno en T8 (los puntos sin especificar están en «Detalle de T8»). Ninguno nuevo en T9 (los puntos sin especificar están en «Detalle de T9 · segundo intento»). Ninguno en T10 (los puntos sin especificar están en «Detalle de T10» y en «Pendiente de Dirección antes de producción»). Ninguno en T11 (los puntos sin especificar están en «Detalle de T11»). Ninguno nuevo en T12 (el tercer intento está en «Detalle de T12 · tercer intento»). Ninguno en T14 (las decisiones abiertas de hosting están en «Detalle de T14 · Hallazgos»).
 
 ### T12 · el HTML prerenderizado trae `<main>` vacío · RESUELTO
 
