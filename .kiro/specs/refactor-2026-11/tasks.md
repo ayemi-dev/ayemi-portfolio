@@ -123,6 +123,16 @@ Comprobantes base (siempre): `npm run lint` · `npm run build` ·
     verifícalo con búsqueda antes). `ayemi-fuentes.css`: solo `woff2`. `width`/`height` en todas las `<img>`.
   - Comprobantes: base + Lighthouse móvil ≥ 90 (rendimiento, accesibilidad, SEO) en `/`, `/proyectos`, `/casos/ita-2026`; anota cifras en `bitacora.md`.
 
+  - **Decisión 2026-11-20 (bloqueos de T12):** (1) opción **A**: T12 incluye `src/App.jsx` y `src/main.jsx`; antes de
+    `hydrateRoot` se resuelve el trozo de la ruta actual con la misma función de `import()` de `lazy()` (módulo de
+    rutas compartido) y la primera hidratación no se suspende; las demás rutas siguen diferidas (R9). Comprobante:
+    **mediana de 3 pasadas** de Lighthouse móvil por ruta, ≥ 90 en rendimiento, accesibilidad y SEO, y CLS < 0.1.
+    (2) `gif` pasa a objeto `{ src, ancho, alto }` en `proyecto.schema.json` y `PaginaProyecto.jsx` (ninguna ficha lo
+    usa aún); `imagenAncho`/`imagenAlto` en el contrato de `piezas.js` y en `FichaPieza.jsx` (sin medidas no se pinta
+    la `<img>`). (3) Contraste 4.41:1 de los chips de stack y del pie de la guía de Emi: usa el token de texto de
+    mayor contraste que ya exista en la paleta (sin crear colores ni cambiar tokens) hasta llegar a ≥ 4.5:1; queda
+    anotado para el manual. Lo demás de T12, como lo dejaste listo.
+
 - [ ] **T13 · Auditoría con navegador en el repo**
   - Copia `../.capturas-tmp/auditoria-tipografica.mjs` a `scripts/auditoria-navegador.mjs`; agrega las rutas nuevas;
     `playwright-core` como devDependency (usa el Chrome instalado, sin descargar navegadores).
