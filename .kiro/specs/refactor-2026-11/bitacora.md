@@ -474,6 +474,39 @@ Ninguno bloquea:
 - Navegador: `vite preview` (puerto 4173) y Chrome sin interfaz por CDP, con GA4, Meta y Clarity bloqueados, a 1440 × 900 y 390 × 844. `/`, `/proyectos/` y `/casos/ita-2026/`: consola limpia, sin el error #418, título propio en cada una, «Proyectos» con `aria-current` en las dos últimas, sin desbordes. `/proyectos/ita-2026/?utm_source=prueba#cierre` termina en `/casos/ita-2026/?utm_source=prueba#cierre` con la consola limpia y `sessionStorage['ayemi:utm']` con `utm_source=prueba` y `utm_content=ita-2026`. El script y el perfil de Chrome quedaron en `%TEMP%` y se borraron; el servidor se cerró.
 - Fuera del commit, como en T1–T10: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
 
+T12 · 2026-11-20 · bloqueado · sin cambios de código: Lighthouse móvil no llega a 90 de forma estable en `/proyectos` ni en `/casos/ita-2026` por una causa ajena a lo que T12 nombra (el contenido de `<main>` desaparece al hidratar), y dos `<img>` no tienen de dónde sacar `width`/`height` (ver Bloqueos).
+
+## Detalle de T12
+
+- Se leyeron `requirements.md` (R0.3, R9), `design.md`, las reglas de `tasks.md` y el detalle de T7–T11 de esta bitácora.
+- **Lighthouse.** `npx -y lighthouse@13.6.0` (etiqueta `latest`, publicada el 2026-10-27; la `next` 13.6.0-dev.20261119 tiene menos de un día y no se usó), sin tocar `package.json`, con `CHROME_PATH` = Chrome instalado (`C:\Program Files\Google\Chrome\Application\chrome.exe`), `--headless=new`, `--form-factor=mobile` (simulación por defecto), `--only-categories=performance,accessibility,seo`, sobre `vite preview` en el puerto 4173 con el build actual (commit ca56e28). Tres pasadas por ruta, **antes de cualquier cambio de T12**:
+
+  | Ruta | Pasada | Rendimiento | Accesibilidad | SEO | LCP | TBT | CLS |
+  |---|---|---|---|---|---|---|---|
+  | `/` | 1 | 100 | 97 | 100 | 1.0 s | 30 ms | 0.001 |
+  | `/` | 2 | 79 | 97 | 100 | 4.2 s | 320 ms | 0.014 |
+  | `/` | 3 | 78 | 97 | 100 | 4.2 s | 330 ms | 0.015 |
+  | `/proyectos/` | 1 | 88 | 96 | 100 | 3.3 s | 240 ms | 0.014 |
+  | `/proyectos/` | 2 | 87 | 96 | 100 | 3.3 s | 270 ms | 0.014 |
+  | `/proyectos/` | 3 | 67 | 96 | 100 | 3.3 s | 100 ms | 0.936 |
+  | `/casos/ita-2026/` | 1 | 62 | 100 | 100 | 3.8 s | 150 ms | 0.936 |
+  | `/casos/ita-2026/` | 2 | 86 | 100 | 100 | 3.8 s | 160 ms | 0.014 |
+  | `/casos/ita-2026/` | 3 | 100 | 100 | 100 | 0.8 s | 40 ms | 0.003 |
+
+  Accesibilidad y SEO cumplen (≥ 90) en las nueve pasadas. Rendimiento oscila entre 62 y 100 en la misma ruta y con el mismo build.
+- **Causa de la oscilación.** En las pasadas malas, la auditoría `layout-shifts` culpa al `<footer>` (0.92 de los 0.936). Se reprodujo con Chrome sin interfaz (puppeteer-core del caché de `npx`, 412 × 823, CPU × 4, 1.6 Mbit/s, 150 ms; script en `%TEMP%`, ya borrado): el `<footer>` llega a estar en `y = 64`, justo debajo de la cabecera, con 759 px de alto. Es decir, `<main id="contenido">` se queda vacío durante la carga aunque el HTML prerenderizado lo trae completo. Sin estrangular la red no pasa (CLS 0.03–0.07). Cuando pasa, el LCP es el h1 o la entradilla vueltos a pintar por el cliente (3.3–4.2 s, casi todo «element render delay»); cuando no pasa, el LCP es el del HTML (0.8–1.0 s). La consola queda limpia: no hay error #418, así que no es un desajuste de hidratación.
+  Lo que encaja con eso: las cuatro páginas van con `lazy()` dentro de `<Suspense fallback={null}>` en `App.jsx` (T7). Mientras llega el trozo de JavaScript, React conserva el HTML del servidor; si antes de eso llega una actualización que atraviesa esa frontera, React abandona la hidratación de la frontera, pinta el `fallback` (`null`) y vuelve a montar la página en cliente. No se identificó qué actualización la dispara (no hay `changeLanguage`, `navigate` ni `replaceState` al arrancar fuera de `Proyectos.jsx`).
+- **Borrado de `src/assets/*`.** `git grep` de `hero.png`, `react.svg`, `vite.svg`, `icono.png`, `logo.png`, `Logos/` y `assets/` fuera de `src/assets/` y de `package-lock.json`: 0 coincidencias en código; solo aparecen en `tasks.md` y `requirements.md`. Los cuatro se pueden borrar. No se borraron porque la tarea quedó bloqueada.
+- **Solo `woff2`.** Los `@import` de `@fontsource/*/latin-*.css` declaran `src: url(…woff2) format('woff2'), url(…woff) format('woff')`, así que Vite copia también los `.woff` a `dist/assets/`. Para dejar solo `woff2` hay que escribir en `ayemi-fuentes.css` las 13 `@font-face` (las mismas familias, pesos, subconjuntos, `font-display: swap` y `unicode-range` que hoy) apuntando a `@fontsource/<familia>/files/*.woff2`. No se hizo por el bloqueo.
+- **`width`/`height`.** De las 12 `<img>` de `src/`, 10 ya los llevan. Faltan dos, ver Bloqueos.
+- **Hallazgo fuera de alcance, anotado:** la auditoría `color-contrast` falla en `/` y `/proyectos` por `--ay-texto-tenue` (#7A8391) sobre `--ay-superficie` (#1A1D21) a 12 px: 4.41:1, por debajo de 4.5:1 (WCAG AA y regla 7 de marca). Afecta a los chips de stack de `TarjetaProyecto` y a un pie de `GuiaEmi` en la portada. Cambiar el valor del token o el rol de esos textos lo decide la dirección de marca. `label-content-name-mismatch` falla en el botón de idioma («EN»): su `aria-label` no contiene el texto visible.
+- **Comprobantes (estado actual, sin cambios):**
+  - `npm run lint`: código 0.
+  - `npm run validar`: «Fichas de proyecto válidas: 1.», código 0.
+  - `npm run build`: código 0, «Prerenderizado completo.», sitemap con 9 URL.
+  - `python .ayemi/verificar.py . --solo-errores`: «Sin hallazgos», 94 archivos, 0 errores.
+- El servidor de `vite preview` se cerró y la carpeta temporal (informes JSON, registro y script) se borró. Fuera del commit, como en T1–T11: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
+
 ## Pendiente de Dirección antes de producción
 
 Por la Decisión 2026-11-20 (bloqueos de T9), estas respuestas de las preguntas frecuentes de la portada ya están en la copia (es y en, `confianza.preguntas.lista` en `src/i18n.js`), pero **no se publican en producción** sin que Dirección confirme que Ayemi lo hace:
@@ -499,6 +532,27 @@ Por T10, «Quién está detrás» sigue con `SITIO.mostrarQuienEstaDetras = fals
 ## Bloqueos
 
 Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»). Ninguno en T5 (los puntos sin especificar están en «Detalle de T5»). Ninguno nuevo en T6 (los puntos sin especificar están en «Detalle de T6 · segundo intento»). Ninguno en T7 (los puntos sin especificar están en «Detalle de T7»; lo que toca a T11, en «Pendiente para T11»). Ninguno en T8 (los puntos sin especificar están en «Detalle de T8»). Ninguno nuevo en T9 (los puntos sin especificar están en «Detalle de T9 · segundo intento»). Ninguno en T10 (los puntos sin especificar están en «Detalle de T10» y en «Pendiente de Dirección antes de producción»). Ninguno en T11 (los puntos sin especificar están en «Detalle de T11»).
+
+### T12 · rendimiento · ABIERTO
+
+T12 se detuvo sin cambios de código. Hacen falta dos decisiones; las cifras y el diagnóstico están en «Detalle de T12».
+
+**1 · El contenido de `<main>` desaparece al hidratar (fuera de lo que T12 nombra).** Con la red y la CPU estranguladas de Lighthouse móvil, a veces `<main>` se vacía y la página se monta otra vez en cliente: CLS 0.936 y LCP 3.3–4.2 s. Por eso Rendimiento sale entre 62 y 100 en la misma ruta. Borrar `src/assets/*`, dejar solo `woff2` y poner `width`/`height` no toca esa causa, que está en `App.jsx` / `main.jsx` (T7), archivos que T12 no nombra. Arreglarlo es elegir entre opciones con efectos distintos:
+
+- **A (propuesta).** Antes de `hydrateRoot`, `main.jsx` resuelve el trozo de la ruta actual (la misma función de `import()` que usa `lazy()`, exportada desde un módulo de rutas) y la página se pasa ya resuelta, de modo que la primera hidratación no se suspende. Se conserva la carga diferida de R9 para las demás rutas. Toca `App.jsx` y `main.jsx`.
+- **B.** Localizar la actualización que cruza la frontera de `Suspense` antes de que termine de hidratar y envolverla en `startTransition`. Es más pequeño si la causa es una sola, pero no se encontró en esta pasada y otra actualización futura lo volvería a romper.
+- **C.** Quitar `lazy()` de las cuatro páginas. Es lo más simple, pero contradice R9 y design.md («Todas las páginas nuevas con `lazy()`»).
+
+Con A, se propone que T12 incluya `src/App.jsx` y `src/main.jsx` en su alcance y que el comprobante sea la mediana de tres pasadas de Lighthouse por ruta (≥ 90 en las tres categorías), porque una sola pasada varía más de 30 puntos.
+
+**2 · Dos `<img>` sin datos para `width`/`height`.** Las dos están en código que hoy no se pinta con ningún dato real, pero T12 pide `width`/`height` en todas las `<img>`:
+
+- `src/pages/PaginaProyecto.jsx`, el GIF del bloque 2: en el esquema, `gif` es solo una ruta (`$defs/ruta`), sin ancho ni alto. **Propuesta:** `gif` pasa a objeto `{ src, ancho, alto }` como `imagenes[]`, en `proyecto.schema.json` y en `PaginaProyecto.jsx` (cambia el contrato de R1.2, aunque ninguna ficha usa `gif` todavía). Alternativa sin tocar el esquema: 1280 × 720, el mismo tamaño fijo que la Decisión 2026-11-20 de T2 da al video y que `VideoProyecto` usa por defecto. Con `h-auto` el GIF no se deforma si mide otra cosa, pero habría un salto de diseño al cargar.
+- `src/features/piezas/FichaPieza.jsx`, `pieza.imagen`: el contrato de `src/config/piezas.js` la define como una ruta, sin medidas, y ninguna pieza la usa. **Propuesta:** añadir `imagenAncho` e `imagenAlto` al contrato documentado en `piezas.js` y pasarlos a la `<img>`. Si no se pintan, la `<img>` no se pinta.
+
+**Lo demás de T12 está claro y listo para hacerse al reanudar:** borrar `src/assets/hero.png`, `src/assets/Logos/*`, `src/assets/react.svg` y `src/assets/vite.svg` (sin uso, comprobado con `git grep`) y sustituir los `@import` de `ayemi-fuentes.css` por 13 `@font-face` solo con `woff2`.
+
+**Para Dirección de marca, fuera de T12:** `--ay-texto-tenue` sobre `--ay-superficie` da 4.41:1 (pide 4.5:1) en los chips de stack de las tarjetas y en un pie de la guía de Emi en la portada.
 
 ### T9 · portada, confianza y preguntas frecuentes · RESUELTO
 
