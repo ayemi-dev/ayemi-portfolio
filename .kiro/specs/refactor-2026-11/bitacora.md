@@ -602,6 +602,38 @@ T12 · 2026-11-20 · hecho · aplicada la Decisión 2026-11-20 (segundo bloqueo 
 - **Nota de medición.** En PowerShell, `--only-categories=performance,accessibility,seo` sin comillas llega a Lighthouse como «performance accessibility seo» y la ejecución falla con «unrecognized category». Hay que pasar cada argumento entre comillas simples. `vite preview` escucha en `::1`, así que la URL lleva `localhost` y no `127.0.0.1`.
 - `vite preview` se cerró y la carpeta temporal de `%TEMP%` (informes JSON y registro) se borró. Fuera del commit, como en T1–T11: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
 
+T13 · 2026-11-20 · hecho · `scripts/auditoria-navegador.mjs` (copia de `../.capturas-tmp/auditoria-tipografica.mjs` sobre `playwright-core` 1.65.1 y el Chrome instalado) audita 11 rutas, entre ellas `/proyectos` y una página por ficha publicada; script `auditar` en `package.json`. `npm run auditar`: 44 páginas (11 rutas × escritorio 1440 × 900 y móvil 390 × 844 × es y en), 0 fallos. Retirada `public/casos/ita/`, como fijó la Decisión 2026-11-20 (medios) de T6.
+
+## Detalle de T13
+
+### Archivos
+
+- `scripts/auditoria-navegador.mjs`: la auditoría de `../.capturas-tmp/` con estos cambios, y nada más:
+  - `import { chromium } from 'playwright-core'` en vez de `'playwright'`. Sigue lanzando `chromium.launch({ channel: 'chrome' })`, el Chrome instalado; no se descargó ningún navegador (`PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1` al instalar; `playwright-core` no tiene paso de descarga).
+  - Rutas: se añaden `/proyectos` y una ruta por ficha `publicado` de `contenido/proyectos/*/proyecto.json` (`/casos/<slug>` si es `caso-cliente`, `/proyectos/<slug>` si es `laboratorio`), sin duplicados. Hoy solo hay ITA, que ya estaba (`/casos/ita-2026`); una demo nueva entra sola en la auditoría. Se conservan las 10 rutas de antes, también `/casos`, que ahora lleva a `/proyectos#casos` y así queda comprobada la redirección dentro de la app.
+  - Sale con código 1 si hay algún fallo, para que sirva de comprobante. Antes siempre salía con 0.
+  - El informe JSON solo se escribe si se pasa como segundo argumento (`npm run auditar -- http://localhost:4173 informe.json`). Antes se escribía siempre `auditoria.json` en la carpeta actual, que habría ensuciado el repositorio.
+  - Si no responde nada en la base (por defecto `http://localhost:4173`), sale con código 1 y dice que hay que correr `npm run build` y `npm run preview`.
+- `package.json`: `"auditar": "node scripts/auditoria-navegador.mjs"` y `playwright-core` `^1.65.1` en `devDependencies` (más `package-lock.json`).
+- `public/casos/ita/` (6 archivos: las 3 capturas, `ita.mp4`, `ita.webm`, `ita-poster.webp`): borrada con `git rm`. Desde T6 nada la usaba (búsqueda de `casos/ita`, `ita.mp4`, `ita-poster` y `problema-escritorio` fuera de `.md`: sin resultados); todo sale de `/proyectos/ita-2026/`. Los originales siguen en `contenido/proyectos/ita-2026/medios/`. `dist/casos/ita/` ya no existe tras el build.
+- `pendientes/LEEME.md`: el paso 1 apuntaba a `public/casos/ita/`. Ahora dice que los tres `.jpg` van a `contenido/proyectos/ita-2026/medios/` y que el build los copia a `public/proyectos/ita-2026/`.
+
+### Puntos que T13 no especificaba
+
+- **Versión de `playwright-core`.** La estable más reciente con más de un día: `1.65.1`, publicada el 2026-11-13 (`latest` en npm). Las `1.66.0-alpha-*` son prelanzamientos.
+- **Servidor.** `npm run auditar` no arranca `vite preview`: lo espera en marcha, como dice la tabla de verificación de design.md («0 fallos (vite preview)»).
+- **`/proyectos/<slug>` de un caso de cliente** (por ejemplo `/proyectos/ita-2026`) no se audita aparte: solo lleva a `/casos/<slug>`, que ya está en la lista.
+
+### Comprobantes
+
+- `npm run lint`: código 0.
+- `npm run validar`: «Fichas de proyecto válidas: 1.», código 0.
+- `npm run build`: código 0. «Prerenderizado completo.», sitemap con 9 URL, «HTML sin fronteras separadas: 10.». Siguen las advertencias `[Ayemi §3.10] … 18 px / 22 px`, anteriores a T1.
+- `python .ayemi/verificar.py . --solo-errores`: «Sin hallazgos», 97 archivos revisados, 0 errores.
+- `npm run auditar` contra `vite preview` (puerto 4173): 44 páginas, **0 fallos**, código 0. Ningún elemento con una familia o pila fuera del manual, con cursiva o negrita sintética, con glifos de otra fuente ni con Instrument Serif en más de 3 líneas. Instrument Serif aparece en 1 elemento, solo en la portada. Elementos con texto por página (escritorio es): `/` 325 · `/laboratorio` 151 · `/proyectos` 50 · `/casos/ita-2026` 87 · `/casos` 50 · `/casos/calculadora-series` 56 · `/casos/invitacion-boda` 59 · `/pcb` 211 · `/enlaces` 31 · `/privacidad` 99 · `/ruta-que-no-existe` 39.
+- Sin servidor, `npm run auditar` sale con código 1 y el aviso de arrancar `vite preview` (comprobado antes de levantarlo).
+- `vite preview` se cerró al terminar. No quedan archivos temporales. Fuera del commit, como en T1–T12: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
+
 ## Pendiente de Dirección antes de producción
 
 Por la Decisión 2026-11-20 (bloqueos de T9), estas respuestas de las preguntas frecuentes de la portada ya están en la copia (es y en, `confianza.preguntas.lista` en `src/i18n.js`), pero **no se publican en producción** sin que Dirección confirme que Ayemi lo hace:

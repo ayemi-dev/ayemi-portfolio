@@ -8,6 +8,7 @@
     "build": "node scripts/validar-proyectos.mjs && node scripts/copiar-medios.mjs && vite build && node prerender.mjs && node scripts/comprobar-prerender.mjs",
     "validar": "node scripts/validar-proyectos.mjs",
     "importar-proyecto": "node scripts/importar-proyecto.mjs",
+    "auditar": "node scripts/auditoria-navegador.mjs",
     "build:solo": "vite build",
     "prerender": "node prerender.mjs",
     "lint": "eslint .",
@@ -37,6 +38,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.4.0",
+    "playwright-core": "^1.65.1",
     "sharp": "^0.35.5",
     "vite": "^8.0.4"
   }

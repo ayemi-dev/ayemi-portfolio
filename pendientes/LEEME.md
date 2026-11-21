@@ -10,7 +10,7 @@ Capturas del sitio de ITA donde sale su personal.
 
 Cuando ITA lo autorice por escrito:
 
-1. Mueve los tres `.jpg` a `public/casos/ita/` y copia los mismos tres a
-   `contenido/proyectos/ita-2026/medios/`.
+1. Mueve los tres `.jpg` a `contenido/proyectos/ita-2026/medios/`. El build
+   los copia a `public/proyectos/ita-2026/`.
 2. En `contenido/proyectos/ita-2026/proyecto.json`, cambia `permisoPersonal`
    a `true`.
