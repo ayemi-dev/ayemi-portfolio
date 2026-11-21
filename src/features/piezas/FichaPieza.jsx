@@ -181,14 +181,17 @@ export const FichaPieza = () => {
       )}
 
       {/* ── Imagen, si la hay ───────────────────────────────────────────────── */}
-      {pieza.imagen && (
+      {/* Sin medidas no se pinta: el alto reservado evita el salto al cargar. */}
+      {pieza.imagen && pieza.imagenAncho && pieza.imagenAlto && (
         /* §3.12 · Sin filtros de época, sin viñeteo y sin degradados sobre la
            imagen. Solo el borde y el radio del sistema. */
         <figure className="mt-16 overflow-hidden rounded-lg border border-borde">
           <img
             src={pieza.imagen}
+            width={pieza.imagenAncho}
+            height={pieza.imagenAlto}
             alt={pieza.titulo}
-            className="block w-full"
+            className="block h-auto w-full"
             loading="lazy"
           />
         </figure>

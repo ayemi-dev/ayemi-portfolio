@@ -75,7 +75,7 @@ function rutasDeMedios(ficha) {
   if (ficha.video && typeof ficha.video === 'object') {
     rutas.push(ficha.video.mp4, ficha.video.webm, ficha.video.poster)
   }
-  rutas.push(ficha.gif, ficha.diagrama)
+  rutas.push(ficha.gif?.src, ficha.diagrama)
   return rutas.filter((r) => typeof r === 'string' && r && !/^[a-z]+:\/\//i.test(r))
 }
 

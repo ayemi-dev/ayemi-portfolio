@@ -40,6 +40,8 @@
  *       { tipo: 'render', url: '/piezas/temperatura-v2.png' },
  *     ],
  *     imagen: '/piezas/temperatura-v2.png',  // opcional, para la ficha
+ *     imagenAncho: 1600,               // obligatorios con `imagen`, en px;
+ *     imagenAlto: 900,                 // sin ellos la ficha no pinta la imagen
  *     arquitectura: [                  // opcional · capas, en orden
  *       { capa: 'Firmware', que: 'Qué hace esta capa, en una frase.' },
  *     ],

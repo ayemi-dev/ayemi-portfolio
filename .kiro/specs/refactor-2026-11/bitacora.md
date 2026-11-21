@@ -507,6 +507,65 @@ T12 · 2026-11-20 · bloqueado · sin cambios de código: Lighthouse móvil no l
   - `python .ayemi/verificar.py . --solo-errores`: «Sin hallazgos», 94 archivos, 0 errores.
 - El servidor de `vite preview` se cerró y la carpeta temporal (informes JSON, registro y script) se borró. Fuera del commit, como en T1–T11: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
 
+T12 · 2026-11-20 · bloqueado · aplicada la Decisión 2026-11-20 (bloqueos de T12) completa: borrados los cinco archivos de `src/assets/`, fuentes solo en `woff2`, `width`/`height` en las 12 `<img>`, chips y pie de Emi en `texto-suave` y la página de la ruta actual resuelta antes de `hydrateRoot`. Accesibilidad y SEO dan 100 en las nueve pasadas, pero Rendimiento sigue por debajo de 90 en las tres rutas (medianas 70, 87 y 85). La causa real está en `prerender.mjs`, fuera del alcance de T12: el HTML estático trae `<main>` vacío y su contenido aparte. El bloqueo anterior queda resuelto y se abre uno nuevo con una propuesta medida (ver Bloqueos).
+
+## Detalle de T12 · segundo intento (Decisión 2026-11-20 aplicada)
+
+### Archivos
+
+- **Borrados** (con `git rm`): `src/assets/hero.png`, `src/assets/Logos/icono.png`, `src/assets/Logos/logo.png`, `src/assets/react.svg` y `src/assets/vite.svg`. Antes se repitió el `git grep` de `hero.png`, `react.svg`, `vite.svg`, `icono.png`, `logo.png`, `Logos/` y `assets/` fuera de `src/assets/` y de `package-lock.json`: 0 coincidencias en código. `src/assets/` ya no existe.
+- **`src/styles/ayemi-fuentes.css`.** Los 13 `@import` de `@fontsource/*/latin-*.css` pasan a 13 `@font-face` escritas a mano, con la misma familia, estilo, peso, `font-display: swap` y orden, y `src` solo con el `woff2` de `@fontsource/<familia>/files/`. En `dist/assets/` quedan 13 `.woff2` y 0 `.woff`, y el CSS compilado tiene 13 `@font-face`. Durante la prueba apareció un error propio, ya corregido: un comentario con `*/` dentro de una ruta de ejemplo cerraba el comentario antes de tiempo y se perdía la primera `@font-face`.
+- **`src/rutasDiferidas.jsx`** (nuevo, el módulo de rutas compartido de la opción A): guarda el `import()` de las cuatro páginas diferidas (`Inicio`, `Proyectos`, `DemoOCaso`, `CasoOFicha`), los mismos patrones de ruta que `App.jsx` y `precargarPaginaActual(ruta)`. Cada página exporta un componente que pinta la página ya resuelta si se precargó antes de hidratar, y si no, la versión con `lazy()`. Una página precargada se pinta siempre con su componente directo y las demás siempre con `lazy()`, así que ninguna cambia de tipo en vida de la app y no se vuelve a montar por esto. Si la descarga falla, la página queda con `lazy()`, como antes.
+- **`src/App.jsx`**: importa las cuatro páginas de `rutasDiferidas.jsx` en lugar de declarar sus `lazy()`. Las rutas no cambian.
+- **`src/main.jsx`**: con HTML previo, `precargarPaginaActual(window.location.pathname)` y después `hydrateRoot`. Sin HTML previo (`npm run dev`), `createRoot` como antes. Las demás rutas siguen en diferido (R9).
+- **GIF.** En `contenido/proyectos/proyecto.schema.json`, `gif` pasa a objeto `{ src, ancho, alto }` con los tres obligatorios. `src/pages/PaginaProyecto.jsx` pinta `gif.src` con `width={gif.ancho}` y `height={gif.alto}`. **Fuera de lo que la Decisión nombra:** `scripts/validar-proyectos.mjs` comprueba ahora `ficha.gif?.src` en lugar de `ficha.gif`. Sin ese cambio, el validador dejaría de comprobar silenciosamente que el archivo del GIF existe. El importador no necesita cambios: ya reescribe cualquier objeto con `src`.
+- **Piezas.** El contrato documentado en `src/config/piezas.js` añade `imagenAncho` e `imagenAlto` (obligatorios con `imagen`). `src/features/piezas/FichaPieza.jsx` solo pinta la `<img>` con `imagen`, `imagenAncho` e `imagenAlto`, y les pasa `width`/`height` y la clase `h-auto`. Ninguna pieza usa `imagen` hoy.
+- **Contraste.** Los chips de stack de `src/features/proyectos/TarjetaProyecto.jsx` y el pie del globo de `src/components/marca/GuiaEmi.jsx` pasan de `text-texto-tenue` a `text-texto-suave`. Es el siguiente token de texto existente y el de mayor contraste por debajo de `texto`. Queda en 6.1:1 en oscuro (`#949CA8` sobre `#1A1D21`) y en 11.6:1 en claro (`#333941` sobre `#FFFFFF`). La auditoría `color-contrast` de Lighthouse ya no falla. No se crearon colores ni se tocaron tokens. **Para el manual:** `--ay-texto-tenue` sobre `--ay-superficie` da 4.41:1 en oscuro, así que no sirve como texto de 12 px sobre tarjetas.
+- `width`/`height`: las 12 `<img>` de `src/` los llevan (las 10 de antes, el GIF y la de `FichaPieza`).
+
+### Comprobantes
+
+- `npm run lint`: código 0.
+- `npm run validar`: «Fichas de proyecto válidas: 1.», código 0.
+- `npm run build`: código 0, «Prerenderizado completo.», sitemap con 9 URL. Siguen las advertencias `[Ayemi §3.10] … 18 px / 22 px`, anteriores a T1.
+- `python .ayemi/verificar.py . --solo-errores`: «Sin hallazgos», 95 archivos, 0 errores.
+- **Lighthouse móvil**, con la misma configuración que el primer intento: `npx -y lighthouse@13.6.0`, Chrome instalado, `--headless=new`, `--form-factor=mobile` (simulación por defecto), `--only-categories=performance,accessibility,seo`, sobre `vite preview` (puerto 4173), con el build de este commit:
+
+  | Ruta | Pasada | Rendimiento | Accesibilidad | SEO | LCP | TBT | CLS |
+  |---|---|---|---|---|---|---|---|
+  | `/` | 1 | 70 | 100 | 100 | 4.2 s | 650 ms | 0 |
+  | `/` | 2 | 67 | 100 | 100 | 4.2 s | 780 ms | 0.015 |
+  | `/` | 3 | 71 | 100 | 100 | 4.3 s | 560 ms | 0.015 |
+  | `/proyectos/` | 1 | 86 | 100 | 100 | 3.3 s | 290 ms | 0.014 |
+  | `/proyectos/` | 2 | 87 | 100 | 100 | 3.4 s | 250 ms | 0.015 |
+  | `/proyectos/` | 3 | 88 | 100 | 100 | 3.4 s | 220 ms | 0.014 |
+  | `/casos/ita-2026/` | 1 | 85 | 100 | 100 | 3.9 s | 210 ms | 0.014 |
+  | `/casos/ita-2026/` | 2 | 64 | 100 | 100 | 3.8 s | 70 ms | 0.937 |
+  | `/casos/ita-2026/` | 3 | 100 | 100 | 100 | 0.8 s | 40 ms | 0.003 |
+
+  **Medianas:** `/` 70 · 100 · 100, CLS 0.015; `/proyectos/` 87 · 100 · 100, CLS 0.014; `/casos/ita-2026/` 85 · 100 · 100, CLS 0.014. Accesibilidad y SEO cumplen (≥ 90) en las tres rutas, y la mediana de CLS es < 0.1 en las tres. **Rendimiento no llega a 90 en ninguna.** El comprobante de T12 no se cumple.
+- **Causa encontrada.** La precarga funciona: el trozo de la página llega antes de `hydrateRoot` y la consola queda limpia. Pero el CLS de 0.937 volvió a salir. Con Chrome sin interfaz (puppeteer-core del caché de `npx`, 412 × 823, sin estrangular, un `MutationObserver` sobre `<main>`; script en `%TEMP%`, ya borrado) se vio que en 10 de 10 cargas de `/casos/ita-2026/` se quita un `<template>` de `<main>`. El HTML prerenderizado no trae la página dentro de `<main>`: trae `<main id="contenido" class="pt-16"><!--$?--><template id="B:0"></template><!--/$--></main>`, el contenido en un `<div hidden id="S:0">` al final del `<body>` y un guion en línea `$RC` que lo mueve a su sitio. React 19.2 (`react-dom` 19.2.5) hace esto aunque se use `prerenderToNodeStream`: separa ("outlining") toda frontera de `<Suspense>` ya completa que pase de `progressiveChunkSize` (12 800 bytes por defecto, `react-dom-server.node.production.js`, función de volcado de fronteras). La frontera de `App.jsx` envuelve la página entera, así que siempre pasa. Por eso, hasta que corre `$RC`, el pie queda debajo de la cabecera (el `<footer>` en `y = 64` del primer intento). El LCP espera a que se revele el contenido, y en la simulación de Lighthouse eso arrastra la descarga de todo el JavaScript (3.3–4.3 s). Cuando el pintado cae antes de la revelación, el pie salta (CLS 0.937). El diagnóstico del primer intento (la hidratación tira el HTML) era incorrecto. La opción A no toca esta causa.
+- **Prueba de la propuesta, ya revertida.** Se añadió `{ progressiveChunkSize: Infinity }` como segundo argumento de `prerenderToNodeStream` en `prerender.mjs`, se reconstruyó y se midió. Los tres HTML salieron sin `<template id="B:…">` ni `$RC`, y en 4 de 4 cargas no se quitó nada de `<main>`. Lighthouse:
+
+  | Ruta | Pasada | Rendimiento | Accesibilidad | SEO | LCP | TBT | CLS |
+  |---|---|---|---|---|---|---|---|
+  | `/` | 1 | 100 | 100 | 100 | 1.2 s | 20 ms | 0.001 |
+  | `/` | 2 | 96 | 100 | 100 | 1.2 s | 240 ms | 0 |
+  | `/` | 3 | 96 | 100 | 100 | 1.1 s | 220 ms | 0.001 |
+  | `/proyectos/` | 1 | 100 | 100 | 100 | 0.8 s | 70 ms | 0.025 |
+  | `/proyectos/` | 2 | 100 | 100 | 100 | 0.8 s | 60 ms | 0.025 |
+  | `/proyectos/` | 3 | 100 | 100 | 100 | 0.8 s | 60 ms | 0.025 |
+  | `/casos/ita-2026/` | 1 | 96 | 100 | 100 | 0.9 s | 220 ms | 0.003 |
+  | `/casos/ita-2026/` | 2 | 98 | 100 | 100 | 0.9 s | 160 ms | 0.003 |
+  | `/casos/ita-2026/` | 3 | 98 | 100 | 100 | 0.9 s | 160 ms | 0.003 |
+
+  Medianas: 96 / 100 / 98 en Rendimiento, 100 en Accesibilidad y SEO, CLS 0.001 / 0.025 / 0.003. `prerender.mjs` se restauró desde una copia, `git diff -- prerender.mjs` sale vacío y se volvió a construir: el `dist/` final es el de este commit y sí trae el `<template>`.
+- **Puntos sin especificar que no bloquean:**
+  - Las `@font-face` de `latin` y `latin-ext` del mismo peso no llevan `unicode-range`, igual que las hojas `latin-*.css` de `@fontsource` que se usaban. El primer intento decía que había que copiar su `unicode-range`, pero esas hojas no lo traen: solo lo traen las hojas por peso (`400.css`…). Así que se mantiene el comportamiento de antes. Añadir el `unicode-range` evitaría descargar el subconjunto `latin-ext` en páginas que no lo usan, pero es otro cambio, que no se pidió.
+  - `Inicio.jsx` sigue con `TechStack` en `lazy()`. La precarga solo resuelve el trozo de la página, como dice la Decisión. Con el HTML en línea de la propuesta, la frontera de `TechStack` también llega completa.
+  - La precarga se queda aunque no arregle el CLS. Evita que, si una actualización temprana atravesara la frontera antes de que llegue el trozo, React tirara el HTML de la página. Si se acepta la propuesta, conviene conservarla.
+- `vite preview` se cerró y la carpeta temporal (informes, scripts, copia de `prerender.mjs`) se borró. Fuera del commit, como en T1–T11: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
+
 ## Pendiente de Dirección antes de producción
 
 Por la Decisión 2026-11-20 (bloqueos de T9), estas respuestas de las preguntas frecuentes de la portada ya están en la copia (es y en, `confianza.preguntas.lista` en `src/i18n.js`), pero **no se publican en producción** sin que Dirección confirme que Ayemi lo hace:
@@ -533,7 +592,22 @@ Por T10, «Quién está detrás» sigue con `SITIO.mostrarQuienEstaDetras = fals
 
 Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»). Ninguno en T5 (los puntos sin especificar están en «Detalle de T5»). Ninguno nuevo en T6 (los puntos sin especificar están en «Detalle de T6 · segundo intento»). Ninguno en T7 (los puntos sin especificar están en «Detalle de T7»; lo que toca a T11, en «Pendiente para T11»). Ninguno en T8 (los puntos sin especificar están en «Detalle de T8»). Ninguno nuevo en T9 (los puntos sin especificar están en «Detalle de T9 · segundo intento»). Ninguno en T10 (los puntos sin especificar están en «Detalle de T10» y en «Pendiente de Dirección antes de producción»). Ninguno en T11 (los puntos sin especificar están en «Detalle de T11»).
 
-### T12 · rendimiento · ABIERTO
+### T12 · el HTML prerenderizado trae `<main>` vacío · ABIERTO
+
+T12 aplicó toda la Decisión 2026-11-20 (bloqueos de T12), pero Rendimiento no llega a 90. Las medianas son 70 en `/`, 87 en `/proyectos/` y 85 en `/casos/ita-2026/`. Las cifras y la prueba están en «Detalle de T12 · segundo intento».
+
+**Causa.** React 19.2 separa del HTML toda frontera de `<Suspense>` que pase de 12 800 bytes (`progressiveChunkSize`), también con `prerenderToNodeStream`. La frontera de `App.jsx` envuelve la página entera. Por eso `dist/*/index.html` trae `<main>` con un `<template id="B:0">`, el contenido en un `<div hidden>` al final del `<body>` y un guion `$RC` que lo coloca. Hasta que ese guion corre, la página no tiene contenido y el pie queda debajo de la cabecera: el LCP se retrasa a 3.3–4.3 s y a veces el CLS sube a 0.937. Esto está en `prerender.mjs` (T11), que T12 no nombra. La opción A de la Decisión no lo toca.
+
+**Propuesta de Kiro (medida y revertida).** Añadir a `T12` el archivo `prerender.mjs`, con un único cambio: `{ progressiveChunkSize: Infinity }` como segundo argumento de `prerenderToNodeStream`, y un comentario que explique el porqué. Con eso cada frontera completa va en línea, en su sitio. Medido con las mismas tres pasadas por ruta, las medianas fueron 96 / 100 / 98 en Rendimiento, 100 en Accesibilidad y SEO en las tres rutas, y CLS de 0.001 / 0.025 / 0.003. La precarga de `rutasDiferidas.jsx` se conserva. Se propone además añadir un comprobante a T12: ningún `dist/**/index.html` contiene `<template id="B:` ni `$RC`, para que una frontera nueva no vuelva a separarse en silencio.
+
+- Alternativa: subir el límite a un número fijo (por ejemplo `1_000_000`) en lugar de `Infinity`. El efecto hoy es el mismo, pero una página muy grande volvería a separarse sin aviso.
+- Alternativa: quitar la frontera de `App.jsx` y poner una por página. No basta: la de `Inicio` sigue pasando de 12 800 bytes. Además, contradice la opción A.
+
+Con la propuesta aceptada, para cerrar T12 basta aplicar ese cambio, reconstruir, medir y hacer el commit.
+
+### T12 · rendimiento (primer intento) · RESUELTO
+
+**Resuelto el 2026-11-20** con la Decisión 2026-11-20 (bloqueos de T12) de `tasks.md`, que se aplicó en el segundo intento de T12: opción A (`App.jsx` y `main.jsx` dentro del alcance, página de la ruta actual resuelta antes de `hydrateRoot`), mediana de tres pasadas como comprobante, `gif` como `{ src, ancho, alto }`, `imagenAncho`/`imagenAlto` en piezas y `texto-suave` en los dos textos de 4.41:1. El diagnóstico del punto 1 resultó incorrecto, ver el bloqueo abierto de arriba.
 
 T12 se detuvo sin cambios de código. Hacen falta dos decisiones; las cifras y el diagnóstico están en «Detalle de T12».
 

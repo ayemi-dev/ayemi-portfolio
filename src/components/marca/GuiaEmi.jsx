@@ -63,8 +63,10 @@ const Globo = ({ children, pie }) => (
 
     <p className="text-cuerpo-l text-texto">{children}</p>
 
+    {/* Pie en texto-suave: texto-tenue sobre superficie da 4.41:1 en oscuro y
+        no llega al 4.5:1 de AA (Decisión 2026-11-20, T12). */}
     {pie && (
-      <p className="mt-3 border-t border-borde pt-3 font-mono text-micro text-texto-tenue">
+      <p className="mt-3 border-t border-borde pt-3 font-mono text-micro text-texto-suave">
         {pie}
       </p>
     )}

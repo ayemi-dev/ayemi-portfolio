@@ -174,7 +174,9 @@ export const PaginaProyecto = () => {
           )}
           {conGif && (
             <img
-              src={media(gif)}
+              src={media(gif.src)}
+              width={gif.ancho}
+              height={gif.alto}
               alt={textos.titulo}
               loading="lazy"
               decoding="async"

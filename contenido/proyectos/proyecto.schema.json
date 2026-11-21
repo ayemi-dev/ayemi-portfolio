@@ -45,7 +45,15 @@
         "duracionSeg": { "type": "number", "exclusiveMinimum": 0 }
       }
     },
-    "gif": { "$ref": "#/$defs/ruta" },
+    "gif": {
+      "type": "object",
+      "required": ["src", "ancho", "alto"],
+      "properties": {
+        "src": { "$ref": "#/$defs/ruta" },
+        "ancho": { "type": "integer", "minimum": 1 },
+        "alto": { "type": "integer", "minimum": 1 }
+      }
+    },
     "demo": {
       "type": "object",
       "required": ["url"],

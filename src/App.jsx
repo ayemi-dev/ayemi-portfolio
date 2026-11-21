@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { Suspense } from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Navbar } from './components/Navbar';
@@ -25,18 +25,10 @@ import {
 import { RUTA_CORTA_PLACA } from './config/placas';
 
 /* Las rutas de design.md se cargan en diferido (R9). El prerenderizado espera
-   a que se resuelvan, así que el HTML estático las trae completas y la
-   hidratación conserva ese HTML mientras llega su trozo de JavaScript. */
-const Inicio = lazy(() => import('./pages/Inicio').then((m) => ({ default: m.Inicio })));
-const Proyectos = lazy(() =>
-  import('./pages/Proyectos').then((m) => ({ default: m.Proyectos }))
-);
-const DemoOCaso = lazy(() =>
-  import('./pages/DemoOCaso').then((m) => ({ default: m.DemoOCaso }))
-);
-const CasoOFicha = lazy(() =>
-  import('./pages/CasoOFicha').then((m) => ({ default: m.CasoOFicha }))
-);
+   a que se resuelvan, así que el HTML estático las trae completas. En el
+   navegador, main.jsx resuelve antes de hidratar la página de la ruta actual
+   para que la primera hidratación no se suspenda (ver rutasDiferidas.jsx). */
+import { CasoOFicha, DemoOCaso, Inicio, Proyectos } from './rutasDiferidas';
 
 /** Destino de las direcciones viejas del trabajo entregado. */
 const GALERIA_CASOS = `${RUTA_PROYECTOS}#casos`;

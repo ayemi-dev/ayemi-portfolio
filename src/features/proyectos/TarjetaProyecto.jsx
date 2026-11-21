@@ -67,10 +67,11 @@ export const TarjetaProyecto = ({ proyecto }) => {
 
       {stack.length > 0 && (
         <ul className="mt-auto flex flex-wrap gap-2 pt-6">
+          {/* texto-suave: texto-tenue sobre superficie da 4.41:1 (Decisión 2026-11-20, T12). */}
           {stack.map((nombre) => (
             <li
               key={nombre}
-              className="rounded-xs border border-borde px-2 py-1 font-mono text-micro text-texto-tenue"
+              className="rounded-xs border border-borde px-2 py-1 font-mono text-micro text-texto-suave"
             >
               {nombre}
             </li>
