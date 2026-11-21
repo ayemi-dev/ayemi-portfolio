@@ -566,6 +566,42 @@ T12 · 2026-11-20 · bloqueado · aplicada la Decisión 2026-11-20 (bloqueos de 
   - La precarga se queda aunque no arregle el CLS. Evita que, si una actualización temprana atravesara la frontera antes de que llegue el trozo, React tirara el HTML de la página. Si se acepta la propuesta, conviene conservarla.
 - `vite preview` se cerró y la carpeta temporal (informes, scripts, copia de `prerender.mjs`) se borró. Fuera del commit, como en T1–T11: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
 
+T12 · 2026-11-20 · hecho · aplicada la Decisión 2026-11-20 (segundo bloqueo de T12): `prerender.mjs` deja cada frontera de Suspense en línea con `progressiveChunkSize: Infinity`, y el build falla si algún `dist/**/index.html` trae `<template id="B:` o `$RC`. Medianas de Lighthouse móvil: Rendimiento 97 en `/`, 98 en `/proyectos/` y 100 en `/casos/ita-2026/`; Accesibilidad y SEO 100 en las tres; CLS 0 / 0.025 / 0.003. El bloqueo queda resuelto.
+
+## Detalle de T12 · tercer intento (Decisión 2026-11-20, segundo bloqueo, aplicada)
+
+### Archivos
+
+- **`prerender.mjs`.** `{ progressiveChunkSize: Infinity }` como segundo argumento de `prerenderToNodeStream`, con un comentario que explica el porqué: React 19.2 (`react-dom` 19.2.5) separa del HTML toda frontera completa de más de 12 800 bytes, y la de `App.jsx` envuelve la página entera. Es el mismo cambio que se midió y se revirtió en el segundo intento. Nada más cambia en el archivo.
+- **`scripts/comprobar-prerender.mjs`** (nuevo). Recorre `dist/` y falla con código 1 si algún `index.html` contiene `<template id="B:` o `$RC`, con una línea por archivo y marca. Si todo está bien escribe «HTML sin fronteras separadas: <n>.». Se eligieron las dos formas que da la Decisión a la vez: es un script y también un paso del build.
+- **`package.json`.** `build` termina ahora en `… && node prerender.mjs && node scripts/comprobar-prerender.mjs`. Los demás scripts no cambian.
+- La precarga de `src/rutasDiferidas.jsx` se conserva, como proponía el segundo intento.
+
+### Comprobantes
+
+- `npm run lint`: código 0.
+- `npm run validar`: «Fichas de proyecto válidas: 1.», código 0.
+- `npm run build`: código 0, «Prerenderizado completo.», sitemap con 9 URL y «HTML sin fronteras separadas: 10.» (las 9 páginas y la de `/proyectos/ita-2026`, que lleva a `/casos/ita-2026`). Siguen las advertencias `[Ayemi §3.10] … 18 px / 22 px`, que son de antes de T1.
+- **Prueba en negativo del comprobante nuevo.** Con un `dist/zz-prueba/index.html` temporal que traía `<template id="B:0">`, el script respondió «dist/zz-prueba/index.html: contiene <template id="B:» y salió con código 1. Se borró la carpeta y volvió a dar código 0 con 10 HTML.
+- `python .ayemi/verificar.py . --solo-errores`: «Sin hallazgos», 96 archivos, 0 errores.
+- **Lighthouse móvil**, con la misma configuración que los dos intentos anteriores: `npx -y lighthouse@13.6.0`, Chrome instalado (`CHROME_PATH`), `--headless=new`, `--form-factor=mobile` (simulación por defecto), `--only-categories=performance,accessibility,seo`, sobre `vite preview` (`localhost`, puerto 4173), con el build de este commit:
+
+  | Ruta | Pasada | Rendimiento | Accesibilidad | SEO | LCP | TBT | CLS |
+  |---|---|---|---|---|---|---|---|
+  | `/` | 1 | 97 | 100 | 100 | 1.2 s | 200 ms | 0 |
+  | `/` | 2 | 100 | 100 | 100 | 1.1 s | 50 ms | 0.001 |
+  | `/` | 3 | 96 | 100 | 100 | 1.2 s | 220 ms | 0 |
+  | `/proyectos/` | 1 | 97 | 100 | 100 | 0.9 s | 190 ms | 0.055 |
+  | `/proyectos/` | 2 | 100 | 100 | 100 | 0.8 s | 70 ms | 0.025 |
+  | `/proyectos/` | 3 | 98 | 100 | 100 | 0.8 s | 170 ms | 0.025 |
+  | `/casos/ita-2026/` | 1 | 99 | 100 | 100 | 0.9 s | 140 ms | 0.003 |
+  | `/casos/ita-2026/` | 2 | 100 | 100 | 100 | 0.9 s | 80 ms | 0.003 |
+  | `/casos/ita-2026/` | 3 | 100 | 100 | 100 | 0.9 s | 70 ms | 0.003 |
+
+  **Medianas:** `/` 97 · 100 · 100, CLS 0; `/proyectos/` 98 · 100 · 100, CLS 0.025; `/casos/ita-2026/` 100 · 100 · 100, CLS 0.003. Las tres rutas pasan de 90 en Rendimiento, Accesibilidad y SEO, y su CLS queda por debajo de 0.1. **El comprobante de T12 se cumple.** Ninguna pasada dio el CLS de 0.937 de los intentos anteriores. El peor CLS suelto fue 0.055, en la primera pasada de `/proyectos/`.
+- **Nota de medición.** En PowerShell, `--only-categories=performance,accessibility,seo` sin comillas llega a Lighthouse como «performance accessibility seo» y la ejecución falla con «unrecognized category». Hay que pasar cada argumento entre comillas simples. `vite preview` escucha en `::1`, así que la URL lleva `localhost` y no `127.0.0.1`.
+- `vite preview` se cerró y la carpeta temporal de `%TEMP%` (informes JSON y registro) se borró. Fuera del commit, como en T1–T11: `docs/Ayemi_Manual_de_Identidad_v2.0.pdf`.
+
 ## Pendiente de Dirección antes de producción
 
 Por la Decisión 2026-11-20 (bloqueos de T9), estas respuestas de las preguntas frecuentes de la portada ya están en la copia (es y en, `confianza.preguntas.lista` en `src/i18n.js`), pero **no se publican en producción** sin que Dirección confirme que Ayemi lo hace:
@@ -590,9 +626,11 @@ Por T10, «Quién está detrás» sigue con `SITIO.mostrarQuienEstaDetras = fals
 
 ## Bloqueos
 
-Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»). Ninguno en T5 (los puntos sin especificar están en «Detalle de T5»). Ninguno nuevo en T6 (los puntos sin especificar están en «Detalle de T6 · segundo intento»). Ninguno en T7 (los puntos sin especificar están en «Detalle de T7»; lo que toca a T11, en «Pendiente para T11»). Ninguno en T8 (los puntos sin especificar están en «Detalle de T8»). Ninguno nuevo en T9 (los puntos sin especificar están en «Detalle de T9 · segundo intento»). Ninguno en T10 (los puntos sin especificar están en «Detalle de T10» y en «Pendiente de Dirección antes de producción»). Ninguno en T11 (los puntos sin especificar están en «Detalle de T11»).
+Ninguno en T1. Ninguno en T3 (los puntos sin especificar están en «Detalle de T3»). Ninguno en T4 (los puntos sin especificar están en «Detalle de T4»). Ninguno en T5 (los puntos sin especificar están en «Detalle de T5»). Ninguno nuevo en T6 (los puntos sin especificar están en «Detalle de T6 · segundo intento»). Ninguno en T7 (los puntos sin especificar están en «Detalle de T7»; lo que toca a T11, en «Pendiente para T11»). Ninguno en T8 (los puntos sin especificar están en «Detalle de T8»). Ninguno nuevo en T9 (los puntos sin especificar están en «Detalle de T9 · segundo intento»). Ninguno en T10 (los puntos sin especificar están en «Detalle de T10» y en «Pendiente de Dirección antes de producción»). Ninguno en T11 (los puntos sin especificar están en «Detalle de T11»). Ninguno nuevo en T12 (el tercer intento está en «Detalle de T12 · tercer intento»).
 
-### T12 · el HTML prerenderizado trae `<main>` vacío · ABIERTO
+### T12 · el HTML prerenderizado trae `<main>` vacío · RESUELTO
+
+**Resuelto el 2026-11-20** con la Decisión 2026-11-20 (segundo bloqueo de T12) de `tasks.md`, aplicada en el tercer intento de T12. `prerender.mjs` usa `{ progressiveChunkSize: Infinity }` y `scripts/comprobar-prerender.mjs`, como último paso de `npm run build`, falla si algún `dist/**/index.html` trae `<template id="B:` o `$RC`. Medianas de Lighthouse móvil: Rendimiento 97 / 98 / 100, Accesibilidad y SEO 100 en las tres rutas, CLS 0 / 0.025 / 0.003.
 
 T12 aplicó toda la Decisión 2026-11-20 (bloqueos de T12), pero Rendimiento no llega a 90. Las medianas son 70 en `/`, 87 en `/proyectos/` y 85 en `/casos/ita-2026/`. Las cifras y la prueba están en «Detalle de T12 · segundo intento».
 

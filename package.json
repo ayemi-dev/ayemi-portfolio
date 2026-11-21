@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/copiar-medios.mjs && vite --host",
-    "build": "node scripts/validar-proyectos.mjs && node scripts/copiar-medios.mjs && vite build && node prerender.mjs",
+    "build": "node scripts/validar-proyectos.mjs && node scripts/copiar-medios.mjs && vite build && node prerender.mjs && node scripts/comprobar-prerender.mjs",
     "validar": "node scripts/validar-proyectos.mjs",
     "importar-proyecto": "node scripts/importar-proyecto.mjs",
     "build:solo": "vite build",

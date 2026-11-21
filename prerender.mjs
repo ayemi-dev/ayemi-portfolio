@@ -268,12 +268,23 @@ async function main() {
       );
 
     for (const ruta of rutas) {
+      /* `progressiveChunkSize: Infinity` deja cada frontera de Suspense en
+         línea, en su sitio. Por defecto React 19 separa ("outlining") toda
+         frontera completa de más de 12 800 bytes, también al prerenderizar:
+         `<main>` saldría con un `<template id="B:0">`, el contenido en un
+         `<div hidden>` al final del `<body>` y un guion `$RC` que lo mueve.
+         Hasta que corre ese guion la página no tiene contenido: el LCP se
+         retrasa y el pie salta bajo la cabecera (CLS 0.937 en móvil).
+         La frontera de App.jsx envuelve la página entera, así que siempre
+         pasaría del límite. scripts/comprobar-prerender.mjs falla el build si
+         algún HTML vuelve a traer `<template id="B:` o `$RC`. */
       const { prelude } = await prerenderToNodeStream(
         React.createElement(
           StaticRouter,
           { location: ruta.url },
           React.createElement(App)
-        )
+        ),
+        { progressiveChunkSize: Infinity }
       );
 
       const cuerpo = await aTexto(prelude);
