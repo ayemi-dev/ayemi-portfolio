@@ -133,6 +133,10 @@ Comprobantes base (siempre): `npm run lint` · `npm run build` ·
     mayor contraste que ya exista en la paleta (sin crear colores ni cambiar tokens) hasta llegar a ≥ 4.5:1; queda
     anotado para el manual. Lo demás de T12, como lo dejaste listo.
 
+  - **Decisión 2026-11-20 (segundo bloqueo de T12):** se acepta la propuesta de Kiro: `prerender.mjs` entra en T12 con
+    `{ progressiveChunkSize: Infinity }` en `prerenderToNodeStream` y su comentario, y el comprobante nuevo de que
+    ningún `dist/**/index.html` contiene `<template id="B:` ni `$RC` (agrégalo como paso del build o como script).
+
 - [ ] **T13 · Auditoría con navegador en el repo**
   - Copia `../.capturas-tmp/auditoria-tipografica.mjs` a `scripts/auditoria-navegador.mjs`; agrega las rutas nuevas;
     `playwright-core` como devDependency (usa el Chrome instalado, sin descargar navegadores).
